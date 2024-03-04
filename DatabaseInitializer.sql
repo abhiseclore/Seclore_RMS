@@ -9,6 +9,17 @@ CREATE TABLE user_details(
 	CONSTRAINT user_pk PRIMARY KEY(user_id),
 );
 
+CREATE TABLE room_details(
+	room_id INT IDENTITY,
+	room_name VARCHAR(30),
+	capacity INT NOT NULL,
+	video_conferencing BIT NOT NULL DEFAULT(0),
+	white_board BIT NOT NULL DEFAULT(0),
+	is_available BIT NOT NULL DEFAULT(1),
+	CONSTRAINT room_pk PRIMARY KEY (room_id),
+	CONSTRAINT capacity_positive CHECK(capacity > 0),
+);
+
 CREATE TABLE slot_master(
 	slot_id INT IDENTITY,
 	start_time TIME NOT NULL,
@@ -16,6 +27,20 @@ CREATE TABLE slot_master(
 	date DATE NOT NULL,
 	CONSTRAINT slot_id_pk PRIMARY KEY(slot_id),
 );
+
+
+INSERT INTO room_details (room_name,capacity, video_conferencing, white_board,is_available)
+VALUES 
+('Blue room',5, 1, 0,1), 
+('Red room',10, 0, 1,1), 
+('Green room',15, 1, 1,1), 
+('Purple room',20, 0, 0,0), 
+('Black room',25, 1, 0,1), 
+('Yello room',30, 0, 1,0), 
+('White room',35, 1, 1,1), 
+('Pink room',40, 0, 0,0), 
+('Neon room',45, 1, 0,1), 
+('Dark room',50, 0, 1,1);
 
 go
 DECLARE @startDate DATE = '2024-03-01';
