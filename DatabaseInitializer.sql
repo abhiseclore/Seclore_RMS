@@ -16,7 +16,7 @@ CREATE TABLE room_details(
 	room_id INT IDENTITY,
 	room_name VARCHAR(60),
 	seating_capacity INT NOT NULL,
-	video_conferencing BIT NOT NULL DEFAULT 0,
+	audio_video BIT NOT NULL DEFAULT 0,
 	white_board BIT NOT NULL DEFAULT 0,
 	is_available BIT NOT NULL DEFAULT 1, 
 	CONSTRAINT room_pk PRIMARY KEY (room_id),
@@ -60,7 +60,7 @@ CONSTRAINT booking_id_fk FOREIGN KEY(booking_id) REFERENCES booking_details(book
 );
 
 
-INSERT INTO room_details (room_name,seating_capacity, video_conferencing, white_board,is_available)
+INSERT INTO room_details (room_name,seating_capacity, audio_video, white_board,is_available)
 VALUES 
 ('Blue room',5, 1, 0,1), 
 ('Red room',10, 0, 1,1), 
