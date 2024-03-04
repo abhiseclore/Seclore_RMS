@@ -16,6 +16,6 @@ public interface UserDetailsServiceInterface {
 
 		public List<UserDetails> getAllUsers();
 		
-		public boolean updatePassword(int userId, String password);
+		public boolean updatePassword(int userId, String oldPassword, String newPassword);
 	
 }

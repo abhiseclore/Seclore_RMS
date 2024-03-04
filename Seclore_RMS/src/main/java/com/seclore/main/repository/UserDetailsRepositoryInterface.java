@@ -9,7 +9,6 @@ public interface UserDetailsRepositoryInterface {
 
 	public boolean updateUserDetails(UserDetails user);
 
-	public boolean userLogin(int userId, String password);
 
 	public UserDetails findUser(int userId);
 
