@@ -23,18 +23,14 @@ CREATE TABLE room_details(
 	CONSTRAINT seating_capacity_positive CHECK(seating_capacity > 0),
 );
 
-CREATE TABLE date_master(
-	date DATE
-	CONSTRAINT date_pk PRIMARY KEY(date)
-);
+
  
 CREATE TABLE slot_master(
 	slot_id INT IDENTITY,
 	start_time TIME NOT NULL,
 	end_time TIME NOT NULL,
 	date DATE,
-	CONSTRAINt slots_pk PRIMARY KEY(slot_id),
-	CONSTRAINT slots_date_fk FOREIGN KEY(date) REFERENCES date_master(date)
+	CONSTRAINT slots_pk PRIMARY KEY(slot_id),
 );
 
 
@@ -44,19 +40,18 @@ CREATE TABLE booking_details(
 	user_id INT NOT NULL,
 	description VARCHAR(500),
 	status VARCHAR(60),
-	CONSTRAINT bookings_pk PRIMARY KEY(booking_id),
+	CONSTRAINT bookings_pk PRIMARY KEY(booking_id,room_id,user_id),
 	CONSTRAINT bookings_room_fk FOREIGN KEY(room_id) REFERENCES room_details(room_id),
 	CONSTRAINT bookings_user_fk FOREIGN KEY(user_id) REFERENCES user_details(user_id),
 	CONSTRAINT check_status CHECK(status in ('BOOKED', 'CANCELLED', 'REQUESTED'))
 );
 
 create table booking_slots(
-booking_id int ,
+booking_id int,
 slot_id int,
 is_slot_active bit not null default 0,
 CONSTRAINT booking_slots_pk PRIMARY KEY(booking_id,slot_id),
 CONSTRAINT booking_slots_fk FOREIGN KEY(slot_id) REFERENCES slot_master(slot_id),
-CONSTRAINT booking_id_fk FOREIGN KEY(booking_id) REFERENCES booking_details(booking_id)
 );
 
 
