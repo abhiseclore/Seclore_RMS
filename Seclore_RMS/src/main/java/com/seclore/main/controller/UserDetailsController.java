@@ -8,7 +8,6 @@ import com.seclore.main.service.UserDetailsServiceInterface;
 @Controller
 public class UserDetailsController {
 	@Autowired
-private UserDetailsServiceInterface userDetailsServiceInterface;
-	
-	
+	private UserDetailsServiceInterface userDetailsServiceInterface;
+
 }
