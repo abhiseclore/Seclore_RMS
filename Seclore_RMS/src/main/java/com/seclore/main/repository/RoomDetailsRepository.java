@@ -15,11 +15,12 @@ public class RoomDetailsRepository implements RoomDetailsRepositoryInterface {
 	private JdbcTemplate jdbcTemplate;
 
 	private String INSERT_ROOM = "INSERT INTO room_details(room_name,capacity, audio_video, white_board,is_available) VALUES(?,?,?,?,?);";
-	private String UPDATE_ROOM = "UPDATE room_details SET room_name=?,capacity=?,audio_video=?,white_board=?,is_available=? WHERE room_id=?;";
+	private String UPDATE_ROOM = "UPDATE room_details SET room_name=? AND capacity=? ANd audio_video=? AND white_board=? AND is_available=? WHERE room_id=?;";
 	private String SELECT_ROOM = "SELECT * FROM room_details WHERE room_id=?;";
 	private String SELECT_ALL_ROOMS = "SELECT * FROM room_details;";
 	private String SELECT_ALL_ROOMS_LIKE = "SELECT * FROM room_details WHERE room_name LIKE ?;";
-
+	private String SELECT_AVAILABLE_ROOMS = "SELECT * FROM room_details WHERE capacity > ? AND white_board >= ? AND audio_video >= ? AND is_available = 1;";
+	
 	@Override
 	public boolean addNewRoom(RoomDetails roomDetails) {
 		Object[] args = { roomDetails.getRoomName(), roomDetails.getCapacity(), roomDetails.getHasAudioVideo(),
@@ -58,6 +59,17 @@ public class RoomDetailsRepository implements RoomDetailsRepositoryInterface {
 		List<RoomDetails> allRoomsWithPattern = jdbcTemplate.query(SELECT_ALL_ROOMS_LIKE,
 				new RoomDetailsRowMapper(),pattern);
 		return allRoomsWithPattern;
+	}
+
+	@Override
+	public List<RoomDetails> getAvailableRoomsWithCondition(RoomDetails roomDetails) {
+		Object[] args = {
+			roomDetails.getCapacity(),
+			roomDetails.getHasWhiteboard(),
+			roomDetails.getHasAudioVideo()
+		};
+		List<RoomDetails> allRooms = jdbcTemplate.query(SELECT_AVAILABLE_ROOMS, new RoomDetailsRowMapper(),args);
+		return allRooms;
 	}
 
 }

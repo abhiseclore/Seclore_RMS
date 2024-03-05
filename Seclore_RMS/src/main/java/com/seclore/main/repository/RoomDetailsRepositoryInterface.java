@@ -14,5 +14,7 @@ public interface RoomDetailsRepositoryInterface {
 
 	public List<RoomDetails> getAllRoomDetails();
 
-	public List<RoomDetails> getRoomsByNameLike(String roomName);
+	public List<RoomDetails> getRoomsByNameLike(String pattern);
+	
+	public List<RoomDetails> getAvailableRoomsWithCondition(RoomDetails roomDetails);
 }
