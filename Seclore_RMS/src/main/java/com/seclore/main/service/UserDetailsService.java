@@ -26,7 +26,7 @@ public class UserDetailsService implements UserDetailsServiceInterface {
 
 	@Override
 	public boolean userLogin(int userId, String password) {
-		UserDetails userDetails = userDetailsRepositoryInterface.findUser(userId);
+		UserDetails userDetails = userDetailsRepositoryInterface.getUserById(userId);
 		if(password.equals(userDetails.getPassword()))
 			return true;
 		return false;
@@ -34,7 +34,7 @@ public class UserDetailsService implements UserDetailsServiceInterface {
 
 	@Override
 	public UserDetails getUserById(int userId) {
-		return userDetailsRepositoryInterface.findUser(userId);
+		return userDetailsRepositoryInterface.getUserById(userId);
 		
 	}
 
@@ -47,7 +47,7 @@ public class UserDetailsService implements UserDetailsServiceInterface {
 	public boolean updatePassword(int userId, String oldPassword, String newPassword) {
 		if(oldPassword == newPassword ) 
 			return false;
-		if(userDetailsRepositoryInterface.findUser(userId).getPassword().equals(oldPassword))
+		if(userDetailsRepositoryInterface.getUserById(userId).getPassword().equals(oldPassword))
 			return userDetailsRepositoryInterface.updatePassword(userId, newPassword);
 		return false;
 	}
