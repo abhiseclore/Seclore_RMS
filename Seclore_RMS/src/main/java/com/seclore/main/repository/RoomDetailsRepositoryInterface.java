@@ -6,11 +6,9 @@ import com.seclore.main.domain.RoomDetails;
 
 public interface RoomDetailsRepositoryInterface {
 
-	public boolean addNewRoom(String roomName, int capacity, boolean hasWhiteboard, boolean hasAudioVideo,
-			boolean isAvailable);
+	public boolean addNewRoom(RoomDetails roomDetails);
 
-	public boolean updateNewRoom(int roomId, String roomName, int capacity, boolean hasWhiteboard,
-			boolean hasAudioVideo, boolean isAvailable);
+	public boolean updateNewRoom(RoomDetails roomDetails);
 
 	public RoomDetails getOneRoomDetails(int roomId);
 
