@@ -41,19 +41,19 @@ public class RoomDetails {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	public boolean isHasWhiteboard() {
+	public boolean getHasWhiteboard() {
 		return hasWhiteboard;
 	}
 	public void setHasWhiteboard(boolean hasWhiteboard) {
 		this.hasWhiteboard = hasWhiteboard;
 	}
-	public boolean isHasAudioVideo() {
+	public boolean getHasAudioVideo() {
 		return hasAudioVideo;
 	}
 	public void setHasAudioVideo(boolean hasAudioVideo) {
 		this.hasAudioVideo = hasAudioVideo;
 	}
-	public boolean isAvailable() {
+	public boolean getIsAvailable() {
 		return isAvailable;
 	}
 	public void setAvailable(boolean isAvailable) {
