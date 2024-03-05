@@ -10,7 +10,7 @@ public interface UserDetailsRepositoryInterface {
 	public boolean updateUserDetails(UserDetails user);
 
 
-	public UserDetails findUser(int userId);
+	public UserDetails getUserById(int userId);
 
 	public List<UserDetails> getAllUsers();
 

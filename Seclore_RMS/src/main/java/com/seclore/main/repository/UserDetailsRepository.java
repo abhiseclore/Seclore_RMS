@@ -38,7 +38,7 @@ public class UserDetailsRepository implements UserDetailsRepositoryInterface {
 	}
 
 	@Override
-	public UserDetails findUser(int userId) {
+	public UserDetails getUserById(int userId) {
 		UserDetailsRowMapper userDetailsRowMapper = new UserDetailsRowMapper();
 		try {
 			UserDetails userDetails = jdbcTemplate.queryForObject(SELECT_SINGLE_USER, userDetailsRowMapper, userId);

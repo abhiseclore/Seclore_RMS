@@ -33,7 +33,7 @@ public class UserDetailsService implements UserDetailsServiceInterface {
 	}
 
 	@Override
-	public UserDetails findUser(int userId) {
+	public UserDetails getUserById(int userId) {
 		return userDetailsRepositoryInterface.findUser(userId);
 		
 	}
