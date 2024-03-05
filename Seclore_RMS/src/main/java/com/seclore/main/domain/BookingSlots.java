@@ -1,40 +1,47 @@
 package com.seclore.main.domain;
 
 public class BookingSlots {
-	private int bookingId;
-	private int slotId;
+	private BookingDetails booking;
+	private SlotMaster slot;
+	private RoomDetails room;
 	private boolean isSlotActive;
 	public BookingSlots() {
 		// TODO Auto-generated constructor stub
 	}
-	public BookingSlots(int bookingId, int slotId, boolean isSlotActive) {
+	public BookingSlots(BookingDetails booking, SlotMaster slot, RoomDetails room, boolean isSlotActive) {
 		super();
-		this.bookingId = bookingId;
-		this.slotId = slotId;
+		this.booking = booking;
+		this.slot = slot;
+		this.room = room;
 		this.isSlotActive = isSlotActive;
 	}
-	public int getBookingId() {
-		return bookingId;
+	public BookingDetails getBooking() {
+		return booking;
 	}
-	public void setBookingId(int bookingId) {
-		this.bookingId = bookingId;
+	public void setBooking(BookingDetails booking) {
+		this.booking = booking;
 	}
-	public int getSlotId() {
-		return slotId;
+	public SlotMaster getSlot() {
+		return slot;
 	}
-	public void setSlotId(int slotId) {
-		this.slotId = slotId;
+	public void setSlot(SlotMaster slot) {
+		this.slot = slot;
 	}
-	public boolean getIsSlotActive() {
+	public RoomDetails getRoom() {
+		return room;
+	}
+	public void setRoom(RoomDetails room) {
+		this.room = room;
+	}
+	public boolean isSlotActive() {
 		return isSlotActive;
 	}
-	public void setIsSlotActive(boolean isSlotActive) {
+	public void setSlotActive(boolean isSlotActive) {
 		this.isSlotActive = isSlotActive;
 	}
 	@Override
 	public String toString() {
-		return "BookingSlots [bookingId=" + bookingId + ", slotId=" + slotId + ", isSlotActive=" + isSlotActive + "]";
+		return "BookingSlots [booking=" + booking + ", slot=" + slot + ", room=" + room + ", isSlotActive="
+				+ isSlotActive + "]";
 	}
-	
-	
 }
