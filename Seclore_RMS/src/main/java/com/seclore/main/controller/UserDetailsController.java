@@ -20,7 +20,8 @@ import jakarta.servlet.http.HttpSession;
 public class UserDetailsController {
 	@Autowired
 	private UserDetailsServiceInterface userDetailsServiceInterface;
-	@RequestMapping(value = "userlogin" , method = RequestMethod.POST)
+
+	@RequestMapping(value = "userlogin", method = RequestMethod.POST)
 	public ModelAndView Login(@ModelAttribute UserDetails user, Model model, HttpServletRequest request) {
 		String message = "";
 		ModelAndView modalAndView = new ModelAndView();
@@ -28,10 +29,9 @@ public class UserDetailsController {
 		if (outUser == null) {
 			message = " User doesnot exist or is blocked ";
 			modalAndView.setViewName("login");
-		} 
-		else {
-			HttpSession session= request.getSession();
-		
+		} else {
+			HttpSession session = request.getSession();
+			user.setPassword(null);
 			session.setAttribute("loggedInUser", user);
 			message = " User Loggedin successfully ";
 
