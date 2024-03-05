@@ -10,7 +10,7 @@ public interface UserDetailsServiceInterface {
 
 		public boolean updateUserDetails(UserDetails user);
 
-		public boolean userLogin(int userId, String password);
+		public UserDetails userLogin(int userId, String password);
 
 		public UserDetails getUserById(int userId);
 
