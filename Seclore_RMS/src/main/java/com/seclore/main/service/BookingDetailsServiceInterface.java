@@ -1,5 +1,7 @@
 package com.seclore.main.service;
 
+import java.util.List;
+
 import com.seclore.main.domain.BookingDetails;
 
 public interface BookingDetailsServiceInterface {
@@ -8,4 +10,6 @@ public interface BookingDetailsServiceInterface {
 	public BookingDetails cancelExistingBookingDetails(BookingDetails bookingDetails);
 	public BookingDetails approveBookingDetails(BookingDetails bookingDetails);
 	public BookingDetails getExistingBookingDetails(int bookingID);
+	public List<BookingDetails> getAllExistingBookingDetailsByUserId(int userId);
+	
 }
