@@ -1,12 +1,12 @@
 package com.seclore.main.domain;
 
 public class RoomDetails {
-	int roomId;
-	String roomName;
-	int capacity;
-	boolean hasWhiteboard;
-	boolean hasAudioVideo;
-	boolean isAvailable;
+	private int roomId;
+	private String roomName;
+	private int capacity;
+	private boolean hasWhiteboard;
+	private boolean hasAudioVideo;
+	private boolean isAvailable;
 	
 	
 	public RoomDetails() {
