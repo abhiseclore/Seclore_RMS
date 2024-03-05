@@ -25,11 +25,11 @@ public class UserDetailsService implements UserDetailsServiceInterface {
 	}
 
 	@Override
-	public boolean userLogin(int userId, String password) {
+	public UserDetails userLogin(int userId, String password) {
 		UserDetails userDetails = userDetailsRepositoryInterface.getUserById(userId);
 		if(password.equals(userDetails.getPassword()))
-			return true;
-		return false;
+			return userDetails;
+		return null;
 	}
 
 	@Override
