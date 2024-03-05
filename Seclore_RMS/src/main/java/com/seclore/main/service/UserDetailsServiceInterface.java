@@ -12,7 +12,7 @@ public interface UserDetailsServiceInterface {
 
 		public boolean userLogin(int userId, String password);
 
-		public UserDetails findUser(int userId);
+		public UserDetails getUserById(int userId);
 
 		public List<UserDetails> getAllUsers();
 		
