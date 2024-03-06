@@ -5,12 +5,14 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.seclore.main.domain.BookingDetails;
 import com.seclore.main.domain.BookingViewDetails;
 import com.seclore.main.domain.RoomDetails;
 import com.seclore.main.repository.BookingViewDetailsRepositoryInterface;
 
+@Service
 public class BookingViewDetailsService implements BookingViewDetailsServiceInterface {
 	
 	@Autowired
@@ -20,19 +22,19 @@ public class BookingViewDetailsService implements BookingViewDetailsServiceInter
 	public List<RoomDetails> getBookedRoomsBySlot(List<RoomDetails> roomList, LocalTime startTime, LocalTime endTime,
 			LocalDate startDate, LocalDate endDate) {
 			
-			List<RoomDetails> bookedRoomList =  bookingViewDetailsRepository.getBookedRoomsBySlot(startTime, endTime, startDate, endDate);
-			bookedRoomList.retainAll(roomList);
-			return bookedRoomList;
+			List<RoomDetails> allBookedRoomList =  bookingViewDetailsRepository.getBookedRoomsBySlot(startTime, endTime, startDate, endDate);
+			roomList.retainAll(allBookedRoomList);
+			return roomList;
 	}
 
 	@Override
 	public List<RoomDetails> getAvailableRoomsBySlot(List<RoomDetails> roomList, LocalTime startTime, LocalTime endTime,
 			LocalDate startDate, LocalDate endDate) {
-			List<RoomDetails> allAvailableRoomList = bookingViewDetailsRepository.getBookedRoomsBySlot(startTime, endTime, startDate, endDate);
+			List<RoomDetails> allBookedRoomList = bookingViewDetailsRepository.getBookedRoomsBySlot(startTime, endTime, startDate, endDate);
 			List<RoomDetails> requiredAvailableRoomList = roomList;
-			roomList.retainAll(allAvailableRoomList);
+			roomList.retainAll(allBookedRoomList);
 			
-			requiredAvailableRoomList.removeAll(allAvailableRoomList);
+			requiredAvailableRoomList.removeAll(roomList);
 			
 			return requiredAvailableRoomList;
 	}
