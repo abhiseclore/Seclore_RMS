@@ -20,8 +20,8 @@ public class RoomDetailsService implements RoomDetailsServiceInterface{
 	}
 
 	@Override
-	public boolean updateNewRoom(RoomDetails roomDetails) {
-		return roomDetailsRepository.updateNewRoom(roomDetails);
+	public boolean updateRoom(RoomDetails roomDetails) {
+		return roomDetailsRepository.updateRoom(roomDetails);
 	}
 
 	@Override
