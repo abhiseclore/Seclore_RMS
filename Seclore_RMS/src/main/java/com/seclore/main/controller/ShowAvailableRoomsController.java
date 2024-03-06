@@ -45,18 +45,18 @@ public class ShowAvailableRoomsController {
 		List<RoomDetails> allAvailableRoom = roomDetailsServiceInterface.getAvailableRoomsWithCondition(roomDetails);
 		if (allAvailableRoom == null || allAvailableRoom.size() == 0) {
 			modelAndView.addObject("message", "NO ROOMS FILLS YOUR REQUIREMENTS");
-			modelAndView.setViewName("getrequirements");
+			modelAndView.setViewName("getroomrequirements");
 			return modelAndView;
 		}
 		List<RoomDetails> availableRooms = bookingViewDetailsServiceInterface.getAvailableRoomsBySlot(allAvailableRoom,
 				startTime, endTime, startDate, endDate);
 		if (availableRooms == null || availableRooms.size() == 0) {
 			modelAndView.addObject("message", "ALL ROOMS FULFILLING YOUR CRITERIA ARE BOOKED");
-			modelAndView.setViewName("getrequirements");
+			modelAndView.setViewName("getroomrequirements");
 			return modelAndView;
 		}
 		modelAndView.addObject("allAvailableRoom", availableRooms);
-		modelAndView.setViewName("showavailable");
+		modelAndView.setViewName("showavailablerooms");
 		return modelAndView;
 	}
 }
