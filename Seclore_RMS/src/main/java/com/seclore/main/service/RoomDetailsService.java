@@ -38,6 +38,11 @@ public class RoomDetailsService implements RoomDetailsServiceInterface{
 	public List<RoomDetails> getRoomsByNameLike(String roomName) {
 		return roomDetailsRepository.getRoomsByNameLike(roomName);
 	}
+
+	@Override
+	public List<RoomDetails> getAvailableRoomsWithCondition(RoomDetails roomDetails) {
+		return roomDetailsRepository.getAvailableRoomsWithCondition(roomDetails);
+	}
 	
 	
 
