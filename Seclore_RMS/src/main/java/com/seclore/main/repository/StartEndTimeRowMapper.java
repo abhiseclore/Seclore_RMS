@@ -13,7 +13,8 @@ public class StartEndTimeRowMapper implements RowMapper<BookingViewDetails> {
 	public BookingViewDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
 		try {
 			BookingViewDetails viewDetails = new BookingViewDetails();
-			viewDetails.getRoomDetails().setRoomId(rs.getInt("booking_id"));
+			viewDetails.getBookingSlots().getBooking().setBookingId(rs.getInt("booking_id"));
+			viewDetails.getRoomDetails().setRoomId(rs.getInt("room_id"));
 			viewDetails.getSlotMaster().setDate(rs.getDate("date"));
 			viewDetails.getSlotMaster().setStartTime(rs.getTime("start_time"));
 			viewDetails.getSlotMaster().setEndTime(rs.getTime("end_time"));
