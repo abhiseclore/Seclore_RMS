@@ -18,7 +18,7 @@
 			</p>
 			<hr>
 		</c:if>
-		<form action="" method="post">
+		<form action="/add" method="post">
 			<table>
 				<tr>
 					<td>
@@ -65,7 +65,7 @@
 						Do you need whiteboarding?
 					</td>
 					<td>
-						<input type="checkbox" name="has-whiteboard">
+						<input type="checkbox" name="hasWhiteboard">
 					</td>
 				</tr>
 				<tr>
@@ -73,7 +73,7 @@
 						Do you need audio-video support?
 					</td>
 					<td>
-						<input type="checkbox" name="has-audio-video">
+						<input type="checkbox" name="hasAudioVideo">
 					</td>
 				</tr>				
 			</table>
