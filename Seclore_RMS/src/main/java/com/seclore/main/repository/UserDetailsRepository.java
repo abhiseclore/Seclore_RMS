@@ -14,11 +14,12 @@ public class UserDetailsRepository implements UserDetailsRepositoryInterface {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	private static String ADD_NEW_USER = "insert into user_details(name,password, position, is_active) values(?,?,?,?)";
-	private static String UPDATE_USER_DETAILS = "UPDATE user_details set name =?,password=? , position=? , is_active=? where user_id=?";
+	private static String UPDATE_USER_DETAILS = "UPDATE user_details set name =?,password=? , position=?  where user_id=?";
 	private static String SELECT_SINGLE_USER = "select * from user_details where user_id = ?";
 	private static String UPDATE_PASSWORD = "UPDATE user_details set password=? where user_id=?";
 	private static String SELECT_ALL_USERS = "select * from user_details";
-
+	private static String SET_USER_INCATIVE = "UPDATE user_details set is_active=? where user_id=?";
+	
 	@Override
 	public boolean addNewUser(UserDetails user) {
 		Object[] args = { user.getName(), user.getPassword(), user.getPosition(), true };
@@ -30,7 +31,7 @@ public class UserDetailsRepository implements UserDetailsRepositoryInterface {
 
 	@Override
 	public boolean updateUserDetails(UserDetails user) {
-		Object[] args = { user.getName(), user.getPassword(), user.getPosition(), user.isActive(), user.getUserId() };
+		Object[] args = { user.getName(), user.getPassword(), user.getPosition(), user.getUserId() };
 		int rows = jdbcTemplate.update(UPDATE_USER_DETAILS, args);
 		if (rows > 0)
 			return true;
