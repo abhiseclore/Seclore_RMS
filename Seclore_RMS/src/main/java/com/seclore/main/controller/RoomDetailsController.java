@@ -74,6 +74,7 @@ public class RoomDetailsController {
 	public ModelAndView allRooms() {
 		ModelAndView modelAndView = new ModelAndView();
 		List<RoomDetails> allRooms = roomDetailsService.getAllRoomDetails();
+		modelAndView.addObject("allRooms", allRooms);
 		modelAndView.setViewName("allrooms");
 		
 		return modelAndView; 
