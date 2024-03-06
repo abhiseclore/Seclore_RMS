@@ -18,4 +18,6 @@ public interface BookingViewDetailsServiceInterface {
 	
 
 	List<BookingViewDetails> getStartEndTimeByBookingId(List<BookingDetails> bookingDetailsList);
+	
+	BookingViewDetails getStartEndTimeForSingleId(BookingDetails bookingDetails);
 }

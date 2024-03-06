@@ -2,6 +2,7 @@ package com.seclore.main.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,19 @@ public class BookingViewDetailsService implements BookingViewDetailsServiceInter
 	@Override
 	public List<BookingViewDetails> getStartEndTimeByBookingId(List<BookingDetails> bookingDetailsList) {
 		return bookingViewDetailsRepository.getStartEndTimeByBookingId(bookingDetailsList);
+	}
+
+	@Override
+	public BookingViewDetails getStartEndTimeForSingleId(BookingDetails bookingDetails) {
+		List<BookingDetails> bookingDetailsList = new ArrayList<BookingDetails>();
+		bookingDetailsList.add(bookingDetails);
+				
+		List<BookingViewDetails> bookingViewDetailsResultList = getStartEndTimeByBookingId(bookingDetailsList);
+		
+		if(bookingViewDetailsResultList==null || bookingViewDetailsResultList.size()==0)
+				return null;
+		
+		return bookingViewDetailsResultList.get(0);
 	}
 
 }
