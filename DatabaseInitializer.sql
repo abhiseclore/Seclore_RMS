@@ -1,7 +1,5 @@
 Database initializer
 
-
-
 CREATE TABLE user_details(
 	user_id INT IDENTITY,
 	name VARCHAR(60) NOT NULL,
@@ -22,7 +20,6 @@ CREATE TABLE room_details(
 	CONSTRAINT room_pk PRIMARY KEY (room_id),
 	CONSTRAINT seating_capacity_positive CHECK(seating_capacity > 0),
 );
-
 CREATE TABLE date_master(
 	date DATE
 	CONSTRAINT date_pk PRIMARY KEY(date)
@@ -34,9 +31,7 @@ CREATE TABLE slot_master(
 	end_time TIME NOT NULL,
 	date DATE,
 	CONSTRAINt slots_pk PRIMARY KEY(slot_id),
-	CONSTRAINT slots_date_fk FOREIGN KEY(date) REFERENCES date_master(date)
 );
-
 
 CREATE TABLE booking_details(
 	booking_id INT IDENTITY,
@@ -77,12 +72,12 @@ VALUES
 
 INSERT INTO user_details (name, position)
 VALUES ('Manohar Chaturvedi', 'Admin'),('John Doe', 'Manager'), ('Jane Doe', 'Assistant Manager'), ('Alice Smith', 'Sales Representative'), ('Bob Johnson', 'Sales Representative'), ('Charlie Brown', 'Sales Representative'), ('David Lee', 'Marketing Manager'), ('Emily Davis', 'Marketing Coordinator'), ('Frank Wilson', 'IT Manager'), ('Grace Kim', 'IT Support Specialist'), ('Henry Lee', 'IT Support Specialist');
-
+select * from user_details
 
 go
 DECLARE @startDate DATE = '2024-03-01';
  
-WHILE @startDate <= '2024-03-10'
+WHILE @startDate <= '2025-03-01'
 BEGIN
 	DECLARE @startTime Time = '00:30:00';
 	INSERT INTO slot_master(date,start_Time,end_Time) VALUES ( @startDate,'00:00:00','00:30:00');
@@ -102,4 +97,5 @@ BEGIN
 END
 go
 
-select * from slot_master
+
+
