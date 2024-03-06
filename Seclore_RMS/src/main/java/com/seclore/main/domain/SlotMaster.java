@@ -20,9 +20,11 @@ public class SlotMaster {
 		this.endTime = endTime;
 		this.date = date;
 	}
+
 	public int getSlotId() {
 		return slotId;
 	}
+
 	public void setSlotId(int slotId) {
 		this.slotId = slotId;
 	}
@@ -44,11 +46,11 @@ public class SlotMaster {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
+
 	@Override
 	public String toString() {
 		return "SlotMaster [slotId=" + slotId + ", startTime=" + startTime + ", endTime=" + endTime + ", date=" + date
 				+ "]";
 	}
-	
-	
+
 }

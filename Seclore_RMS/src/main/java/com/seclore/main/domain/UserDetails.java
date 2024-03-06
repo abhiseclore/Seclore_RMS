@@ -19,6 +19,14 @@ public class UserDetails {
 		this.password = password;
 		this.isActive = isActive;
 	}
+	
+	public UserDetails(int userId, String name, String position,  boolean isActive) {
+		super();
+		this.userId = userId;
+		this.name = name;
+		this.position = position;
+		this.isActive = isActive;
+	}
 
 	public int getUserId() {
 		return userId;

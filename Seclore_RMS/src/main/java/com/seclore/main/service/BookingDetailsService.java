@@ -1,5 +1,7 @@
 package com.seclore.main.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,7 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 	private BookingDetailsRepositoryInterface bookingDetailsRepository;
 	
 	@Override
-	public boolean addBookingDetails(BookingDetails bookingDetails) {
+	public int addBookingDetails(BookingDetails bookingDetails) {
 		return bookingDetailsRepository.addBookingDetails(bookingDetails);
 	}
 
@@ -36,7 +38,21 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 
 	@Override
 	public BookingDetails getExistingBookingDetails(int bookingID) {
-		return bookingDetailsRepository.getExistingBookingDetails(bookingID);
+		return bookingDetailsRepository.getExistingBookingDetailsbyBookigID(bookingID);
+	}
+
+	@Override
+	public List<BookingDetails> getAllExistingBookingDetailsByUserId(int userId) {
+		// TODO Auto-generated method stub
+		return bookingDetailsRepository.getExistingBookingDetailsbyuserid(userId);
+		
+	}
+
+	@Override
+	public List<BookingDetails> getAllExistingBookingDetailsByadmin() {
+		// TODO Auto-generated method stub
+		return bookingDetailsRepository.getAllExistingBookingDetailsByadmin();
+		
 	}
 
 }
