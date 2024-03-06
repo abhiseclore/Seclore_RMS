@@ -15,5 +15,5 @@ public interface BookingSlotsRepositoryInterface {
 	public boolean deleteBookingSlots(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime, LocalDate date);
 	public List<BookingSlots> getAllBookingSlotsByBookingId(int bookingId);
 	public boolean deleteBookingSlotsByBookingId(int bookingId);
-	//Changes 1
+	//Changes 2
 }
