@@ -48,6 +48,8 @@ public class UserDetailsController {
 		model.addAttribute("message", message);
 		return modalAndView;
 	}
+	
+	
 	@RequestMapping(value = "updatepass", method = RequestMethod.POST)
 	public ModelAndView updatePassword(HttpServletRequest request, Model model) {
 		String message = "";
@@ -96,9 +98,19 @@ public class UserDetailsController {
 		try {
 			response.sendRedirect("login");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	@RequestMapping(value="addnewuser" , method = RequestMethod.POST)
+	public ModelAndView addNewUser(@ModelAttribute UserDetails user, HttpServletRequest request)
+	{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("userdashboard");
+		userDetailsServiceInterface.addNewUser(user);
+		HttpSession session = request.getSession();
+		session.setAttribute("message", "successfully updated ");
+		return modelAndView;
+
+	}
 }
