@@ -17,7 +17,7 @@ import com.seclore.main.domain.BookingSlots;
 public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 	
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private static JdbcTemplate jdbcTemplate;
 	
 	private static String ADD_BOOKING_SLOT="DECLARE @date DATE = ?; "
 			+ "DECLARE @startTime Time =? ;"
@@ -29,22 +29,26 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 			+ "or ( start_time<=@startTime and end_time>@startTime) "
 			+ "or ( start_time<@endTime and (end_time>=@endTime or end_time='00:00:00')) ) "
 			+ "and date=@date"
-			+ "));";
+			+ "))";
 	
-	private static String DELETE_BOOKING_SLOT="DECLARE @bookingId INT=?; "
-			+"DECLARE @date DATE = ?; "
-			+ "DECLARE @startTime Time =?; "
-			+ "DECLARE @endTime Time =?; "
+	private static String DELETE_BOOKING_SLOT="DECLARE @bookingId INT=? "
+			+"DECLARE @date DATE = ? "
+			+ "DECLARE @startTime Time =? "
+			+ "DECLARE @endTime Time =? "
 			+"update booking_slots "
 			+ "set is_slot_active=1 "
 			+ "where booking_id=@bookingId and slot_id in "
-			+ "(select slot_id from slot_master where (start_time>@startTime and end_time<@endTime) and date=@date);";
+			+ "(select slot_id from slot_master where (start_time>@startTime and end_time<@endTime) and date=@date)";
 	
 	public static String GET_ALL_BOOKING_SLOTS_BY_BOOKING_ID="select * from booking_slots where booking_id=?";
 	
 	public static String DELETE_BOOKING_SLOT_BY_BOOKING_ID="update booking_slots "
 			+ "set is_slot_active=1 "
-			+ "where booking_id=?;";
+			+ "where booking_id=?";
+	
+	private static String GET_ALL_BOOKING_SLOTS_BY_TIME="select * from booking_slots "
+			+ "where booking_id=@bookingId and slot_id in "
+			+ "(select slot_id from slot_master where (start_time>@startTime and end_time<@endTime) and date=@date)";
 
 	@Override
 	public List<BookingSlots> addBookingSlots(BookingDetails bookingDetails, LocalTime startLocalTime, LocalTime endLocalTime,
@@ -55,33 +59,85 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 		Time endTime=Time.valueOf(endLocalTime);
 		int bookingId=bookingDetails.getBookingId();
 		int roomId=bookingDetails.getRoom().getRoomId();
-		
+		try {
 		Object[] args= {date, startTime, endTime, bookingId, roomId};
 		int count=jdbcTemplate.update(ADD_BOOKING_SLOT, args);
 		
 		if(count>0) {
-			return getAllBookingSlotsByBookingId(bookingId);
+			return getAllBookingSlotsByTime(bookingDetails, startLocalTime, endLocalTime, localDate);
 		}
-		return null;
+			return null;
+		}catch(Exception e) {
+			return null;
+		}
 	}
 
 	@Override
-	public boolean deleteBookingSlots(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime,
-			LocalDate date) {
+	public boolean deleteBookingSlots(BookingDetails bookingDetails, LocalTime startLocalTime, LocalTime endLocalTime,
+			LocalDate localDate) {
 		// TODO Auto-generated method stub
-		return false;
+		Date date=Date.valueOf(localDate);
+		Time startTime=Time.valueOf(startLocalTime);
+		Time endTime=Time.valueOf(endLocalTime);
+		int bookingId=bookingDetails.getBookingId();
+		int roomId=bookingDetails.getRoom().getRoomId();
+		try {
+		Object[] args= {date, startTime, endTime, bookingId, roomId};
+		int count=jdbcTemplate.update(DELETE_BOOKING_SLOT, args);
+		
+		if(count>0) {
+			return true;
+		}
+			return false;
+		}catch(Exception e) {
+			return false;
+		}
 	}
 
 	@Override
 	public List<BookingSlots> getAllBookingSlotsByBookingId(int bookingId) {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+		Object[] args= {bookingId};
+		List<BookingSlots> allBookingSlots=jdbcTemplate.query(GET_ALL_BOOKING_SLOTS_BY_BOOKING_ID, new BookingSlotsRowMapper(), args);
+		return allBookingSlots;
+		}catch(Exception e) {
+			return null;
+		}
 	}
 
 	@Override
 	public boolean deleteBookingSlotsByBookingId(int bookingId) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			Object[] args= {bookingId};
+			int count=jdbcTemplate.update(DELETE_BOOKING_SLOT_BY_BOOKING_ID, args);
+			if(count>0) {
+				return true;
+			}
+			return false;
+		}catch(Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public List<BookingSlots> getAllBookingSlotsByTime(BookingDetails bookingDetails, LocalTime startLocalTime, LocalTime endLocalTime,
+			LocalDate localDate) {
+		// TODO Auto-generated method stub
+		Date date=Date.valueOf(localDate);
+		Time startTime=Time.valueOf(startLocalTime);
+		Time endTime=Time.valueOf(endLocalTime);
+		int bookingId=bookingDetails.getBookingId();
+		int roomId=bookingDetails.getRoom().getRoomId();
+		
+		try {
+			Object[] args= {date, startTime, endTime, bookingId, roomId};
+			List<BookingSlots> allBookingSlots=jdbcTemplate.query(GET_ALL_BOOKING_SLOTS_BY_TIME, new BookingSlotsRowMapper(), args);
+			return allBookingSlots;
+		}catch(Exception e) {
+			return null;
+		}
 	}
 	
 	

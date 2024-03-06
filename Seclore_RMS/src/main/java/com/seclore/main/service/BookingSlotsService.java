@@ -19,39 +19,38 @@ public class BookingSlotsService implements BookingSlotsServiceInterface{
 	BookingSlotsRepositoryInterface bookingSlotsRepositoryInterface;
 
 	@Override
-	public List<BookingSlots> addBookingSlots(List<BookingDetails> allbookingDetails, LocalTime startTime, LocalTime endTime,
-			LocalDate startLocalDate, LocalDate endLocalDate) {
+	public List<BookingSlots> addBookingSlots(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime,
+			LocalDate date) {
 		// TODO Auto-generated method stub
-		int size=allbookingDetails.size();
-		List<BookingSlots> allBookingSlots=new ArrayList<BookingSlots>();
-		
-		for(int i=0; i<size; startLocalDate.plusDays(1) ) {
-			allBookingSlots.add(bookingSlotsRepositoryInterface.addBookingSlots(allbookingDetails.get(i), startTime, endTime, startLocalDate));
-			
-		}
-		
-		return allBookingSlots;
+		return bookingSlotsRepositoryInterface.addBookingSlots(bookingDetails, startTime, endTime, date);
 	}
 
 	@Override
-	public boolean deleteBookingSlots(List<BookingDetails> allbookingDetails, LocalTime startTime, LocalTime endTime,
-			LocalDate startDate, LocalDate endDate) {
+	public boolean deleteBookingSlots(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime,
+			LocalDate date) {
 		// TODO Auto-generated method stub
-		return false;
+		return bookingSlotsRepositoryInterface.deleteBookingSlots(bookingDetails, startTime, endTime, date);
 	}
 
 	@Override
 	public List<BookingSlots> getAllBookingSlotsByBookingId(int bookingId) {
 		// TODO Auto-generated method stub
-		return null;
+		return bookingSlotsRepositoryInterface.getAllBookingSlotsByBookingId(bookingId);
+	}
+
+	@Override
+	public List<BookingSlots> getAllBookingSlotsByTime(BookingDetails bookingDetails, LocalTime startTime,
+			LocalTime endTime, LocalDate date) {
+		// TODO Auto-generated method stub
+		return bookingSlotsRepositoryInterface.getAllBookingSlotsByTime(bookingDetails, startTime, endTime, date);
 	}
 
 	@Override
 	public boolean deleteBookingSlotsByBookingId(int bookingId) {
 		// TODO Auto-generated method stub
-		return false;
+		return bookingSlotsRepositoryInterface.deleteBookingSlotsByBookingId(bookingId);
 	}
-
+	
 	
 
 }

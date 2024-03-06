@@ -9,6 +9,6 @@ import java.util.List;
 import com.seclore.main.domain.SlotMaster;
 
 public interface SlotMasterRepositoryInterface {
-	public List<SlotMaster> getAllSlotByStartTimeEndTime(LocalTime startLocalTime, LocalTime endLocalTime, LocalDate startLocalDate, LocalDate endLocalDate);
+	public List<SlotMaster> getAllSlotByStartTimeEndTime(LocalTime startLocalTime, LocalTime endLocalTime, LocalDate localDate);
 	public SlotMaster getSlotMasterBySlotId(int slotId);
 }
