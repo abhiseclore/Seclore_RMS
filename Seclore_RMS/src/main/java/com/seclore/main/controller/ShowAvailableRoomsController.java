@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seclore.main.domain.RoomDetails;
-import com.seclore.main.domain.UserDetails;
 import com.seclore.main.service.BookingViewDetailsServiceInterface;
 import com.seclore.main.service.RoomDetailsServiceInterface;
 
@@ -28,18 +27,36 @@ public class ShowAvailableRoomsController {
 	@RequestMapping("/add")
 	public ModelAndView getAvailableRoomsBySlot(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate,
 			@RequestParam LocalTime startTime, @RequestParam LocalTime endTime, @RequestParam int seatingCapacity,
-			@RequestParam boolean hasWhiteboard, @RequestParam boolean hasAudioVideo) {
+			@RequestParam boolean hasWhiteboard, @RequestParam boolean hasAudioVideo,
+			@RequestParam HttpSession httpSession) {
+		
 		ModelAndView modelAndView = new ModelAndView();
+		
 		RoomDetails roomDetails = new RoomDetails();
 		roomDetails.setCapacity(seatingCapacity);
 		roomDetails.setHasAudioVideo(hasAudioVideo);
 		roomDetails.setHasWhiteboard(hasWhiteboard);
+		
+		httpSession.setAttribute("startTime", startTime);
+		httpSession.setAttribute("endTime", endTime);
+		httpSession.setAttribute("startDate", startDate);
+		httpSession.setAttribute("endDate", endDate);
+		
 		List<RoomDetails> allAvailableRoom = roomDetailsServiceInterface.getAvailableRoomsWithCondition(roomDetails);
+		if (allAvailableRoom == null || allAvailableRoom.size() == 0) {
+			modelAndView.addObject("message", "NO ROOMS FILLS YOUR REQUIREMENTS");
+			modelAndView.setViewName("getrequirements");
+			return modelAndView;
+		}
 		List<RoomDetails> availableRooms = bookingViewDetailsServiceInterface.getAvailableRoomsBySlot(allAvailableRoom,
 				startTime, endTime, startDate, endDate);
-
+		if (availableRooms == null || availableRooms.size() == 0) {
+			modelAndView.addObject("message", "ALL ROOMS FULFILLING YOUR CRITERIA ARE BOOKED");
+			modelAndView.setViewName("getrequirements");
+			return modelAndView;
+		}
 		modelAndView.addObject("allAvailableRoom", availableRooms);
-		modelAndView.setViewName("viewAvailable");
+		modelAndView.setViewName("showavailable");
 		return modelAndView;
 	}
 }
