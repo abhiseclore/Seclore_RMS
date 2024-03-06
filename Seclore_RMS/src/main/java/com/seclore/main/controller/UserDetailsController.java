@@ -87,7 +87,7 @@ public class UserDetailsController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("viewusers");
 		List<UserDetails> usersList = userDetailsServiceInterface.getAllUsers();
-		model.addAttribute("userlist", usersList);
+		modelAndView.addObject("userlist", usersList);
 		return modelAndView;
 	}
 	
@@ -103,14 +103,15 @@ public class UserDetailsController {
 	}
 	
 	@RequestMapping(value="addnewuser" , method = RequestMethod.POST)
-	public ModelAndView addNewUser(@ModelAttribute UserDetails user, HttpServletRequest request)
+	public void addNewUser(@ModelAttribute UserDetails user, HttpServletRequest request, HttpServletResponse response)
 	{
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("userdashboard");
+		try {
 		userDetailsServiceInterface.addNewUser(user);
 		HttpSession session = request.getSession();
 		session.setAttribute("message", "successfully updated ");
-		return modelAndView;
-
+		response.sendRedirect("admindashboard");
+		}catch(IOException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }

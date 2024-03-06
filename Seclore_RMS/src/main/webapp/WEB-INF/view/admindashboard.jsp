@@ -19,14 +19,39 @@
 		</tr>
 		<tr>
 			<form:form action="updateinfo.jsp">
-				<td>change user information</td>
+				<td>update profile</td>
 				<td><input type="submit" value="update"></td>
 			</form:form>
 		</tr>
 		<tr>
-			<form:form action="addUser.jsp">
+			<form:form action="adduser.jsp">
 				<td>Add new user</td>
 				<td><input type="submit" value="add new user"></td>
+			</form:form>
+		</tr>
+		<tr>
+			<form:form action="addroom.jsp">
+				<td></td>Add Room<td><input type="submit" value="submit"></td>
+			</form:form>
+		</tr>
+		<tr>
+			<form:form action="addroom.jsp">
+				<td></td>Add Room<td><input type="submit" value="submit"></td>
+			</form:form>
+		</tr>
+		<tr>
+			<form:form action="addroom.jsp">
+				<td></td>Add Room<td><input type="submit" value="submit"></td>
+			</form:form>
+		</tr>
+		<tr>
+			<form:form action="addroom.jsp">
+				<td></td>Add Room<td><input type="submit" value="submit"></td>
+			</form:form>
+		</tr>
+		<tr>
+			<form:form action="addroom.jsp">
+				<td></td>Add Room<td><input type="submit" value="submit"></td>
 			</form:form>
 		</tr>
 		<tr>
