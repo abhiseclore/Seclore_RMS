@@ -32,7 +32,7 @@ public class RoomDetailsRepository implements RoomDetailsRepositoryInterface {
 	}
 
 	@Override
-	public boolean updateNewRoom(RoomDetails roomDetails) {
+	public boolean updateRoom(RoomDetails roomDetails) {
 		Object[] args = { roomDetails.getRoomId(), roomDetails.getRoomName(), roomDetails.getCapacity(),
 				roomDetails.getHasAudioVideo(), roomDetails.getHasWhiteboard(), roomDetails.getIsAvailable() };
 		int rowCount = jdbcTemplate.update(UPDATE_ROOM, args);
