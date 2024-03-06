@@ -1,7 +1,7 @@
 package com.seclore.main.service;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,8 @@ public class BookingViewDetailsService implements BookingViewDetailsServiceInter
 	BookingViewDetailsRepositoryInterface bookingViewDetailsRepository;
 
 	@Override
-	public List<RoomDetails> getBookedRoomsBySlot(List<RoomDetails> roomList, Time startTime, Time endTime,
-			Date startDate, Date endDate) {
+	public List<RoomDetails> getBookedRoomsBySlot(List<RoomDetails> roomList, LocalTime startTime, LocalTime endTime,
+			LocalDate startDate, LocalDate endDate) {
 			
 			List<RoomDetails> bookedRoomList =  bookingViewDetailsRepository.getBookedRoomsBySlot(startTime, endTime, startDate, endDate);
 			bookedRoomList.retainAll(roomList);
@@ -26,8 +26,8 @@ public class BookingViewDetailsService implements BookingViewDetailsServiceInter
 	}
 
 	@Override
-	public List<RoomDetails> getAvailableRoomsBySlot(List<RoomDetails> roomList, Time startTime, Time endTime,
-			Date startDate, Date endDate) {
+	public List<RoomDetails> getAvailableRoomsBySlot(List<RoomDetails> roomList, LocalTime startTime, LocalTime endTime,
+			LocalDate startDate, LocalDate endDate) {
 			List<RoomDetails> commonRoomsList = bookingViewDetailsRepository.getBookedRoomsBySlot(startTime, endTime, startDate, endDate);
 			commonRoomsList.retainAll(roomList);
 			
