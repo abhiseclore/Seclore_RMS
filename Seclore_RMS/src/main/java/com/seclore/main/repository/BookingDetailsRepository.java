@@ -25,7 +25,7 @@ public class BookingDetailsRepository implements BookingDetailsRepositoryInterfa
 	private static final String GET_BOOKING_DETAILS_BY_USER_ID = "select bd.booking_id,bd.description,bd.room_id,bd.status,bd.user_id,rd.capacity,rd.video_conferencing,rd.white_board,rd.room_name,rd.is_available  from booking_details bd  join room_details rd on  rd.room_id=bd.room_id where bd.user_id=?";
 	private static final String GET_BOOKING_DETAILS_BY_BOOKING_ID="select m.booking_id,m.description,m.room_id,m.status,m.user_id,rd.video_conferencing,rd.white_board,rd.capacity,ud.name,ud.position, ud.is_active,rd.room_name,rd.is_available from (select * from booking_details where booking_id=? ) m  join room_details rd on rd.room_id=m.room_id join user_details ud on ud.user_id=m.user_id";
 	@Override
-	public int addBookingDetails(BookingDetails bookingDetails) {
+	public BookingDetails addBookingDetails(BookingDetails bookingDetails) {
 		
 		// TODO Auto-generated method stub
 		
@@ -41,9 +41,14 @@ public class BookingDetailsRepository implements BookingDetailsRepositoryInterfa
 	        }
 	    };
 		int result = jdbcTemplate.update(preparedStatementCreator, keyHolder);
-		if(result > 0)
-			return (Integer) keyHolder.getKey();
-		return -1;
+		if(result > 0) {
+			bookingDetails.setBookingId(result);
+			return bookingDetails;
+		}
+			
+		
+		
+		return null;
 	}
 	
 	

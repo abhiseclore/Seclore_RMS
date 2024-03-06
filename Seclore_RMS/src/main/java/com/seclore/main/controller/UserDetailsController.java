@@ -36,7 +36,7 @@ public class UserDetailsController {
 		} else {
 			HttpSession session = request.getSession();
 			user.setPassword(null);
-			session.setAttribute("loggedInUser", user);
+			session.setAttribute("getroomrequirements", user);
 			message = " User Loggedin successfully ";
 
 			if(user.getPosition() == "admin")

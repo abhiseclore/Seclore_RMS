@@ -23,7 +23,7 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 	private BookingSlotsRepositoryInterface bookingSlotsRepository;
 	
 	@Override
-	public boolean addBookingDetails(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime,
+	public BookingDetails addBookingDetails(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime,
 			int userId, int roomId, String description) {
 		BookingDetails bookingDetails = new BookingDetails();
 		bookingDetails.setRoom(new RoomDetails());
