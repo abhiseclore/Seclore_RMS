@@ -14,9 +14,9 @@ public class SlotMasterRowMapper implements RowMapper<SlotMaster>{
 		// TODO Auto-generated method stub
 		SlotMaster slotMaster=new SlotMaster();
 		slotMaster.setSlotId(rs.getInt("slot_id"));
-		slotMaster.setStartTime(rs.getTime("start_time").toLocalTime());
-		slotMaster.setEndTime(rs.getTime("end_time").toLocalTime());
-		slotMaster.setDate(rs.getDate("date").toLocalDate());
+		slotMaster.setStartTime(rs.getTime("start_time"));
+		slotMaster.setEndTime(rs.getTime("end_time"));
+		slotMaster.setDate(rs.getDate("date"));
 		return slotMaster;
 	}
 	
