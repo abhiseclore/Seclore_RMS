@@ -8,7 +8,6 @@ public class SecloreRmsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SecloreRmsApplication.class, args);
-		System.out.println("hiii");
 	}
 
 }

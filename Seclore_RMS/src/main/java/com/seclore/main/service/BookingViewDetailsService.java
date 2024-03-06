@@ -28,13 +28,13 @@ public class BookingViewDetailsService implements BookingViewDetailsServiceInter
 	@Override
 	public List<RoomDetails> getAvailableRoomsBySlot(List<RoomDetails> roomList, LocalTime startTime, LocalTime endTime,
 			LocalDate startDate, LocalDate endDate) {
-			List<RoomDetails> commonRoomsList = bookingViewDetailsRepository.getBookedRoomsBySlot(startTime, endTime, startDate, endDate);
-			commonRoomsList.retainAll(roomList);
+			List<RoomDetails> allAvailableRoomList = bookingViewDetailsRepository.getBookedRoomsBySlot(startTime, endTime, startDate, endDate);
+			List<RoomDetails> requiredAvailableRoomList = roomList;
+			roomList.retainAll(allAvailableRoomList);
 			
-			List<RoomDetails> availableRoomList = roomList;
-			availableRoomList.removeAll(commonRoomsList);
+			requiredAvailableRoomList.removeAll(allAvailableRoomList);
 			
-			return availableRoomList;
+			return requiredAvailableRoomList;
 	}
 
 	@Override
