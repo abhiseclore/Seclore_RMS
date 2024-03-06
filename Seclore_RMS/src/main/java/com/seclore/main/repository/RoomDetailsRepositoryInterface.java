@@ -8,7 +8,7 @@ public interface RoomDetailsRepositoryInterface {
 
 	public boolean addNewRoom(RoomDetails roomDetails);
 
-	public boolean updateNewRoom(RoomDetails roomDetails);
+	public boolean updateRoom(RoomDetails roomDetails);
 
 	public RoomDetails getOneRoomDetails(int roomId);
 
