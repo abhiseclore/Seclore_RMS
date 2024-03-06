@@ -14,7 +14,7 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 	private BookingDetailsRepositoryInterface bookingDetailsRepository;
 	
 	@Override
-	public boolean addBookingDetails(BookingDetails bookingDetails) {
+	public int addBookingDetails(BookingDetails bookingDetails) {
 		return bookingDetailsRepository.addBookingDetails(bookingDetails);
 	}
 
@@ -38,13 +38,21 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 
 	@Override
 	public BookingDetails getExistingBookingDetails(int bookingID) {
-		return bookingDetailsRepository.getExistingBookingDetails(bookingID);
+		return bookingDetailsRepository.getExistingBookingDetailsbyBookigID(bookingID);
 	}
 
 	@Override
 	public List<BookingDetails> getAllExistingBookingDetailsByUserId(int userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return bookingDetailsRepository.getExistingBookingDetailsbyuserid(userId);
+		
+	}
+
+	@Override
+	public List<BookingDetails> getAllExistingBookingDetailsByadmin() {
+		// TODO Auto-generated method stub
+		return bookingDetailsRepository.getAllExistingBookingDetailsByadmin();
+		
 	}
 
 }

@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.seclore.main.domain.BookingDetails;
 public interface BookingDetailsRepositoryInterface {
-	public boolean addBookingDetails(BookingDetails bookingDetails);
+	public int addBookingDetails(BookingDetails bookingDetails);
 	public BookingDetails updateExistingBookingDetails(BookingDetails bookingDetails);
-	public BookingDetails getExistingBookingDetails(int bookingId);
-	public List<BookingDetails> getAllExistingBookingDetailsByUserId(int userId);
+	public List<BookingDetails> getExistingBookingDetailsbyuserid(int userId);
+	public BookingDetails getExistingBookingDetailsbyBookigID(int bookingId);
+	public List<BookingDetails> getAllExistingBookingDetailsByadmin();
 	
 	
 	
