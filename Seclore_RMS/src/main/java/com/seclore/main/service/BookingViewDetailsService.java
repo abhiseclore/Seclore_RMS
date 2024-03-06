@@ -58,4 +58,10 @@ public class BookingViewDetailsService implements BookingViewDetailsServiceInter
 		return bookingViewDetailsResultList.get(0);
 	}
 
+	@Override
+	public boolean checkRoomAvailabilityBySlot(RoomDetails roomDetails, LocalTime startTime, LocalTime endTime,
+			LocalDate startDate, LocalDate endDate) {
+		return bookingViewDetailsRepository.checkRoomAvailabilityBySlot(roomDetails, startTime, endTime, startDate, endDate);
+	}
+
 }

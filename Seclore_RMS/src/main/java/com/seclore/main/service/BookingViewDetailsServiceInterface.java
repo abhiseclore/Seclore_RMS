@@ -20,4 +20,5 @@ public interface BookingViewDetailsServiceInterface {
 	List<BookingViewDetails> getStartEndTimeByBookingId(List<BookingDetails> bookingDetailsList);
 	
 	BookingViewDetails getStartEndTimeForSingleId(BookingDetails bookingDetails);
+	boolean checkRoomAvailabilityBySlot(RoomDetails roomDetails,LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate);
 }
