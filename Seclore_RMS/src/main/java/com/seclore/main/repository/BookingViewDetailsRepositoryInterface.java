@@ -9,9 +9,7 @@ import com.seclore.main.domain.BookingViewDetails;
 import com.seclore.main.domain.RoomDetails;
 
 public interface BookingViewDetailsRepositoryInterface {
-	List<BookingViewDetails> getAvailableRoomsBySlot(List<RoomDetails> roomList,Time startTime,Time endTime,Date startDate,Date endDate);
-	
-	List<BookingViewDetails> getUnavailableRoomsBySlot(List<RoomDetails> roomList,Time startTime,Time endTime,Date startDate,Date endDate);
+	List<RoomDetails> getBookedRoomsBySlot(Time startTime,Time endTime,Date startDate,Date endDate);
 	
 	List<BookingViewDetails> getStartEndTimeByBookingId(List<BookingDetails> bookingDetailsList);
 }
