@@ -1,7 +1,8 @@
 package com.seclore.main.service;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,25 @@ public class BookingSlotsService implements BookingSlotsServiceInterface{
 
 	@Autowired
 	BookingSlotsRepositoryInterface bookingSlotsRepositoryInterface;
-	
+
 	@Override
-	public BookingSlots addNewBookingSlots(BookingDetails bookingDetails, Time startTime, Time endTime, Date startDate,
-			Date endDate) {
+	public List<BookingSlots> addBookingSlots(List<BookingDetails> allbookingDetails, LocalTime startTime, LocalTime endTime,
+			LocalDate startLocalDate, LocalDate endLocalDate) {
 		// TODO Auto-generated method stub
-		return null;
+		int size=allbookingDetails.size();
+		List<BookingSlots> allBookingSlots=new ArrayList<BookingSlots>();
+		
+		for(int i=0; i<size; startLocalDate.plusDays(1) ) {
+			allBookingSlots.add(bookingSlotsRepositoryInterface.addBookingSlots(allbookingDetails.get(i), startTime, endTime, startLocalDate));
+			
+		}
+		
+		return allBookingSlots;
 	}
 
 	@Override
-	public boolean deleteBookingSlots(int bookingId, Time startTime, Time endTime, Date startDate, Date endDate) {
+	public boolean deleteBookingSlots(List<BookingDetails> allbookingDetails, LocalTime startTime, LocalTime endTime,
+			LocalDate startDate, LocalDate endDate) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -35,5 +45,13 @@ public class BookingSlotsService implements BookingSlotsServiceInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean deleteBookingSlotsByBookingId(int bookingId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
 
 }
