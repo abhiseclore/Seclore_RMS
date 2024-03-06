@@ -33,7 +33,7 @@
 </head>
 <body>
 	<h1>Add Room</h1>
-	<form:form action="/roomdetails/updateroom" method="post" modelAttribute="roomDetails">
+	<form:form action="/roomdetails/addroom" method="post" modelAttribute="roomDetails">
 		<table>
 			<tr>
 				<td>Room Name : </td>

@@ -15,7 +15,7 @@ public class RoomDetailsRepository implements RoomDetailsRepositoryInterface {
 	private JdbcTemplate jdbcTemplate;
 
 	private String INSERT_ROOM = "INSERT INTO room_details(room_name,capacity, audio_video, white_board,is_available) VALUES(?,?,?,?,?);";
-	private String UPDATE_ROOM = "UPDATE room_details SET room_name=? AND capacity=? ANd audio_video=? AND white_board=? AND is_available=? WHERE room_id=?;";
+	private String UPDATE_ROOM = "UPDATE room_details SET room_name=?,capacity=?,audio_video=?,white_board=?,is_available=? WHERE room_id=?;";
 	private String SELECT_ROOM = "SELECT * FROM room_details WHERE room_id=?;";
 	private String SELECT_ALL_ROOMS = "SELECT * FROM room_details;";
 	private String SELECT_ALL_ROOMS_LIKE = "SELECT * FROM room_details WHERE room_name LIKE ?;";
@@ -33,8 +33,9 @@ public class RoomDetailsRepository implements RoomDetailsRepositoryInterface {
 
 	@Override
 	public boolean updateRoom(RoomDetails roomDetails) {
-		Object[] args = { roomDetails.getRoomId(), roomDetails.getRoomName(), roomDetails.getCapacity(),
-				roomDetails.getHasAudioVideo(), roomDetails.getHasWhiteboard(), roomDetails.getIsAvailable() };
+		Object[] args = { roomDetails.getRoomName(), roomDetails.getCapacity(),
+				roomDetails.getHasAudioVideo(), roomDetails.getHasWhiteboard(), roomDetails.getIsAvailable(),roomDetails.getRoomId()};
+		System.out.println(roomDetails);
 		int rowCount = jdbcTemplate.update(UPDATE_ROOM, args);
 		if (rowCount > 0)
 			return true;

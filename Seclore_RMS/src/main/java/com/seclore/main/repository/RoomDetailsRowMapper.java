@@ -14,7 +14,7 @@ public class RoomDetailsRowMapper implements RowMapper<RoomDetails>{
 		RoomDetails roomDetails = new RoomDetails();
 		roomDetails.setRoomId(rs.getInt("room_id"));
 		roomDetails.setRoomName(rs.getString("room_name"));
-		roomDetails.setAvailable(rs.getBoolean("is_available"));
+		roomDetails.setIsAvailable(rs.getBoolean("is_available"));
 		roomDetails.setCapacity(rs.getInt("capacity"));
 		roomDetails.setHasWhiteboard(rs.getBoolean("white_board"));
 		roomDetails.setHasAudioVideo(rs.getBoolean("audio_video"));
