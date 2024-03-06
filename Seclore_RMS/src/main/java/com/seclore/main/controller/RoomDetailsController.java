@@ -1,5 +1,6 @@
 package com.seclore.main.controller;
 
+import java.io.IOException;
 import java.net.http.HttpRequest;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import com.seclore.main.domain.UserDetails;
 import com.seclore.main.service.RoomDetailsServiceInterface;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -38,14 +40,15 @@ public class RoomDetailsController {
 	}
 	
 	@RequestMapping(value = "/addroom", method = RequestMethod.POST)
-	public ModelAndView addNewRoom(@ModelAttribute RoomDetails roomDetails) {
+	public void addNewRoom(@ModelAttribute RoomDetails roomDetails,HttpServletResponse response) throws IOException {
 				
 		boolean success = roomDetailsService.addNewRoom(roomDetails);
 		if(success)
-			return allRooms();
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("error");
-		return modelAndView;
+		{
+			response.sendRedirect("/roomdetails/allrooms");
+			return;
+		}
+		response.sendRedirect("/error");
 	}
 	
 	@RequestMapping(value = "/updateroom", method = RequestMethod.GET)
@@ -60,14 +63,15 @@ public class RoomDetailsController {
 	}
 	
 	@RequestMapping(value = "/updateroom", method = RequestMethod.POST)
-	public ModelAndView updateRoom(@ModelAttribute RoomDetails roomDetails) {
+	public void updateRoom(@ModelAttribute RoomDetails roomDetails,HttpServletResponse response) throws IOException {
 				
 		boolean success = roomDetailsService.updateRoom(roomDetails);
 		if(success)
-			return allRooms();
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("error");
-		return modelAndView;
+		{
+			response.sendRedirect("/roomdetails/allrooms");
+			return;
+		}
+		response.sendRedirect("/error");
 	}
 	
 	@RequestMapping("/allrooms")
