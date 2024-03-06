@@ -16,6 +16,8 @@ public class UserDetailsService implements UserDetailsServiceInterface {
 
 	@Override
 	public boolean addNewUser(UserDetails user) {
+		user.setPassword("Seclore123");
+		user.setActive(true);
 		return userDetailsRepositoryInterface.addNewUser(user);
 	}
 
