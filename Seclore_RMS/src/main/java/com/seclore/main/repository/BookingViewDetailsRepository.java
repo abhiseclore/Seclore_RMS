@@ -22,6 +22,8 @@ public class BookingViewDetailsRepository implements BookingViewDetailsRepositor
 
 	private static final String GET_ROOM_STATUS = "exec getBookedRooms ?, ?, ?, ?";
 	private static final String GET_STARTEND_TIME = "exec getStartEndTime ?";
+	private static final String CHECK_AVAILABILITY = "";
+	
 	@Override
 	public List<RoomDetails> getBookedRoomsBySlot(LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate) {
 		Object[] args = {startTime,endTime,startDate,endDate};
@@ -46,6 +48,15 @@ public class BookingViewDetailsRepository implements BookingViewDetailsRepositor
 		
 		return bookingStartEndTimeList;
 
+	}
+	@Override
+	public boolean checkRoomAvailabilityBySlot(RoomDetails roomDetails, LocalTime startTime, LocalTime endTime,
+			LocalDate startDate, LocalDate endDate) {
+		// TODO Auto-generated method stub
+		Object[] args = {startTime,endTime,startDate,endDate,roomDetails.getRoomId()};
+		RoomDetails checkRoomDetails = jdbcTemplate.queryForObject(CHECK_AVAILABILITY, new BookedRoomsRowMapper(),args);
+		
+		return (checkRoomDetails==null);
 	}
 	
 
