@@ -46,7 +46,11 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 			+ "set is_slot_active=1 "
 			+ "where booking_id=?";
 	
-	private static String GET_ALL_BOOKING_SLOTS_BY_TIME="select * from booking_slots "
+	private static String GET_ALL_BOOKING_SLOTS_BY_TIME="DECLARE @date DATE = ?; "
+			+ "DECLARE @startTime Time =? ;"
+			+ "DECLARE @endTime Time =? ;"
+			+ "DECLARE @bookingId INT=?; "
+			+"select * from booking_slots "
 			+ "where booking_id=@bookingId and slot_id in "
 			+ "(select slot_id from slot_master where (start_time>@startTime and end_time<@endTime) and date=@date)";
 
@@ -60,7 +64,7 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 		int bookingId=bookingDetails.getBookingId();
 		int roomId=bookingDetails.getRoom().getRoomId();
 		try {
-		Object[] args= {date, startTime, endTime, bookingId, roomId};
+		Object[] args= {date, startTime, endTime, roomId,bookingId};
 		int count=jdbcTemplate.update(ADD_BOOKING_SLOT, args);
 		
 		if(count>0) {
@@ -80,9 +84,9 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 		Time startTime=Time.valueOf(startLocalTime);
 		Time endTime=Time.valueOf(endLocalTime);
 		int bookingId=bookingDetails.getBookingId();
-		int roomId=bookingDetails.getRoom().getRoomId();
+
 		try {
-		Object[] args= {date, startTime, endTime, bookingId, roomId};
+		Object[] args= {bookingId, date, startTime, endTime};
 		int count=jdbcTemplate.update(DELETE_BOOKING_SLOT, args);
 		
 		if(count>0) {
@@ -129,10 +133,9 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 		Time startTime=Time.valueOf(startLocalTime);
 		Time endTime=Time.valueOf(endLocalTime);
 		int bookingId=bookingDetails.getBookingId();
-		int roomId=bookingDetails.getRoom().getRoomId();
 		
 		try {
-			Object[] args= {date, startTime, endTime, bookingId, roomId};
+			Object[] args= {date, startTime, endTime, bookingId};
 			List<BookingSlots> allBookingSlots=jdbcTemplate.query(GET_ALL_BOOKING_SLOTS_BY_TIME, new BookingSlotsRowMapper(), args);
 			return allBookingSlots;
 		}catch(Exception e) {
