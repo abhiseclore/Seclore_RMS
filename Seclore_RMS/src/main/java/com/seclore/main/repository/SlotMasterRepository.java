@@ -18,9 +18,9 @@ public class SlotMasterRepository implements SlotMasterRepositoryInterface{
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private static String GET_ALL_SLOT_BY_STARTTIME_ENDTIME="DECLARE @date DATE = '2024-01-01'; "
-			+ "DECLARE @startTime Time ='22:30:00'; "
-			+ "DECLARE @endTime Time ='23:40:00'; "
+	private static String GET_ALL_SLOT_BY_STARTTIME_ENDTIME="DECLARE @date DATE =? "
+			+ "DECLARE @startTime Time =? "
+			+ "DECLARE @endTime Time =? "
 			+ "select * from slot_master "
 			+ "where ( ((start_time>@startTime) and (end_time<@endTime) and (end_time!='00:00:00')) "
 			+ "or ( start_time<=@startTime and end_time>@startTime) "
@@ -30,7 +30,7 @@ public class SlotMasterRepository implements SlotMasterRepositoryInterface{
 	private static String GET_SLOT_BY_ID="select * from slot_master where slot_id=?";
 	
 	@Override
-	public List<SlotMaster> getAllSlotByStartTimeEndTime(LocalTime startLocalTime, LocalTime endLocalTime, LocalDate startLocalDate, LocalDate endLocalDate) {
+	public List<SlotMaster> getAllSlotByStartTimeEndTime(LocalTime startLocalTime, LocalTime endLocalTime, LocalDate localDate) {
 		// TODO Auto-generated method stub
 		
 		startLocalTime.minusMinutes(30);
@@ -39,11 +39,10 @@ public class SlotMasterRepository implements SlotMasterRepositoryInterface{
 		Time startedTime=Time.valueOf(startLocalTime);
 		Time endedTime=Time.valueOf(endLocalTime);
 		
-		Date startDate=Date.valueOf(startLocalDate);
-		Date endDate=Date.valueOf(endLocalDate);
+		Date date=Date.valueOf(localDate);
 		
 		
-		Object[] args= {startedTime,endedTime,startDate,endDate};
+		Object[] args= {date,startedTime,endedTime};
 		List<SlotMaster> allSlotMasters=jdbcTemplate.query(GET_ALL_SLOT_BY_STARTTIME_ENDTIME, new SlotMasterRowMapper(), args);
 		return allSlotMasters;
 	}
