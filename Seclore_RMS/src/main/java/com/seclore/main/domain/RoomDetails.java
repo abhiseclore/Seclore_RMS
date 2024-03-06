@@ -58,7 +58,7 @@ public class RoomDetails {
 	public boolean getIsAvailable() {
 		return isAvailable;
 	}
-	public void setAvailable(boolean isAvailable) {
+	public void setIsAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
 
