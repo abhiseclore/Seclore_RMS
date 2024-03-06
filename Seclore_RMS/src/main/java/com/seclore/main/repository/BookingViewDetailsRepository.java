@@ -1,8 +1,8 @@
 package com.seclore.main.repository;
 
-import java.sql.Date;
 
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class BookingViewDetailsRepository implements BookingViewDetailsRepositor
 	private static final String GET_ROOM_STATUS = "exec getBookedRooms ?, ?, ?, ?";
 	private static final String GET_STARTEND_TIME = "exec getStartEndTime ?";
 	@Override
-	public List<RoomDetails> getBookedRoomsBySlot(Time startTime, Time endTime, Date startDate, Date endDate) {
+	public List<RoomDetails> getBookedRoomsBySlot(LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate) {
 		Object[] args = {startTime,endTime,startDate,endDate};
 		List<RoomDetails> roomDetailsList = jdbcTemplate.query(GET_ROOM_STATUS,new BookedRoomsRowMapper(), args);
 		
