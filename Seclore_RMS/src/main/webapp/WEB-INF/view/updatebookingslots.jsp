@@ -18,7 +18,7 @@
 						Booking ID
 					</td>
 					<td>
-						${bookingDetails.getBookingId()}
+						${bookingViewDetails.getBookingSlots().getBooking().getBookingId()}
 					</td>
 				</tr>
 				<tr>
@@ -26,7 +26,7 @@
 						Room ID
 					</td>
 					<td>
-						${bookingDetails.getRoom.getRoomId()}
+						${bookingViewDetails.getRoomDetails().getRoomId()}
 					</td>
 				</tr>
 				<tr>
@@ -34,7 +34,15 @@
 						Room Name
 					</td>
 					<td>
-						${bookingDetails.getRoom.getRoomName()}
+						${bookingViewDetails.getRoomDetails().getRoomName()}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Date
+					</td>
+					<td>
+						${bookingViewDetails.getSlotMaster().getDate()}
 					</td>
 				</tr>
 				<tr>
@@ -42,7 +50,7 @@
 						Current timing
 					</td>
 					<td>
-						${startTime} - ${endTime}
+						${bookingViewDetails.getSlotMaster().getStartTime} - ${bookingViewDetails.getSlotMaster().getEndTime}
 					</td>
 				</tr>
 				<tr>

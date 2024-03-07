@@ -12,14 +12,14 @@
 			Booking Successful! Here are your finalized booking(s):
 		</h2>
 		<hr>
-		<c:forEach var="booking" items="${bookingDetails}">
+		<c:forEach var="bookingViewDetails" items="${allBookingViewDetails}">
 			<table>
 				<tr>
 					<td>
 						Booking ID
 					</td>
 					<td>
-						${booking.getBookingId()}
+						${bookingViewDetails.getBookingSlots().getBooking().getBookingId()}
 					</td>
 				</tr>
 				<tr>
@@ -27,7 +27,7 @@
 						Room ID
 					</td>
 					<td>
-						${booking.getRoom().getRoomId()}
+						${bookingViewDetails.getRoomDetails().getRoomId()}
 					</td>
 				</tr>
 				<tr>
@@ -35,7 +35,7 @@
 						Room Name
 					</td>
 					<td>
-						${booking.getRoom().getRoomName()}
+						${bookingViewDetails.getRoomDetails().getRoomName()}
 					</td>
 				</tr>
 				<tr>
@@ -43,7 +43,7 @@
 						Date
 					</td>
 					<td>
-						
+							${bookingViewDetails.getSlotMaster().getDate()}
 					</td>
 				</tr>
 				<tr>
@@ -51,7 +51,7 @@
 						Time
 					</td>
 					<td>
-						
+						${bookingViewDetails.getSlotMaster().getStartTime} - ${bookingViewDetails.getSlotMaster().getEndTime}
 					</td>
 				</tr>
 			</table>
