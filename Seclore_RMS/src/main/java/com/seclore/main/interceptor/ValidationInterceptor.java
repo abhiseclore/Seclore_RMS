@@ -15,6 +15,29 @@ public class ValidationInterceptor implements HandlerInterceptor {
 	Set<String> adminUri = new HashSet<String>();
 	Set<String> userUri = new HashSet<String>();
 
+	public ValidationInterceptor() {
+		adminUri.add("adduser");
+		adminUri.add("addroom");
+		adminUri.add("admindashboard");
+		adminUri.add("login");
+		adminUri.add("userlist");
+		adminUri.add("updatepassword");
+		adminUri.add("allrooms");
+		adminUri.add("getbookingrequirements");
+		adminUri.add("updateprofile");
+		adminUri.add("updateroom");
+		adminUri.add("add");
+
+		userUri.add("userdashboard");
+		userUri.add("login");
+		userUri.add("updatepassword");
+		userUri.add("allrooms");
+		userUri.add("getbookingrequirements");
+		userUri.add("updateprofile");
+		userUri.add("add");
+
+	}
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {

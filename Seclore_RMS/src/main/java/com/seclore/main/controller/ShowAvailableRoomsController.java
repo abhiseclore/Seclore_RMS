@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,7 +25,7 @@ public class ShowAvailableRoomsController {
 	@Autowired
 	BookingViewDetailsServiceInterface bookingViewDetailsServiceInterface;
 
-	@RequestMapping("/add")
+	@RequestMapping(value = "add" , method = RequestMethod.POST)
 	public ModelAndView getAvailableRoomsBySlot(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate,
 			@RequestParam LocalTime startTime, @RequestParam LocalTime endTime, @RequestParam int seatingCapacity,
 			@RequestParam boolean hasWhiteboard, @RequestParam boolean hasAudioVideo,
