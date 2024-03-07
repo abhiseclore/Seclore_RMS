@@ -26,7 +26,12 @@ import jakarta.servlet.http.HttpSession;
 public class UserDetailsController {
 	@Autowired
 	private UserDetailsServiceInterface userDetailsServiceInterface;
-
+	
+	@RequestMapping("/")
+	public String showDefaultPage() {
+		return "redirect:/login";
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView showLoginPage() {
 		UserDetails userDetails = new UserDetails();
@@ -60,15 +65,15 @@ public class UserDetailsController {
 		return "updatepassword";
 	}
 
-	@RequestMapping(value = "updatepass", method = RequestMethod.POST)
-	public ModelAndView updatePassword(HttpServletRequest request, Model model) {
+	@RequestMapping(value = "updatepassword", method = RequestMethod.POST)
+	public String updatePassword(HttpServletRequest request) {
 		String message = "";
 		HttpSession session = request.getSession();
 		UserDetails user = (UserDetails) session.getAttribute("loggedInUser");
+		System.out.println("Session : ");
+		System.out.println(user);
 		int uid = user.getUserId();
-		ModelAndView modalAndView = new ModelAndView();
-		modalAndView.setViewName("dashboard");
-		if (request.getParameter("newpass").equals(request.getParameter("renewpass"))) {
+		if (!request.getParameter("newpass").equals(request.getParameter("renewpass"))) {
 			message = "Passwords do not match";
 		} else if (userDetailsServiceInterface.updatePassword(uid, request.getParameter("oldpass"),
 				request.getParameter("newpass"))) {
@@ -76,8 +81,8 @@ public class UserDetailsController {
 		} else {
 			message = "failed to update password";
 		}
-		model.addAttribute("message", message);
-		return modalAndView;
+		session.setAttribute("message", message);
+		return "redirect:/dashboard";
 	}
 
 	@RequestMapping(value = "/updateprofile", method = RequestMethod.GET)
@@ -90,14 +95,10 @@ public class UserDetailsController {
 	}
 
 	@RequestMapping(value = "updateprofile", method = RequestMethod.POST)
-	public ModelAndView updateUserProfile(@ModelAttribute UserDetails user, HttpServletRequest request, Model model) {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("dashboard");
+	public String updateUserProfile(@ModelAttribute UserDetails user, HttpSession session) {
 		userDetailsServiceInterface.updateUserDetails(user);
-		HttpSession session = request.getSession();
 		session.setAttribute("loggedInUser", user);
-		modelAndView.setViewName("dashboard");
-		return modelAndView;
+		return "redirect:/dashboard";
 	}
 	
 	

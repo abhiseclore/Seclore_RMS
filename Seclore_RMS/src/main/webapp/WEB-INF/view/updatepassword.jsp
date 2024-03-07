@@ -12,7 +12,7 @@
 
 	<h1>update password</h1>
 
-	<form:form action = "passupdate" method = "post">
+	<form:form action = "updatepassword" method = "post">
 		<table>
 			<tr>
 				<td>old password</td>
@@ -34,6 +34,6 @@
 		</table>
 
 	</form:form>
-
+	
 </body>
 </html>

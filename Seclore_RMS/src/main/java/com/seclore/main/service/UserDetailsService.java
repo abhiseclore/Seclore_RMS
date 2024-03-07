@@ -47,8 +47,6 @@ public class UserDetailsService implements UserDetailsServiceInterface {
 
 	@Override
 	public boolean updatePassword(int userId, String oldPassword, String newPassword) {
-		if(oldPassword == newPassword ) 
-			return false;
 		if(userDetailsRepositoryInterface.getUserById(userId).getPassword().equals(oldPassword))
 			return userDetailsRepositoryInterface.updatePassword(userId, newPassword);
 		return false;

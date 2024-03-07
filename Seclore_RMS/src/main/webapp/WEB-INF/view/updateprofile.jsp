@@ -13,7 +13,7 @@
 	<%
 	
 	%>
-	<form:form action="updateuser" method="post" modelAttribute="userDetails">
+	<form:form action="updateprofile" method="post" modelAttribute="userDetails">
 		<table>
 			<tr>
 				<td>UserId</td>
