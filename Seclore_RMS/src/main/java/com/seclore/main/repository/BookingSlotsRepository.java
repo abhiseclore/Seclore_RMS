@@ -19,7 +19,7 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 	@Autowired
 	private static JdbcTemplate jdbcTemplate;
 	
-	private static String ADD_BOOKING_SLOT="DECLARE @date DATE = ?; "
+	private static final String ADD_BOOKING_SLOT="DECLARE @date DATE = ?; "
 			+ "DECLARE @startTime Time =? ;"
 			+ "DECLARE @endTime Time =? ;"
 			+ "DECLARE @roomId INT=?; "
@@ -31,7 +31,7 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 			+ "and date=@date"
 			+ "))";
 	
-	private static String DELETE_BOOKING_SLOT="DECLARE @bookingId INT=? "
+	private static final String DELETE_BOOKING_SLOT="DECLARE @bookingId INT=? "
 			+"DECLARE @date DATE = ? "
 			+ "DECLARE @startTime Time =? "
 			+ "DECLARE @endTime Time =? "
@@ -40,13 +40,13 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 			+ "where booking_id=@bookingId and slot_id in "
 			+ "(select slot_id from slot_master where (start_time>@startTime and end_time<@endTime) and date=@date)";
 	
-	public static String GET_ALL_BOOKING_SLOTS_BY_BOOKING_ID="select * from booking_slots where booking_id=?";
+	private static final String GET_ALL_BOOKING_SLOTS_BY_BOOKING_ID="select * from booking_slots where booking_id=?";
 	
-	public static String DELETE_BOOKING_SLOT_BY_BOOKING_ID="update booking_slots "
+	private static final String DELETE_BOOKING_SLOT_BY_BOOKING_ID="update booking_slots "
 			+ "set is_slot_active=1 "
 			+ "where booking_id=?";
 	
-	private static String GET_ALL_BOOKING_SLOTS_BY_TIME="DECLARE @date DATE = ?; "
+	private static final String GET_ALL_BOOKING_SLOTS_BY_TIME="DECLARE @date DATE = ?; "
 			+ "DECLARE @startTime Time =? ;"
 			+ "DECLARE @endTime Time =? ;"
 			+ "DECLARE @bookingId INT=?; "
