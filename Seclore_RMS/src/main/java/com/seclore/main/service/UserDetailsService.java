@@ -17,7 +17,7 @@ public class UserDetailsService implements UserDetailsServiceInterface {
 	@Override
 	public boolean addNewUser(UserDetails user) {
 		user.setPassword("Seclore123");
-		user.setActive(true);
+		user.setIsActive(true);
 		return userDetailsRepositoryInterface.addNewUser(user);
 	}
 
@@ -53,5 +53,12 @@ public class UserDetailsService implements UserDetailsServiceInterface {
 			return userDetailsRepositoryInterface.updatePassword(userId, newPassword);
 		return false;
 	}
+
+	@Override
+	public boolean updateActive(int userId, boolean isActive) {
+		// TODO Auto-generated method stub
+		return userDetailsRepositoryInterface.updateActive(userId, isActive);
+	}
+	
 
 }

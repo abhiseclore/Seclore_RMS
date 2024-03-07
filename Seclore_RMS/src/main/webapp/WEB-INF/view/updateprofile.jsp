@@ -7,29 +7,28 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Update Profile</title>
 </head>
 <body>
 	<%
-	HttpSession ses = request.getSession();
-	UserDetails user = (UserDetails) ses.getAttribute("loggedInUser");
+	
 	%>
-	<form:form action="updateuser" method="post">
+	<form:form action="updateuser" method="post" modelAttribute="userDetails">
 		<table>
 			<tr>
 				<td>UserId</td>
-				<td><input type="number" name="userId" path="userId"
-					value="<%=user.getUserId()%>" readonly></td>
+				<td><input type="number" name="userId" path="userId" 
+					value="${userDetails.userId }" readonly></td>
 			</tr>
 			<tr>
 				<td>Name</td>
 				<td><input type="text" name="name" path="name"
-					value="<%=user.getName()%>"></td>
+					value="${userDetails.name }"></td>
 			</tr>
 			<tr>
 				<td>Position</td>
-				<td><input type="text" name="position" path="position"
-					value="<%=user.getPosition()%>"></td>
+				<td><input type="text" name="position" path="position" readonly
+					value="${userDetails.position }"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="update"></td>

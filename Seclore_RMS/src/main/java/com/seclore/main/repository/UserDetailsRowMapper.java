@@ -17,7 +17,7 @@ public class UserDetailsRowMapper implements RowMapper<UserDetails> {
 		userDetails.setPassword(rs.getString("password"));
 		userDetails.setName(rs.getString("name"));
 		userDetails.setPosition(rs.getString("position"));
-		userDetails.setActive(rs.getBoolean("is_active"));
+		userDetails.setIsActive(rs.getBoolean("is_active"));
 		return userDetails;
 	}
 

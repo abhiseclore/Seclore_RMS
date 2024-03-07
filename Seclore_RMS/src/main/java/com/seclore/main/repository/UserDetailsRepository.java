@@ -18,7 +18,7 @@ public class UserDetailsRepository implements UserDetailsRepositoryInterface {
 	private static String SELECT_SINGLE_USER = "select * from user_details where user_id = ?";
 	private static String UPDATE_PASSWORD = "UPDATE user_details set password=? where user_id=?";
 	private static String SELECT_ALL_USERS = "select * from user_details";
-	private static String SET_USER_INCATIVE = "UPDATE user_details set is_active=? where user_id=?";
+	private static String SET_USER_INACTIVE = "UPDATE user_details set is_active=? where user_id=?";
 	
 	@Override
 	public boolean addNewUser(UserDetails user) {
@@ -65,4 +65,16 @@ public class UserDetailsRepository implements UserDetailsRepositoryInterface {
 		return false;	
 	}
 
+	@Override
+	public boolean updateActive(int userId, boolean isActive) {
+		Object[] args= {userId, isActive};
+		int rows = jdbcTemplate.update(SET_USER_INACTIVE, args);
+
+		if (rows > 0)
+			return true;
+		return false;
+	}
+
+	
+	
 }
