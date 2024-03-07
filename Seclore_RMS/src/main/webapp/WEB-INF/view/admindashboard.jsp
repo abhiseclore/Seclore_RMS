@@ -30,40 +30,27 @@
 			</form:form>
 		</tr>
 				<tr>
-			<form:form action="addroom">
-				<td></td>Add Room<td><input type="submit" value="submit"></td>
+			<form:form action="getallusers">
+				<td>>Users List</td><td><input type="submit" value="submit"></td>
 			</form:form>
 		</tr>
 		<tr>
-			<form:form action="addroom.jsp">
-				<td></td>Add Room<td><input type="submit" value="submit"></td>
+			<form:form action="/roomdetails/allrooms">
+				<td>Rooms</td><td><input type="submit" value="submit"></td>
+			</form:form>
+		</tr>
+
+		<tr>
+			<form:form action="bookingdetails/getbookingrequirements.jsp">
+				<td>Add Booking</td><td><input type="submit" value="submit"></td>
 			</form:form>
 		</tr>
 		<tr>
-			<form:form action="addroom.jsp">
-				<td></td>Add Room<td><input type="submit" value="submit"></td>
+			<form:form action="bookingdetails/showallbookingsbyadmin">
+				<td>List All booking</td><td><input type="submit" value="submit"></td>
 			</form:form>
 		</tr>
-		<tr>
-			<form:form action="addroom.jsp">
-				<td></td>Add Room<td><input type="submit" value="submit"></td>
-			</form:form>
-		</tr>
-		<tr>
-			<form:form action="addroom.jsp">
-				<td></td>Add Room<td><input type="submit" value="submit"></td>
-			</form:form>
-		</tr>
-		<tr>
-			<form:form action="addroom.jsp">
-				<td></td>Add Room<td><input type="submit" value="submit"></td>
-			</form:form>
-		</tr>
-		<tr>
-			<form:form action="addroom.jsp">
-				<td></td>Add Room<td><input type="submit" value="submit"></td>
-			</form:form>
-		</tr>
+
 	</table>
 
 </body>
