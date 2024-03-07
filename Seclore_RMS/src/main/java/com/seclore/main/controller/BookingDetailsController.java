@@ -124,7 +124,7 @@ public class BookingDetailsController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("partialupdate")
+	@RequestMapping("updateslot")
 	public ModelAndView updateExistingBookingDetailsBySlot(@ModelAttribute BookingViewDetails bookingViewDetails) {
 		ModelAndView modelAndView = new ModelAndView();
 		
