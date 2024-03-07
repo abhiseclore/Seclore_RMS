@@ -22,7 +22,9 @@ public class BookingViewDetailsRepository implements BookingViewDetailsRepositor
 
 	private static final String GET_ROOM_STATUS = "exec getBookedRooms ?, ?, ?, ?";
 	private static final String GET_STARTEND_TIME = "exec getStartEndTime ?";
-	private static final String CHECK_AVAILABILITY = "select Count(room_id) as room_id from all_bookings where room_id = ? and is_booked = 1 and (start_time between ? and ?) and (end_time between ? and ?) and (date between ? and ?)";
+	private static final String CHECK_AVAILABILITY = "declare @startTime time = ?\r\n" + "declare @endTime time = ?\r\n"
+			+ "declare @startDate date = ?\r\n" + "declare @endDate date = ?\r\n"
+			+ "select Count(room_id) as room_id from all_bookings where room_id = ? and is_booked = 1 and (start_time between @startTime and @endTime) and (end_time between @startTime and @endTime) and (date between @startDate and @endDate)\r\n";
 
 	@Override
 	public List<RoomDetails> getBookedRoomsBySlot(LocalTime startTime, LocalTime endTime, LocalDate startDate,
@@ -58,10 +60,10 @@ public class BookingViewDetailsRepository implements BookingViewDetailsRepositor
 	public boolean checkRoomAvailabilityBySlot(RoomDetails roomDetails, LocalTime startTime, LocalTime endTime,
 			LocalDate startDate, LocalDate endDate) {
 		// TODO Auto-generated method stub
-		Object[] args = { roomDetails.getRoomId(), startTime, endTime, startTime, endTime, startDate, endDate };
+
+		Object[] args = { startTime, endTime, startDate, endDate, roomDetails.getRoomId() };
 		RoomDetails checkRoomDetails = jdbcTemplate.queryForObject(CHECK_AVAILABILITY, new BookedRoomsRowMapper(),
 				args);
-
 		return (checkRoomDetails.getRoomId() == 0);
 	}
 
