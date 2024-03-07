@@ -10,9 +10,9 @@ import com.seclore.main.domain.BookingDetails;
 import com.seclore.main.domain.BookingSlots;
 
 public interface BookingSlotsServiceInterface {
-	public List<BookingSlots> addBookingSlots(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime, LocalDate date);
+	public int addBookingSlots(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime, LocalDate date);
 	public boolean deleteBookingSlots(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime, LocalDate date);
-	public List<BookingSlots> getAllBookingSlotsByBookingId(int bookingId);
-	public List<BookingSlots> getAllBookingSlotsByTime(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime, LocalDate date);
+	//public List<BookingSlots> getAllBookingSlotsByBookingId(int bookingId);
+	//public List<BookingSlots> getAllBookingSlotsByTime(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime, LocalDate date);
 	public boolean deleteBookingSlotsByBookingId(int bookingId);
 }
