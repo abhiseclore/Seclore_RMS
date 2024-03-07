@@ -67,7 +67,7 @@ public class UserDetailsRepository implements UserDetailsRepositoryInterface {
 
 	@Override
 	public boolean updateActive(int userId, boolean isActive) {
-		Object[] args= {userId, isActive};
+		Object[] args= { isActive, userId};
 		int rows = jdbcTemplate.update(SET_USER_INACTIVE, args);
 
 		if (rows > 0)
