@@ -19,7 +19,7 @@ public class BookingSlotsService implements BookingSlotsServiceInterface{
 	BookingSlotsRepositoryInterface bookingSlotsRepositoryInterface;
 
 	@Override
-	public List<BookingSlots> addBookingSlots(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime,
+	public int addBookingSlots(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime,
 			LocalDate date) {
 		// TODO Auto-generated method stub
 		return bookingSlotsRepositoryInterface.addBookingSlots(bookingDetails, startTime, endTime, date);
@@ -32,25 +32,24 @@ public class BookingSlotsService implements BookingSlotsServiceInterface{
 		return bookingSlotsRepositoryInterface.deleteBookingSlots(bookingDetails, startTime, endTime, date);
 	}
 
-	@Override
-	public List<BookingSlots> getAllBookingSlotsByBookingId(int bookingId) {
-		// TODO Auto-generated method stub
-		return bookingSlotsRepositoryInterface.getAllBookingSlotsByBookingId(bookingId);
-	}
+//	@Override
+//	public List<BookingSlots> getAllBookingSlotsByBookingId(int bookingId) {
+//		// TODO Auto-generated method stub
+//		return bookingSlotsRepositoryInterface.getAllBookingSlotsByBookingId(bookingId);
+//	}
 
-	@Override
-	public List<BookingSlots> getAllBookingSlotsByTime(BookingDetails bookingDetails, LocalTime startTime,
-			LocalTime endTime, LocalDate date) {
-		// TODO Auto-generated method stub
-		return bookingSlotsRepositoryInterface.getAllBookingSlotsByTime(bookingDetails, startTime, endTime, date);
-	}
+//	@Override
+//	public List<BookingSlots> getAllBookingSlotsByTime(BookingDetails bookingDetails, LocalTime startTime,
+//			LocalTime endTime, LocalDate date) {
+//		// TODO Auto-generated method stub
+//		return bookingSlotsRepositoryInterface.getAllBookingSlotsByTime(bookingDetails, startTime, endTime, date);
+//	}
 
 	@Override
 	public boolean deleteBookingSlotsByBookingId(int bookingId) {
 		// TODO Auto-generated method stub
 		return bookingSlotsRepositoryInterface.deleteBookingSlotsByBookingId(bookingId);
 	}
-	
 	
 
 }
