@@ -33,7 +33,7 @@ public class BookingDetailsController {
 	@Autowired
 	BookingViewDetailsServiceInterface bookingViewDetailsService;
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping("add")
 	public ModelAndView addBookingDetails(@RequestParam int roomId, @RequestParam String description,
 			HttpSession httpSession) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -68,7 +68,7 @@ public class BookingDetailsController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	@RequestMapping("delete")
 	@Transactional
 	public String cancelExistingBookingDetails(@ModelAttribute BookingDetails bookingDetails) {
 		if (bookingDetailsService.cancelExistingBookingDetails(bookingDetails)) {
@@ -78,13 +78,13 @@ public class BookingDetailsController {
 		}
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.PATCH)
+	@RequestMapping("update")
 	public String updateExistingBookingDetails(@ModelAttribute BookingDetails bookingDetails) {
 		BookingDetails updatedBookingDetails = bookingDetailsService.updateExistingBookingDetails(bookingDetails);
 		return updatedBookingDetails != null ? "showallbooking" : "error";
 	}
 
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
+	@RequestMapping("get")
 	public ModelAndView getExistingBookingDetails(@RequestParam int bookingId) {
 
 		BookingDetails bookingDetails = bookingDetailsService.getExistingBookingDetails(bookingId);
@@ -96,20 +96,23 @@ public class BookingDetailsController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/showallbooking", method = RequestMethod.GET)
+	@RequestMapping("showallbooking")
 	public ModelAndView getAllExistingBookingDetails(HttpSession httpSession) {
 		UserDetails userDetails = (UserDetails) httpSession.getAttribute("loggedInUser");
+		
 		List<BookingDetails> allBookingDetailsByUserId = bookingDetailsService
 				.getAllExistingBookingDetailsByUserId(userDetails.getUserId());
+		
 		List<BookingViewDetails> allBookingViewDetailsByUserId = bookingViewDetailsService
 				.getStartEndTimeByBookingId(allBookingDetailsByUserId);
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("allBookingViewDetailsByUserId", allBookingViewDetailsByUserId);
 		modelAndView.setViewName("showallbooking");
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/showallbookingbyadmin", method = RequestMethod.GET)
+	@RequestMapping("showallbookingbyadmin")
 	public ModelAndView getAllExistingBookingDetailsByAdmin() {
 		List<BookingDetails> allBookingDetails = bookingDetailsService.getAllExistingBookingDetailsByadmin();
 
@@ -121,7 +124,7 @@ public class BookingDetailsController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/partialupdate", method = RequestMethod.GET)
+	@RequestMapping("partialupdate")
 	public ModelAndView updateExistingBookingDetailsBySlot(@ModelAttribute BookingViewDetails bookingViewDetails) {
 		ModelAndView modelAndView = new ModelAndView();
 		
