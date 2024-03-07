@@ -24,7 +24,8 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 			+ "DECLARE @endTime Time =? ;"
 			+ "DECLARE @roomId INT=?; "
 			+ "DECLARE @bookingId INT=?; "
-			+ "insert into booking_slots(booking_id,slot_id,room_id) ((select @bookingId, slot_id, @roomId from slot_master "
+			+ "DECLARE @isSlotActive BIT=1"
+			+ "insert into booking_slots(booking_id,slot_id,room_id,is_slot_active) ((select @bookingId, slot_id, @roomId, @isSlotActive from slot_master "
 			+ "where ( ((start_time>@startTime) and (end_time<@endTime) and (end_time!='00:00:00')) "
 			+ "or ( start_time<=@startTime and end_time>@startTime) "
 			+ "or ( start_time<@endTime and (end_time>=@endTime or end_time='00:00:00')) ) "
@@ -36,14 +37,14 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface{
 			+ "DECLARE @startTime Time =? "
 			+ "DECLARE @endTime Time =? "
 			+"update booking_slots "
-			+ "set is_slot_active=1 "
+			+ "set is_slot_active=0 "
 			+ "where booking_id=@bookingId and slot_id in "
 			+ "(select slot_id from slot_master where (start_time>@startTime and end_time<@endTime) and date=@date)";
 	
 //	private static final String GET_ALL_BOOKING_SLOTS_BY_BOOKING_ID="select * from booking_slots where booking_id=?";
 //	
 	private static final String DELETE_BOOKING_SLOT_BY_BOOKING_ID="update booking_slots "
-			+ "set is_slot_active=1 "
+			+ "set is_slot_active=0 "
 			+ "where booking_id=?";
 	
 //	private static final String GET_ALL_BOOKING_SLOTS_BY_TIME="DECLARE @date DATE = ?; "

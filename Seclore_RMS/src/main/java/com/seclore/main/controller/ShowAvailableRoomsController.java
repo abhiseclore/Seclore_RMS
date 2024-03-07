@@ -25,7 +25,7 @@ public class ShowAvailableRoomsController {
 	@Autowired
 	BookingViewDetailsServiceInterface bookingViewDetailsServiceInterface;
 
-	@RequestMapping(value = "add" , method = RequestMethod.POST)
+	@RequestMapping("add")
 	public ModelAndView getAvailableRoomsBySlot(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate,
 			@RequestParam LocalTime startTime, @RequestParam LocalTime endTime, @RequestParam int seatingCapacity,
 			@RequestParam boolean hasWhiteboard, @RequestParam boolean hasAudioVideo,HttpSession httpSession) {
@@ -45,14 +45,16 @@ public class ShowAvailableRoomsController {
 		List<RoomDetails> allAvailableRoom = roomDetailsServiceInterface.getAvailableRoomsWithCondition(roomDetails);
 		if (allAvailableRoom == null || allAvailableRoom.size() == 0) {
 			modelAndView.addObject("message", "NO ROOMS FILLS YOUR REQUIREMENTS");
-			modelAndView.setViewName("getroomrequirements");
+			modelAndView.setViewName("getbookingrequirements");
 			return modelAndView;
 		}
+		System.out.println(allAvailableRoom.size());
 		List<RoomDetails> availableRooms = bookingViewDetailsServiceInterface.getAvailableRoomsBySlot(allAvailableRoom,
 				startTime, endTime, startDate, endDate);
+		System.out.println(availableRooms.size());
 		if (availableRooms == null || availableRooms.size() == 0) {
 			modelAndView.addObject("message", "ALL ROOMS FULFILLING YOUR CRITERIA ARE BOOKED");
-			modelAndView.setViewName("getroomrequirements");
+			modelAndView.setViewName("getbookingrequirements");
 			return modelAndView;
 		}
 		modelAndView.addObject("allAvailableRoom", availableRooms);

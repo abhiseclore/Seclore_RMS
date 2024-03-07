@@ -18,7 +18,7 @@
 			</p>
 			<hr>
 		</c:if>
-		<form action="/add" method="post">
+		<form action="add" method="post">
 			<table>
 				<tr>
 					<td>

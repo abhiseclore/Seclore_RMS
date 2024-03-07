@@ -26,6 +26,8 @@ import jakarta.servlet.http.HttpSession;
 public class UserDetailsController {
 	@Autowired
 	private UserDetailsServiceInterface userDetailsServiceInterface;
+
+	@RequestMapping("login")
 	
 	@RequestMapping("/")
 	public String showDefaultPage() {
@@ -41,7 +43,7 @@ public class UserDetailsController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "userlogin", method = RequestMethod.POST)
+	@RequestMapping("userlogin")
 	public String Login(@ModelAttribute UserDetails user, HttpSession session) {
 		String message = "";
 		String nextPage = "";
@@ -60,7 +62,7 @@ public class UserDetailsController {
 		return nextPage;
 	}
 
-	@RequestMapping(value = "/updatepassword", method = RequestMethod.GET)
+	@RequestMapping(value = "updatepassword", method = RequestMethod.GET)
 	public String showUpdatepassword() {
 		return "updatepassword";
 	}
@@ -85,7 +87,7 @@ public class UserDetailsController {
 		return "redirect:/dashboard";
 	}
 
-	@RequestMapping(value = "/updateprofile", method = RequestMethod.GET)
+	@RequestMapping(value = "updateprofile", method = RequestMethod.GET)
 	public ModelAndView showUpdateProfile(HttpSession ses) {
 		UserDetails userDetails = (UserDetails) ses.getAttribute("loggedInUser");
 		ModelAndView modelAndView = new ModelAndView();
@@ -100,8 +102,6 @@ public class UserDetailsController {
 		session.setAttribute("loggedInUser", user);
 		return "redirect:/dashboard";
 	}
-	
-	
 
 	@RequestMapping(value = "getallusers", method = RequestMethod.GET)
 	public ModelAndView getAllUsers(HttpServletRequest request, Model model) {
@@ -123,6 +123,7 @@ public class UserDetailsController {
 			e.printStackTrace();
 		}
 	}
+
 	@RequestMapping(value = "adduser", method = RequestMethod.GET)
 	public ModelAndView showAddUser() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -130,7 +131,7 @@ public class UserDetailsController {
 
 		UserDetails userDetails = new UserDetails();
 		modelAndView.addObject("userDetails", userDetails);
-			
+
 		return modelAndView;
 	}
 
@@ -157,26 +158,32 @@ public class UserDetailsController {
 			// TODO: handle exception
 		}
 	}
-	
-	@RequestMapping("/userdashboard")
+
+	@RequestMapping("userdashboard")
 	public String showUserDashboard() {
 		return "userdashboard";
 	}
-	
-	@RequestMapping("/admindashboard")
+
+	@RequestMapping("admindashboard")
 	public String showAdminDashboard() {
 		return "admindashboard";
 	}
-	
-	@RequestMapping(value = "dashboard", method = RequestMethod.GET)
+
+	@RequestMapping("dashboard")
 	public String showDashBoard(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
-		UserDetails user = (UserDetails)session.getAttribute("loggedInUser");
+		UserDetails user = (UserDetails) session.getAttribute("loggedInUser");
 		System.out.println(user);
-		if(user.getPosition().equals("admin"))
+		if (user.getPosition().equals("admin"))
 			return "redirect:/admindashboard";
 		return "redirect:/userdashboard";
 	}
-	
-	
+
+	@RequestMapping("getbookingrequirement")
+	public String getallrequrements() {
+
+		System.out.println("Response commited");
+		return "getbookingrequirements";
+	}
+
 }
