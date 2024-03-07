@@ -147,15 +147,14 @@ public class UserDetailsController {
 	}
 
 	@RequestMapping(value = "updateuserstatus", method = RequestMethod.POST)
-	public void updateUserStatus(HttpServletRequest request, HttpServletResponse response) {
-		try {
+	public String updateUserStatus(HttpServletRequest request) {
+		
 			int userId = Integer.parseInt(request.getParameter("userId"));
+			System.out.println(userId);
 			boolean isActive = request.getParameter("isactive").equals("activate");
 			userDetailsServiceInterface.updateActive(userId, isActive);
-			response.sendRedirect("getallusers");
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			return "redirect:/getallusers";
+		
 	}
 
 	@RequestMapping("userdashboard")
