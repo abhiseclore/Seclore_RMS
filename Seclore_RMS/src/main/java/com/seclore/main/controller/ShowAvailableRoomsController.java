@@ -28,8 +28,7 @@ public class ShowAvailableRoomsController {
 	@RequestMapping(value = "add" , method = RequestMethod.POST)
 	public ModelAndView getAvailableRoomsBySlot(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate,
 			@RequestParam LocalTime startTime, @RequestParam LocalTime endTime, @RequestParam int seatingCapacity,
-			@RequestParam boolean hasWhiteboard, @RequestParam boolean hasAudioVideo,
-			@RequestParam HttpSession httpSession) {
+			@RequestParam boolean hasWhiteboard, @RequestParam boolean hasAudioVideo,HttpSession httpSession) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
