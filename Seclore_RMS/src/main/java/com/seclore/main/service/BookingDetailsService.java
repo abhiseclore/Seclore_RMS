@@ -53,14 +53,8 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 	}
 
 	@Override
-	public boolean cancelExistingBookingDetails(BookingDetails bookingDetails) {
-		
-		bookingDetails.setStatus("CANCELED");
-		
-		bookingDetails = bookingDetailsRepository.updateExistingBookingDetails(bookingDetails);
-		
-//		bookingSlotsRepository.deleteBookingSlots(bookingDetails.getBookingId(), startTime, endTime, startDate);
-		return bookingDetails!=null;
+	public boolean cancelExistingBookingDetails(BookingDetails bookingDetails) {	
+		return bookingDetailsRepository.cancelBookingDetails(bookingDetails);
 		
 	}
 
