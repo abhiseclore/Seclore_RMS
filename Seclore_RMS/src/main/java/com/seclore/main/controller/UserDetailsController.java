@@ -37,27 +37,22 @@ public class UserDetailsController {
 	}
 
 	@RequestMapping(value = "userlogin", method = RequestMethod.POST)
-	public ModelAndView Login(@ModelAttribute UserDetails user, Model model, HttpServletRequest request) {
+	public String Login(@ModelAttribute UserDetails user, HttpSession session) {
 		String message = "";
-		ModelAndView modalAndView = new ModelAndView();
+		String nextPage = "";
 		UserDetails outUser = userDetailsServiceInterface.userLogin(user.getUserId(), user.getPassword());
 		if (outUser == null) {
 			message = " User doesnot exist or is blocked ";
-			modalAndView.setViewName("login");
+			nextPage = "login";
 		} else {
-			HttpSession session = request.getSession();
 			user.setPassword(null);
-			session.setAttribute("loggedInUser", user);
+			session.setAttribute("loggedInUser", outUser);
 			message = " User Loggedin successfully ";
-
-			if (user.getPosition() == "admin")
-				modalAndView.setViewName("admindashboard");
-			else
-				modalAndView.setViewName("userdashboard");
+			nextPage = "redirect:/dashboard";
 
 		}
-		model.addAttribute("message", message);
-		return modalAndView;
+		session.setAttribute("message", message);
+		return nextPage;
 	}
 
 	@RequestMapping(value = "/updatepassword", method = RequestMethod.GET)
@@ -101,7 +96,7 @@ public class UserDetailsController {
 		userDetailsServiceInterface.updateUserDetails(user);
 		HttpSession session = request.getSession();
 		session.setAttribute("loggedInUser", user);
-		modelAndView.setViewName("userdashboard");
+		modelAndView.setViewName("dashboard");
 		return modelAndView;
 	}
 	
@@ -161,13 +156,25 @@ public class UserDetailsController {
 			// TODO: handle exception
 		}
 	}
+	
+	@RequestMapping("/userdashboard")
+	public String showUserDashboard() {
+		return "userdashboard";
+	}
+	
+	@RequestMapping("/admindashboard")
+	public String showAdminDashboard() {
+		return "admindashboard";
+	}
+	
 	@RequestMapping(value = "dashboard", method = RequestMethod.GET)
 	public String showDashBoard(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		UserDetails user = (UserDetails)session.getAttribute("loggedInUser");
-		if(user.getPosition()=="admin")
-			return "admindashboard";
-		return "userdashboard";
+		System.out.println(user);
+		if(user.getPosition().equals("admin"))
+			return "redirect:/admindashboard";
+		return "redirect:/userdashboard";
 	}
 	
 	

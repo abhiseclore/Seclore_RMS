@@ -12,25 +12,25 @@
 <body>
 	<table>
 		<tr>
-			<form:form action="updatepassword.jsp">
+			<form:form action="updatepassword">
 				<td>change password</td>
 				<td><input type="submit" value="update"></td>
 			</form:form>
 		</tr>
 		<tr>
-			<form:form action="updateinfo.jsp">
+			<form:form action="updateinfo">
 				<td>update profile</td>
 				<td><input type="submit" value="update"></td>
 			</form:form>
 		</tr>
 		<tr>
-			<form:form action="adduser.jsp">
+			<form:form action="adduser">
 				<td>Add new user</td>
 				<td><input type="submit" value="add new user"></td>
 			</form:form>
 		</tr>
 				<tr>
-			<form:form action="addroom.jsp">
+			<form:form action="addroom">
 				<td></td>Add Room<td><input type="submit" value="submit"></td>
 			</form:form>
 		</tr>
