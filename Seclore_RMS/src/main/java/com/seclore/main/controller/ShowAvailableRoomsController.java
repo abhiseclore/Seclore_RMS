@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,14 +27,28 @@ public class ShowAvailableRoomsController {
 	@RequestMapping("add")
 	public ModelAndView getAvailableRoomsBySlot(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate,
 			@RequestParam LocalTime startTime, @RequestParam LocalTime endTime, @RequestParam int seatingCapacity,
-			@RequestParam boolean hasWhiteboard, @RequestParam boolean hasAudioVideo,HttpSession httpSession) {
+			@RequestParam Boolean hasWhiteboard, @RequestParam Boolean hasAudioVideo,HttpSession httpSession) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
+		if(startDate.compareTo(endDate) >1) {
+			modelAndView.addObject("message", "START DATE CANNOT BE GREATER THAN END DATE");
+			modelAndView.setViewName("getbookingrequirements");
+			return modelAndView;
+		}
+		if(startDate.compareTo(endDate) == 0 && startTime.compareTo(endTime)>1) {
+			modelAndView.addObject("message", "START TIME CANNOT BE GREATER THAN END DATE");
+			modelAndView.setViewName("getbookingrequirements");
+			return modelAndView;
+		}
+		
 		RoomDetails roomDetails = new RoomDetails();
 		roomDetails.setCapacity(seatingCapacity);
-		roomDetails.setHasAudioVideo(hasAudioVideo);
-		roomDetails.setHasWhiteboard(hasWhiteboard);
+		if(hasWhiteboard == null) roomDetails.setHasWhiteboard(false);
+		else roomDetails.setHasWhiteboard(hasWhiteboard);
+		if(hasAudioVideo == null) roomDetails.setHasAudioVideo(false);
+		else roomDetails.setHasAudioVideo(hasAudioVideo);
+		
 		
 		httpSession.setAttribute("startTime", startTime);
 		httpSession.setAttribute("endTime", endTime);
@@ -48,10 +61,9 @@ public class ShowAvailableRoomsController {
 			modelAndView.setViewName("getbookingrequirements");
 			return modelAndView;
 		}
-		System.out.println(allAvailableRoom.size());
+		
 		List<RoomDetails> availableRooms = bookingViewDetailsServiceInterface.getAvailableRoomsBySlot(allAvailableRoom,
 				startTime, endTime, startDate, endDate);
-		System.out.println(availableRooms.size());
 		if (availableRooms == null || availableRooms.size() == 0) {
 			modelAndView.addObject("message", "ALL ROOMS FULFILLING YOUR CRITERIA ARE BOOKED");
 			modelAndView.setViewName("getbookingrequirements");
