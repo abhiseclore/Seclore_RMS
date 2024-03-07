@@ -28,7 +28,7 @@ public class BookingDetailsRowMapper implements RowMapper<BookingDetails> {
 		String roomName = rs.getString("room_name");
 		int capacity = rs.getInt("capacity");
 		boolean hasWhiteboard = rs.getBoolean("white_board");
-		boolean hasAudioVideo = rs.getBoolean("video_conferencing");
+		boolean hasAudioVideo = rs.getBoolean("audio_video");
 		boolean isAvailable = rs.getBoolean("is_available");
 		roomDetails = new RoomDetails(roomId, roomName, capacity, hasWhiteboard, hasAudioVideo, isAvailable);
 

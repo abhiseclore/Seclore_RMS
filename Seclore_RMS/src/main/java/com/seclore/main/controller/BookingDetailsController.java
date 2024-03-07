@@ -103,8 +103,15 @@ public class BookingDetailsController {
 	public ModelAndView getAllExistingBookingDetails(HttpSession httpSession) {
 		UserDetails userDetails = (UserDetails) httpSession.getAttribute("loggedInUser");
 		
+		if(userDetails.getPosition().equals("Admin"))
+			return getAllExistingBookingDetailsByAdmin();
+		
 		List<BookingDetails> allBookingDetailsByUserId = bookingDetailsService
 				.getAllExistingBookingDetailsByUserId(userDetails.getUserId());
+		System.out.println(allBookingDetailsByUserId.size());
+		for (BookingDetails bookingDetails : allBookingDetailsByUserId) {
+			System.out.println(bookingDetails);
+		}
 		
 		List<BookingViewDetails> allBookingViewDetailsByUserId = bookingViewDetailsService
 				.getStartEndTimeByBookingId(allBookingDetailsByUserId);
