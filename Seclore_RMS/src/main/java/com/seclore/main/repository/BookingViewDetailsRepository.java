@@ -1,6 +1,7 @@
 package com.seclore.main.repository;
 
 import java.time.LocalDate;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class BookingViewDetailsRepository implements BookingViewDetailsRepositor
 		for (BookingDetails details : bookingDetailsList) {
 			List<BookingViewDetails> bookingViewList = jdbcTemplate.query(GET_STARTEND_TIME,
 					new StartEndTimeRowMapper(), details.getBookingId());
+			bookingViewList.get(0).getBookingSlots().setBooking(details);
 			if (bookingViewList.size() == 1)
 				bookingStartEndTimeList.add(bookingViewList.get(0));
 			else {
