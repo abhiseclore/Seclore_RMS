@@ -9,7 +9,7 @@ public interface BookingDetailsRepositoryInterface {
 	public List<BookingDetails> getExistingBookingDetailsbyuserid(int userId);
 	public BookingDetails getExistingBookingDetailsbyBookigID(int bookingId);
 	public List<BookingDetails> getAllExistingBookingDetailsByadmin();
-	
+	public boolean cancelBookingDetails(BookingDetails bookingDetails);
 	
 	
 }
