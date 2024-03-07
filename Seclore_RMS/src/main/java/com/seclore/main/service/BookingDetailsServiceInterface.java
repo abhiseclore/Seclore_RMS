@@ -7,7 +7,7 @@ import java.util.List;
 import com.seclore.main.domain.BookingDetails;
 
 public interface BookingDetailsServiceInterface {
-	public BookingDetails addBookingDetails(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, int userId, int roomId, String description);
+	public List<BookingDetails> addBookingDetails(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, int userId, int roomId, String description);
 	public BookingDetails updateExistingBookingDetails(BookingDetails bookingDetails);
 	public boolean cancelExistingBookingDetails(BookingDetails bookingDetails);
 	public BookingDetails approveBookingDetails(BookingDetails bookingDetails);
