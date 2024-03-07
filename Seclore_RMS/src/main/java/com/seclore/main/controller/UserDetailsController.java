@@ -27,7 +27,6 @@ public class UserDetailsController {
 	@Autowired
 	private UserDetailsServiceInterface userDetailsServiceInterface;
 
-	@RequestMapping("login")
 	
 	@RequestMapping("/")
 	public String showDefaultPage() {
