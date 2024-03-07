@@ -15,9 +15,9 @@ if(user.getPosition()=="admin"){
 	response.sendRedirect("admindashboard.jsp");	
 }%>
 	<table>
-	<tr><form:form action = "updatepassword.jsp" ><td>change password</td><td><input type = "submit" value="update"></td></form:form></tr>
-	<tr><form:form action = "updateprofile.jsp"><td>change user information</td><td><input type = "submit" value="update"></td></form:form></tr>
-	<tr><form:form action = "bookroom.jsp"><td></td><td><input type = "submit" value="submit"></td></form:form></tr>
+	<tr><form:form action = "updatepassword" ><td>change password</td><td><input type = "submit" value="update"></td></form:form></tr>
+	<tr><form:form action = "updateprofile"><td>change user information</td><td><input type = "submit" value="update"></td></form:form></tr>
+	<tr><form:form action = "bookroom"><td></td><td><input type = "submit" value="submit"></td></form:form></tr>
 	
 	</table>
 	
