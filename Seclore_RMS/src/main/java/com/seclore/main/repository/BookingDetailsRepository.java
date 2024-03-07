@@ -22,7 +22,7 @@ public class BookingDetailsRepository implements BookingDetailsRepositoryInterfa
 
     private static final String INSERT_INTO_BOOKING_DETAILS = "INSERT INTO booking_details (user_id, room_id, description, status) VALUES (?, ?, ?, ?)";
     private static final String UPDATE_EXISTING_BOOKING_DETAILS = "UPDATE booking_details SET user_id=?, room_id=?, description=?, status=? WHERE booking_id=?";
-    private static final String GET_ALL_BOOKING_DETAILS = "SELECT bd.booking_id, bd.description, bd.room_id, bd.status, bd.user_id, ud.name, ud.position FROM booking_details bd JOIN user_details ud ON (bd.user_id=ud.user_id) JOIN room_details rd ON bd.room_id=rd.room_id ORDER BY bd.user_id";
+    private static final String GET_ALL_BOOKING_DETAILS = "select *from (select bd.booking_id,bd.description,bd.room_id,bd.status,bd.user_id,ud.name,ud.position,ud.is_active from booking_details bd  join user_details ud on  (bd.user_id=ud.user_id )) m join room_details rd on m.room_id=rd.room_id order by m.user_id";
     private static final String GET_BOOKING_DETAILS_BY_USER_ID = "SELECT bd.booking_id, bd.description, bd.room_id, bd.status, bd.user_id, rd.capacity, rd.video_conferencing, rd.white_board, rd.room_name, rd.is_available FROM booking_details bd JOIN room_details rd ON rd.room_id=bd.room_id WHERE bd.user_id=?";
     private static final String GET_BOOKING_DETAILS_BY_BOOKING_ID = "SELECT bd.booking_id, bd.description, bd.room_id, bd.status, bd.user_id, rd.video_conferencing, rd.white_board, rd.capacity, ud.name, ud.position, ud.is_active, rd.room_name, rd.is_available FROM booking_details bd JOIN room_details rd ON rd.room_id=bd.room_id JOIN user_details ud ON ud.user_id=bd.user_id WHERE bd.booking_id=?";
 

@@ -36,7 +36,7 @@ public class UserDetailsController {
 		} else {
 			HttpSession session = request.getSession();
 			user.setPassword(null);
-			session.setAttribute("getroomrequirements", user);
+			session.setAttribute("loggedInUser", user);
 			message = " User Loggedin successfully ";
 
 			if(user.getPosition() == "admin")
@@ -48,8 +48,6 @@ public class UserDetailsController {
 		model.addAttribute("message", message);
 		return modalAndView;
 	}
-	
-	
 	@RequestMapping(value = "updatepass", method = RequestMethod.POST)
 	public ModelAndView updatePassword(HttpServletRequest request, Model model) {
 		String message = "";
@@ -87,7 +85,7 @@ public class UserDetailsController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("viewusers");
 		List<UserDetails> usersList = userDetailsServiceInterface.getAllUsers();
-		modelAndView.addObject("userlist", usersList);
+		model.addAttribute("userlist", usersList);
 		return modelAndView;
 	}
 	
@@ -98,20 +96,9 @@ public class UserDetailsController {
 		try {
 			response.sendRedirect("login");
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	@RequestMapping(value="addnewuser" , method = RequestMethod.POST)
-	public void addNewUser(@ModelAttribute UserDetails user, HttpServletRequest request, HttpServletResponse response)
-	{
-		try {
-		userDetailsServiceInterface.addNewUser(user);
-		HttpSession session = request.getSession();
-		session.setAttribute("message", "successfully updated ");
-		response.sendRedirect("admindashboard");
-		}catch(IOException e) {
-			System.out.println(e.getMessage());
-		}
-	}
 }
