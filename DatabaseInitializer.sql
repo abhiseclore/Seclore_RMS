@@ -40,14 +40,14 @@ CREATE TABLE room_details(
 	room_id INT IDENTITY,
 	room_name VARCHAR(30),
 	capacity INT NOT NULL,
-	video_conferencing BIT NOT NULL DEFAULT(0),
+	audio_video BIT NOT NULL DEFAULT(0),
 	white_board BIT NOT NULL DEFAULT(0),
 	is_available BIT NOT NULL DEFAULT(1),
 	CONSTRAINT room_pk PRIMARY KEY (room_id),
 	CONSTRAINT capacity_positive CHECK(capacity > 0),
 );
 
-INSERT INTO room_details (room_name,capacity, video_conferencing, white_board,is_available)
+INSERT INTO room_details (room_name,capacity, audio_video, white_board,is_available)
 VALUES 
 ('Blue room',5, 1, 0,1), 
 ('Red room',10, 0, 1,1), 
