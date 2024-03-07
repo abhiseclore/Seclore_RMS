@@ -27,7 +27,6 @@ public class UserDetailsController {
 	@Autowired
 	private UserDetailsServiceInterface userDetailsServiceInterface;
 
-	@RequestMapping("login")
 	
 	@RequestMapping("/")
 	public String showDefaultPage() {
@@ -148,15 +147,13 @@ public class UserDetailsController {
 	}
 
 	@RequestMapping(value = "updateuserstatus", method = RequestMethod.POST)
-	public void updateUserStatus(HttpServletRequest request, HttpServletResponse response) {
-		try {
+	public String updateUserStatus(HttpServletRequest request, HttpServletResponse response) {
+		
 			int userId = Integer.parseInt(request.getParameter("userId"));
 			boolean isActive = request.getParameter("isactive").equals("activate");
 			userDetailsServiceInterface.updateActive(userId, isActive);
-			response.sendRedirect("getallusers");
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			return "redirect:/getallusers";
+		
 	}
 
 	@RequestMapping("userdashboard")
