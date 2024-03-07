@@ -55,15 +55,15 @@ td, th {
 						</c:if>
 					</td>
 					<td>
-					<form action="updateuserstatus" action="">
-						<input type="hidden" value="${user.getUserId()}">
-						<c:if test="${user.isActive == true}">
+					<form action="updateuserstatus" method="post">
+						<input type="hidden" value="${user.getUserId()}" name = "userId">
+						<c:if test="${user.isActive == false}">
 							<input type="hidden" value="activate" name="isactive">
 							<input type="submit" value="Activate">
 						</c:if>
-						<c:if test="${user.isActive == false}">  
+						<c:if test="${user.isActive == true}">  
 							<input type="hidden" value="deactivate" name="isactive">
-							<input type="submit" value="De-Activate">
+							<input type="submit" value="Deactivate">
 						</c:if>
 					
 					</form>
