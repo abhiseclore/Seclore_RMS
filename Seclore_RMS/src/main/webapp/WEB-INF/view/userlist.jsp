@@ -39,7 +39,7 @@ td, th {
 				<th>User Name</th>
 				<th>Position</th>
 				<th>IsActive</th>
-
+				<th>Update Status</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -48,13 +48,28 @@ td, th {
 					<td>${user.getUserId()}</td>
 					<td>${user.getName()}</td>
 					<td>${user.getPosition()}</td>
-					<td><c:if test="${user.isActive == true}">  
+					<td><c:if test="${user.isActive == true}">
 							Yes
 						</c:if> <c:if test="${user.isActive == false}">  
 							No
-						</c:if></td>
-
+						</c:if>
+					</td>
 					<td>
+					<form action="updateuserstatus" action="">
+						<input type="hidden" value="${user.getUserId()}">
+						<c:if test="${user.isActive == true}">
+							<input type="hidden" value="activate" name="isactive">
+							<input type="submit" value="Activate">
+						</c:if>
+						<c:if test="${user.isActive == false}">  
+							<input type="hidden" value="deactivate" name="isactive">
+							<input type="submit" value="De-Activate">
+						</c:if>
+					
+					</form>
+					</td>
+
+				</tr>
 
 			</c:forEach>
 		</tbody>
