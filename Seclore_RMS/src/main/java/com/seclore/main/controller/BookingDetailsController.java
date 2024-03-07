@@ -99,7 +99,7 @@ public class BookingDetailsController {
 		return modelAndView;
 	}
 
-	@RequestMapping("showallbooking")
+	@RequestMapping("showallbookings")
 	public ModelAndView getAllExistingBookingDetails(HttpSession httpSession) {
 		UserDetails userDetails = (UserDetails) httpSession.getAttribute("loggedInUser");
 		
@@ -109,12 +109,12 @@ public class BookingDetailsController {
 		List<BookingDetails> allBookingDetailsByUserId = bookingDetailsService
 				.getAllExistingBookingDetailsByUserId(userDetails.getUserId());
 		System.out.println(allBookingDetailsByUserId.size());
-		for (BookingDetails bookingDetails : allBookingDetailsByUserId) {
-			System.out.println(bookingDetails);
-		}
+		
 		
 		List<BookingViewDetails> allBookingViewDetailsByUserId = bookingViewDetailsService
 				.getStartEndTimeByBookingId(allBookingDetailsByUserId);
+		
+		System.out.println(allBookingDetailsByUserId.size());
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("allBookingViewDetailsByUserId", allBookingViewDetailsByUserId);
@@ -124,10 +124,14 @@ public class BookingDetailsController {
 
 	@RequestMapping("showallbookingbyadmin")
 	public ModelAndView getAllExistingBookingDetailsByAdmin() {
+		System.out.println("in admin show all booking");
 		List<BookingDetails> allBookingDetails = bookingDetailsService.getAllExistingBookingDetailsByadmin();
+		System.out.println(allBookingDetails.size());
 
 		List<BookingViewDetails> allBookingViewDetailsByAdmin = bookingViewDetailsService
 				.getStartEndTimeByBookingId(allBookingDetails);
+		
+		System.out.println(allBookingViewDetailsByAdmin.size());
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("allBookingViewDetailsByAdmin", allBookingViewDetailsByAdmin);
 		modelAndView.setViewName("showallbookingbyadmin");
