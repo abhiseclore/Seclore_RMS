@@ -14,6 +14,7 @@ import com.seclore.main.domain.RoomDetails;
 import com.seclore.main.service.BookingViewDetailsServiceInterface;
 import com.seclore.main.service.RoomDetailsServiceInterface;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -27,41 +28,44 @@ public class ShowAvailableRoomsController {
 	@RequestMapping("add")
 	public ModelAndView getAvailableRoomsBySlot(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate,
 			@RequestParam LocalTime startTime, @RequestParam LocalTime endTime, @RequestParam int seatingCapacity,
-			@RequestParam Boolean hasWhiteboard, @RequestParam Boolean hasAudioVideo,HttpSession httpSession) {
-		
+			HttpSession httpSession, HttpServletRequest request) {
+
 		ModelAndView modelAndView = new ModelAndView();
-		
-		if(startDate.compareTo(endDate) >1) {
+
+		if (startDate.compareTo(endDate) > 1) {
 			modelAndView.addObject("message", "START DATE CANNOT BE GREATER THAN END DATE");
 			modelAndView.setViewName("getbookingrequirements");
 			return modelAndView;
 		}
-		if(startDate.compareTo(endDate) == 0 && startTime.compareTo(endTime)>1) {
+		if (startDate.compareTo(endDate) == 0 && startTime.compareTo(endTime) >= 1) {
 			modelAndView.addObject("message", "START TIME CANNOT BE GREATER THAN END DATE");
 			modelAndView.setViewName("getbookingrequirements");
 			return modelAndView;
 		}
-		
+
 		RoomDetails roomDetails = new RoomDetails();
 		roomDetails.setCapacity(seatingCapacity);
-		if(hasWhiteboard == null) roomDetails.setHasWhiteboard(false);
-		else roomDetails.setHasWhiteboard(hasWhiteboard);
-		if(hasAudioVideo == null) roomDetails.setHasAudioVideo(false);
-		else roomDetails.setHasAudioVideo(hasAudioVideo);
-		
-		
+		if (request.getParameter("hasWhiteboard") == null)
+			roomDetails.setHasWhiteboard(false);
+		else
+			roomDetails.setHasWhiteboard(true);
+		if (request.getParameter("hasAudioVideo") == null)
+			roomDetails.setHasAudioVideo(false);
+		else
+			roomDetails.setHasAudioVideo(true);
+
 		httpSession.setAttribute("startTime", startTime);
 		httpSession.setAttribute("endTime", endTime);
 		httpSession.setAttribute("startDate", startDate);
 		httpSession.setAttribute("endDate", endDate);
-		
+
 		List<RoomDetails> allAvailableRoom = roomDetailsServiceInterface.getAvailableRoomsWithCondition(roomDetails);
 		if (allAvailableRoom == null || allAvailableRoom.size() == 0) {
 			modelAndView.addObject("message", "NO ROOMS FILLS YOUR REQUIREMENTS");
 			modelAndView.setViewName("getbookingrequirements");
 			return modelAndView;
 		}
-		
+
 		List<RoomDetails> availableRooms = bookingViewDetailsServiceInterface.getAvailableRoomsBySlot(allAvailableRoom,
 				startTime, endTime, startDate, endDate);
 		if (availableRooms == null || availableRooms.size() == 0) {

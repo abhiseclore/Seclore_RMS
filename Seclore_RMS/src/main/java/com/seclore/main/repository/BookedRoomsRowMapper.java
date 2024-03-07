@@ -17,6 +17,7 @@ public class BookedRoomsRowMapper implements RowMapper<RoomDetails> {
 			details.setRoomId(roomId);
 			return details;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -60,11 +60,6 @@ td, th {
 						</c:if> <c:if test="${room.hasAudioVideo == false}">  
 							No
 						</c:if></td>
-						<td><c:if test="${room.isAvailable == true}">  
-							Yes
-						</c:if> <c:if test="${room.isAvailable == false}">  
-							No
-						</c:if></td>
 						<td><input type="radio" value="${room.roomId }" name="roomId"
 							required="required"></td>
 					</tr>

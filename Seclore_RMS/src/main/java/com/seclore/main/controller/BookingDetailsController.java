@@ -36,9 +36,12 @@ public class BookingDetailsController {
 	@RequestMapping("add")
 	public ModelAndView addBookingDetails(@RequestParam int roomId, @RequestParam String description,
 			HttpSession httpSession) {
+		System.out.println("addBookingDetails");
 		ModelAndView modelAndView = new ModelAndView();
 		UserDetails userDetails = (UserDetails) httpSession.getAttribute("loggedInUser");
+		System.out.println(userDetails);
 		LocalDate startDate = (LocalDate) httpSession.getAttribute("startDate");
+		System.out.println(startDate);
 		LocalDate endDate = (LocalDate) httpSession.getAttribute("endDate");
 		LocalTime startTime = (LocalTime) httpSession.getAttribute("startTime");
 		LocalTime endTime = (LocalTime) httpSession.getAttribute("endTime");
@@ -64,7 +67,7 @@ public class BookingDetailsController {
 				.getStartEndTimeByBookingId(allBookingDetails);
 
 		modelAndView.addObject("allBookingViewDetails", allBookingViewDetails);
-		modelAndView.setViewName("finalbooking");
+		modelAndView.setViewName("finalbookings");
 		return modelAndView;
 	}
 

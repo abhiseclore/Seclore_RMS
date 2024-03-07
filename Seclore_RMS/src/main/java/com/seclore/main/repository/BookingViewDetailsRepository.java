@@ -39,10 +39,11 @@ public class BookingViewDetailsRepository implements BookingViewDetailsRepositor
 	@Override
 	public List<BookingViewDetails> getStartEndTimeByBookingId(List<BookingDetails> bookingDetailsList) {
 		List<BookingViewDetails> bookingStartEndTimeList = new ArrayList<BookingViewDetails>();
-
+		System.out.println(bookingDetailsList);
 		for (BookingDetails details : bookingDetailsList) {
+			Object[] args = {details.getBookingId()};
 			List<BookingViewDetails> bookingViewList = jdbcTemplate.query(GET_STARTEND_TIME,
-					new StartEndTimeRowMapper(), details.getBookingId());
+					new StartEndTimeRowMapper(), args);
 			bookingViewList.get(0).getBookingSlots().setBooking(details);
 			if (bookingViewList.size() == 1)
 				bookingStartEndTimeList.add(bookingViewList.get(0));

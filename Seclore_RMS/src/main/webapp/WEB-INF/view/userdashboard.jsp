@@ -18,7 +18,7 @@ if(user.getPosition()=="admin"){
 	<tr><form action = "updatepassword" method="get" ><td>change password</td><td><input type = "submit" value="update"></td></form></tr>
 	<tr><form action = "updateprofile" method="get"><td>change user information</td><td><input type = "submit" value="update"></td></form></tr>
 	<tr><form action = "bookingdetails/showallbookings"><td>show all bookings</td><td><input type = "submit" value="show"></td></form></tr>
-	<tr><form action = "bookingdetails/getbookingrequirements.jsp"><td>Add new booking</td><td><input type = "submit" value="Add"></td></form></tr>
+	<tr><form action = "getbookingrequirement"><td>Add new booking</td><td><input type = "submit" value="Add"></td></form></tr>
 	
 	
 	</table>
