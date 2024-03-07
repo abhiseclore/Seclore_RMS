@@ -15,4 +15,5 @@ public interface UserDetailsRepositoryInterface {
 	public List<UserDetails> getAllUsers();
 
 	public boolean updatePassword(int userId, String password);
+	public boolean updateActive(int userId, boolean isActive);
 }

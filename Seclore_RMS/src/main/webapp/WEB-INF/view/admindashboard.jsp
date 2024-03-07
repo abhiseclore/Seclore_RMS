@@ -29,6 +29,11 @@
 				<td><input type="submit" value="add new user"></td>
 			</form:form>
 		</tr>
+				<tr>
+			<form:form action="addroom.jsp">
+				<td></td>Add Room<td><input type="submit" value="submit"></td>
+			</form:form>
+		</tr>
 		<tr>
 			<form:form action="addroom.jsp">
 				<td></td>Add Room<td><input type="submit" value="submit"></td>

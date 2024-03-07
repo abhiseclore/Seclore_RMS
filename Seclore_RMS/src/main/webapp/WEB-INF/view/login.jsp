@@ -9,11 +9,11 @@
 <title>Login</title>
 </head>
 <body>
-	<form:form action="userlogin" modelAttribute="user">
+	<form:form action="userlogin" modelAttribute="userDetails">
 		<table>
 			<tr>
 				<td>Login_id</td>
-				<td><form:input path="user_id" /></td>
+				<td><form:input path="userId" /></td>
 			</tr>
 			<tr>
 				<td>Password</td>
