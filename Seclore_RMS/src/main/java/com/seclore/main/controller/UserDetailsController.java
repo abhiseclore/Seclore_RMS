@@ -161,7 +161,7 @@ public class UserDetailsController {
 			// TODO: handle exception
 		}
 	}
-	@RequestMapping(value = "adduser", method = RequestMethod.GET)
+	@RequestMapping(value = "dashboard", method = RequestMethod.GET)
 	public String showDashBoard(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		UserDetails user = (UserDetails)session.getAttribute("loggedInUser");
