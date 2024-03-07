@@ -2,6 +2,7 @@ package com.seclore.main.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 	private BookingSlotsRepositoryInterface bookingSlotsRepository;
 	
 	@Override
-	public BookingDetails addBookingDetails(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime,
+	public List<BookingDetails> addBookingDetails(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime,
 			int userId, int roomId, String description) {
 		BookingDetails bookingDetails = new BookingDetails();
 		bookingDetails.setRoom(new RoomDetails());
@@ -33,12 +34,17 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 		bookingDetails.setDescription(description);
 		bookingDetails.setStatus("BOOKED");
 		
+		List<BookingDetails> batchBookings = new ArrayList<BookingDetails>();
+		BookingDetails booking;
+		
 		do {
-			int bookingId = bookingDetailsRepository.addBookingDetails(bookingDetails);
-			bookingDetails.setBookingId(bookingId);
-			bookingSlotsRepository.addNewBookingSlots(bookingDetails, startTime, endTime, startDate);
+			booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
+			batchBookings.add(bookingDetails);
+			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, startDate);
 			startDate.plusDays(1);
 		} while(!startDate.isAfter(endDate));
+		
+		return batchBookings;
 	}
 
 	@Override
@@ -88,20 +94,21 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 	@Transactional
 	public boolean cancelPartialBooking(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime,
 			LocalTime newStartTime, LocalTime newEndTime, LocalDate date, String action) {
+		
+		BookingDetails booking;
+		
 		if(action.equals("SHRINK")) {
-			bookingSlotsRepository.deleteBookingSlots(bookingDetails.getBookingId(), startTime, newStartTime, date);
-			bookingSlotsRepository.deleteBookingSlots(bookingDetails.getBookingId(), newEndTime, endTime, date);
+			bookingSlotsRepository.deleteBookingSlots(bookingDetails, startTime, newStartTime, date);
+			bookingSlotsRepository.deleteBookingSlots(bookingDetails, newEndTime, endTime, date);
 		}
 		if(action.equals("SPLIT")) {
 			cancelExistingBookingDetails(bookingDetails);
 			
-			int bookingId = bookingDetailsRepository.addBookingDetails(bookingDetails);
-			bookingDetails.setBookingId(bookingId);
-			bookingSlotsRepository.addNewBookingSlots(bookingDetails, startTime, newStartTime, date);
+			booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
+			bookingSlotsRepository.addBookingSlots(booking, startTime, newStartTime, date);
 			
-			bookingId = bookingDetailsRepository.addBookingDetails(bookingDetails);
-			bookingDetails.setBookingId(bookingId);
-			bookingSlotsRepository.addNewBookingSlots(bookingDetails, startTime, endTime, date);			
+			booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
+			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, date);			
 		}
 		return true;
 	}

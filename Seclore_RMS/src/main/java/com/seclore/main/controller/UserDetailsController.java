@@ -47,7 +47,7 @@ public class UserDetailsController {
 		} else {
 			HttpSession session = request.getSession();
 			user.setPassword(null);
-			session.setAttribute("getroomrequirements", user);
+			session.setAttribute("loggedInUser", user);
 			message = " User Loggedin successfully ";
 
 			if (user.getPosition() == "admin")
@@ -112,7 +112,7 @@ public class UserDetailsController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("userlist");
 		List<UserDetails> usersList = userDetailsServiceInterface.getAllUsers();
-		modelAndView.addObject("userlist", usersList);
+		model.addAttribute("userlist", usersList);
 		return modelAndView;
 	}
 
@@ -123,6 +123,7 @@ public class UserDetailsController {
 		try {
 			response.sendRedirect("login");
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
