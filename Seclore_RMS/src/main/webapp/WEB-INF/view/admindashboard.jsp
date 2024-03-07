@@ -12,43 +12,43 @@
 <body>
 	<table>
 		<tr>
-			<form:form action="updatepassword">
+			<form action="updatepassword">
 				<td>change password</td>
 				<td><input type="submit" value="update"></td>
-			</form:form>
+			</form>
 		</tr>
 		<tr>
-			<form:form action="updateinfo">
+			<form action="updateinfo">
 				<td>update profile</td>
 				<td><input type="submit" value="update"></td>
-			</form:form>
+			</form>
 		</tr>
 		<tr>
-			<form:form action="adduser">
+			<form action="adduser">
 				<td>Add new user</td>
 				<td><input type="submit" value="add new user"></td>
-			</form:form>
+			</form>
 		</tr>
 				<tr>
-			<form:form action="getallusers">
+			<form action="getallusers" method="get">
 				<td>>Users List</td><td><input type="submit" value="submit"></td>
-			</form:form>
+			</form>
 		</tr>
 		<tr>
-			<form:form action="/roomdetails/allrooms">
+			<form action="/roomdetails/allrooms">
 				<td>Rooms</td><td><input type="submit" value="submit"></td>
-			</form:form>
+			</form>
 		</tr>
 
 		<tr>
-			<form:form action="bookingdetails/getbookingrequirements.jsp">
+			<form action="bookingdetails/getbookingrequirements.jsp">
 				<td>Add Booking</td><td><input type="submit" value="submit"></td>
-			</form:form>
+			</form>
 		</tr>
 		<tr>
-			<form:form action="bookingdetails/showallbookingsbyadmin">
+			<form action="bookingdetails/showallbookingsbyadmin">
 				<td>List All booking</td><td><input type="submit" value="submit"></td>
-			</form:form>
+			</form>
 		</tr>
 
 	</table>
