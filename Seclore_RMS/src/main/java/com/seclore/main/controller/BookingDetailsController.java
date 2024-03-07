@@ -35,7 +35,7 @@ public class BookingDetailsController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ModelAndView addBookingDetails(@RequestParam int roomId, @RequestParam String description,
-			 HttpSession httpSession) {
+			HttpSession httpSession) {
 		ModelAndView modelAndView = new ModelAndView();
 		UserDetails userDetails = (UserDetails) httpSession.getAttribute("loggedInUser");
 		LocalDate startDate = (LocalDate) httpSession.getAttribute("startDate");
@@ -51,8 +51,8 @@ public class BookingDetailsController {
 			return modelAndView;
 		}
 
-		List<BookingDetails> allBookingDetails = bookingDetailsService.addBookingDetails(startDate, endDate, startTime, endTime,
-				userDetails.getUserId(), roomDetails.getRoomId(), description);
+		List<BookingDetails> allBookingDetails = bookingDetailsService.addBookingDetails(startDate, endDate, startTime,
+				endTime, userDetails.getUserId(), roomDetails.getRoomId(), description);
 
 		if (allBookingDetails.isEmpty()) {
 			modelAndView.addObject("message", "Unable to add the room");
@@ -60,12 +60,15 @@ public class BookingDetailsController {
 			return modelAndView;
 		}
 
-		modelAndView.addObject("allBookingDetails", allBookingDetails);
+		List<BookingViewDetails> allBookingViewDetails = bookingViewDetailsService
+				.getStartEndTimeByBookingId(allBookingDetails);
+
+		modelAndView.addObject("allBookingViewDetails", allBookingViewDetails);
 		modelAndView.setViewName("finalbooking");
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.PATCH)
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	@Transactional
 	public String cancelExistingBookingDetails(@ModelAttribute BookingDetails bookingDetails) {
 		if (bookingDetailsService.cancelExistingBookingDetails(bookingDetails)) {
@@ -83,9 +86,9 @@ public class BookingDetailsController {
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public ModelAndView getExistingBookingDetails(@RequestParam int bookingId) {
-		
+
 		BookingDetails bookingDetails = bookingDetailsService.getExistingBookingDetails(bookingId);
-		
+
 		BookingViewDetails bookingViewDetails = bookingViewDetailsService.getStartEndTimeForSingleId(bookingDetails);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("bookingViewDetails", bookingViewDetails);
@@ -93,12 +96,12 @@ public class BookingDetailsController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value="/showallbooking",method = RequestMethod.GET)
+	@RequestMapping(value = "/showallbooking", method = RequestMethod.GET)
 	public ModelAndView getAllExistingBookingDetails(HttpSession httpSession) {
 		UserDetails userDetails = (UserDetails) httpSession.getAttribute("loggedInUser");
 		List<BookingDetails> allBookingDetailsByUserId = bookingDetailsService
 				.getAllExistingBookingDetailsByUserId(userDetails.getUserId());
-				List<BookingViewDetails> allBookingViewDetailsByUserId = bookingViewDetailsService
+		List<BookingViewDetails> allBookingViewDetailsByUserId = bookingViewDetailsService
 				.getStartEndTimeByBookingId(allBookingDetailsByUserId);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("allBookingViewDetailsByUserId", allBookingViewDetailsByUserId);
@@ -106,9 +109,10 @@ public class BookingDetailsController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value="/showallbookingbyadmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/showallbookingbyadmin", method = RequestMethod.GET)
 	public ModelAndView getAllExistingBookingDetailsByAdmin() {
 		List<BookingDetails> allBookingDetails = bookingDetailsService.getAllExistingBookingDetailsByadmin();
+
 		List<BookingViewDetails> allBookingViewDetailsByAdmin = bookingViewDetailsService
 				.getStartEndTimeByBookingId(allBookingDetails);
 		ModelAndView modelAndView = new ModelAndView();
@@ -117,6 +121,13 @@ public class BookingDetailsController {
 		return modelAndView;
 	}
 	
-	
-	
+	@RequestMapping(value = "/partialupdate", method = RequestMethod.GET)
+	public ModelAndView updateExistingBookingDetailsBySlot(@ModelAttribute BookingViewDetails bookingViewDetails) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("bookingViewDetails", bookingViewDetails);
+		modelAndView.setViewName("updatebookingslots");
+		return modelAndView;
+	}
+
 }
