@@ -51,7 +51,7 @@
 						Time
 					</td>
 					<td>
-						${bookingViewDetails.getSlotMaster().getStartTime} - ${bookingViewDetails.getSlotMaster().getEndTime}
+						${bookingViewDetails.getSlotMaster().getStartTime()} - ${bookingViewDetails.getSlotMaster().getEndTime()}
 					</td>
 				</tr>
 			</table>

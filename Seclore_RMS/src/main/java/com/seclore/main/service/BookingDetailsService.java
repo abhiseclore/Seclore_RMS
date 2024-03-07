@@ -19,13 +19,13 @@ import com.seclore.main.repository.BookingSlotsRepositoryInterface;
 public class BookingDetailsService implements BookingDetailsServiceInterface {
 	@Autowired
 	private BookingDetailsRepositoryInterface bookingDetailsRepository;
-	
+
 	@Autowired
 	private BookingSlotsRepositoryInterface bookingSlotsRepository;
-	
+
 	@Override
-	public List<BookingDetails> addBookingDetails(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime,
-			int userId, int roomId, String description) {
+	public List<BookingDetails> addBookingDetails(LocalDate startDate, LocalDate endDate, LocalTime startTime,
+			LocalTime endTime, int userId, int roomId, String description) {
 		BookingDetails bookingDetails = new BookingDetails();
 		bookingDetails.setRoom(new RoomDetails());
 		bookingDetails.getRoom().setRoomId(roomId);
@@ -33,17 +33,19 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 		bookingDetails.getUser().setUserId(userId);
 		bookingDetails.setDescription(description);
 		bookingDetails.setStatus("BOOKED");
-		
+
 		List<BookingDetails> batchBookings = new ArrayList<BookingDetails>();
 		BookingDetails booking;
-		
+
 		do {
 			booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
+			System.out.println(booking);
 			batchBookings.add(bookingDetails);
 			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, startDate);
-			startDate.plusDays(1);
-		} while(!startDate.isAfter(endDate));
-		
+			startDate = startDate.plusDays(1);
+			System.out.println("in loop");
+		} while (!startDate.isAfter(endDate));
+
 		return batchBookings;
 	}
 
@@ -53,14 +55,14 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 	}
 
 	@Override
-	public boolean cancelExistingBookingDetails(BookingDetails bookingDetails) {	
+	public boolean cancelExistingBookingDetails(BookingDetails bookingDetails) {
 		return bookingDetailsRepository.cancelBookingDetails(bookingDetails);
-		
+
 	}
 
 	@Override
 	public BookingDetails approveBookingDetails(BookingDetails bookingDetails) {
-		
+
 		bookingDetails.setStatus("BOOKED");
 		return bookingDetailsRepository.updateExistingBookingDetails(bookingDetails);
 	}
@@ -74,35 +76,35 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 	public List<BookingDetails> getAllExistingBookingDetailsByUserId(int userId) {
 		// TODO Auto-generated method stub
 		return bookingDetailsRepository.getExistingBookingDetailsbyuserid(userId);
-		
+
 	}
 
 	@Override
 	public List<BookingDetails> getAllExistingBookingDetailsByadmin() {
 		// TODO Auto-generated method stub
 		return bookingDetailsRepository.getAllExistingBookingDetailsByadmin();
-		
+
 	}
 
 	@Override
 	@Transactional
 	public boolean cancelPartialBooking(BookingDetails bookingDetails, LocalTime startTime, LocalTime endTime,
 			LocalTime newStartTime, LocalTime newEndTime, LocalDate date, String action) {
-		
+
 		BookingDetails booking;
-		
-		if(action.equals("SHRINK")) {
+
+		if (action.equals("SHRINK")) {
 			bookingSlotsRepository.deleteBookingSlots(bookingDetails, startTime, newStartTime, date);
 			bookingSlotsRepository.deleteBookingSlots(bookingDetails, newEndTime, endTime, date);
 		}
-		if(action.equals("SPLIT")) {
+		if (action.equals("SPLIT")) {
 			cancelExistingBookingDetails(bookingDetails);
-			
+
 			booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
 			bookingSlotsRepository.addBookingSlots(booking, startTime, newStartTime, date);
-			
+
 			booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
-			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, date);			
+			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, date);
 		}
 		return true;
 	}
