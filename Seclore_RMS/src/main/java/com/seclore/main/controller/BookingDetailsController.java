@@ -130,7 +130,7 @@ public class BookingDetailsController {
 		httpSession.setAttribute("allBookingViewDetails", allBookingViewDetailsByUserId);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("allBookingViewDetailsByUserId", allBookingViewDetailsByUserId);
-		modelAndView.setViewName("showallbookings");
+		modelAndView.setViewName("showallbooking");
 		return modelAndView;
 	}
 

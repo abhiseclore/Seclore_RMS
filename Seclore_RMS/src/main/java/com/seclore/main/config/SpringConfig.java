@@ -1,4 +1,4 @@
-package com.seclore.main.controller;
+package com.seclore.main.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +18,8 @@ public class SpringConfig implements WebMvcConfigurer {
 		return viewResolver;
 	}
 
-//	@Override
-//	public void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(new ValidationInterceptor());
-//	}
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new ValidationInterceptor());
+	}
 }
