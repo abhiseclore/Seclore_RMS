@@ -5,11 +5,11 @@ import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,6 +32,8 @@ public class BookingDetailsController {
 
 	@Autowired
 	BookingViewDetailsServiceInterface bookingViewDetailsService;
+
+	
 
 	@RequestMapping("add")
 	public ModelAndView addBookingDetails(@RequestParam int roomId, @RequestParam String description,
@@ -69,13 +71,18 @@ public class BookingDetailsController {
 		return modelAndView;
 	}
 
-	@RequestMapping("delete")
 	@Transactional
+	@RequestMapping("delete")
 	public String cancelExistingBookingDetails(@RequestParam int index,HttpSession httpSession) {
+		System.out.println("hi");
 		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession.getAttribute("allBookingViewDetails");
+		System.out.println(allBookingViewDetails);
 		BookingDetails bookingDetails = allBookingViewDetails.get(index).getBookingSlots().getBooking();
-
-		return bookingDetailsService.cancelExistingBookingDetails(bookingDetails) ? "showallbookings" : "error";
+		System.out.println("controller");
+		System.out.println(bookingDetails);
+		System.out.println(bookingDetailsService.cancelExistingBookingDetails(bookingDetails));
+//		return bookingDetailsService.cancelExistingBookingDetails(bookingDetails) ? "showallbookings" : "error";
+		return "error";
 	}
 
 	@RequestMapping("update")
@@ -137,9 +144,26 @@ public class BookingDetailsController {
 		ModelAndView modelAndView = new ModelAndView();
 		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession.getAttribute("allBookingViewDetails");
 		BookingViewDetails bookingViewDetails = allBookingViewDetails.get(index);
+		httpSession.setAttribute("bookingViewDetails", bookingViewDetails);
 		modelAndView.addObject("bookingViewDetails", bookingViewDetails);
 		modelAndView.setViewName("updatebookingslots");
 		return modelAndView;
+	}
+	
+	
+	@RequestMapping("cancelpartialbooking")
+	public String updateExistingBookingDetailsBySlot(HttpSession httpSession,@RequestParam LocalTime newStartTime,@RequestParam LocalTime newEndTime,@RequestParam String action) {
+		ModelAndView modelAndView = new ModelAndView();
+		BookingViewDetails bookingViewDetails=(BookingViewDetails) httpSession.getAttribute("bookingDetails");
+		if(bookingDetailsService.cancelPartialBooking(bookingViewDetails.getBookingSlots().getBooking(), bookingViewDetails.getSlotMaster().getStartTime(), bookingViewDetails.getSlotMaster().getEndTime(), newStartTime, newEndTime, bookingViewDetails.getSlotMaster().getDate(), action)) {
+			return "showallbookings";
+		}
+		else {
+			return "error";
+		}
+		
+		
+		
 	}
 	
 	
