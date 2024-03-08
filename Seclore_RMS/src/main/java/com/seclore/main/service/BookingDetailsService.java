@@ -59,10 +59,11 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 	public BookingDetails updateExistingBookingDetails(BookingDetails bookingDetails) {
 		return bookingDetailsRepository.updateExistingBookingDetails(bookingDetails);
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean cancelExistingBookingDetails(BookingDetails bookingDetails) {
-		return bookingDetailsRepository.cancelBookingDetails(bookingDetails);
+		return bookingDetailsRepository.cancelBookingDetails(bookingDetails) && bookingSlotsRepository.deleteBookingSlotsByBookingId(bookingDetails.getBookingId());
 
 	}
 
