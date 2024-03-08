@@ -81,14 +81,14 @@ public class BookingDetailsController {
 		System.out.println("controller");
 		System.out.println(bookingDetails);
 		System.out.println(bookingDetailsService.cancelExistingBookingDetails(bookingDetails));
-//		return bookingDetailsService.cancelExistingBookingDetails(bookingDetails) ? "showallbooking" : "error";
+//		return bookingDetailsService.cancelExistingBookingDetails(bookingDetails) ? "showallbookings" : "error";
 		return "error";
 	}
 
 	@RequestMapping("update")
 	public String updateExistingBookingDetails(@ModelAttribute BookingDetails bookingDetails) {
 		
-		return  bookingDetailsService.updateExistingBookingDetails(bookingDetails)!= null ? "showallbooking" : "error";
+		return  bookingDetailsService.updateExistingBookingDetails(bookingDetails)!= null ? "showallbookings" : "error";
 	}
 
 	@RequestMapping("get")

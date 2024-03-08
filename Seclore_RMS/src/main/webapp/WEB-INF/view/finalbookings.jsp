@@ -49,5 +49,8 @@
 			</table>
 			<hr>
 		</c:forEach>
+		<p>
+			<a href="/dashboard">Back to Dashboard</a>
+		</p>
 	</body>
 </html>
