@@ -172,7 +172,7 @@ public class UserDetailsController {
 		HttpSession session = request.getSession();
 		UserDetails user = (UserDetails) session.getAttribute("loggedInUser");
 		System.out.println(user);
-		if (user.getPosition().equals("admin"))
+		if (user.getPosition().equals("admin")||user.getPosition().equals("Admin")||user.getPosition().equals("Administrator"))
 			return "redirect:/admindashboard";
 		return "redirect:/userdashboard";
 	}
