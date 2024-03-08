@@ -46,6 +46,7 @@ td{
 			<th>Operations</th>
 		</thead>
 		<tbody>
+		<c:set var="i" value="0"/>
 			<c:forEach var="allBookings" items="${allBookingViewDetailsByUserId}">
 				<tr>
 					<td>${allBookings.getBookingSlots().getBooking().getBookingId()}</td>
@@ -67,6 +68,7 @@ td{
 						</div>
 					</td>
 				</tr>
+				<c:set var="i" value="${i+1}"/>
 			</c:forEach>
 		</tbody>
 	</table>
