@@ -31,8 +31,8 @@
 					<td>${allBookings.getSlotMaster().getDate()}</td>
 					<td>${allBookings.getBookingSlots().getBooking().getDescription()}
 					<td><f:form action="updateslot"
-							modelAttribute="bookingViewDetails">
-						${bookingViewDetails = allBookings}
+							modelAttribute="bookingDetails">
+						${bookingViewDetails = allBookings.getBookingSlots().getBooking()}
 						<input type="submit" value="Update Slot">
 						</f:form></td>
 					<td><f:form action="delete"
