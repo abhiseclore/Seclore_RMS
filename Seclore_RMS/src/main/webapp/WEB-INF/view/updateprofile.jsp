@@ -8,6 +8,20 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Update Profile</title>
+<style type="text/css">
+html, body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+}</style>
 </head>
 <body>
 	<%
@@ -18,12 +32,12 @@
 			<tr>
 				<td>UserId</td>
 				<td><input type="number" name="userId" path="userId" 
-					value="${userDetails.userId }" readonly></td>
+					value="${userDetails.userId }" readonly ></td>
 			</tr>
 			<tr>
 				<td>Name</td>
 				<td><input type="text" name="name" path="name"
-					value="${userDetails.name }"></td>
+					value="${userDetails.name }" required></td>
 			</tr>
 			<tr>
 				<td>Position</td>

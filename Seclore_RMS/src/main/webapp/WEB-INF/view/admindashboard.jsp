@@ -8,8 +8,33 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Admin DashBoard</title>
+<style type="text/css">
+html, body {
+    height: 100%;
+}
+
+html {
+    margin: auto;
+}
+
+body {
+
+}
+table{
+	font-size: large;
+	column-gap: 10%;
+}
+form{
+		padding: 2rem;
+	}
+	
+	td{
+		padding-bottom: 15px;
+	}
+</style>
 </head>
 <body>
+<h1>DashBoard</h1>
 	<table>
 		<tr>
 			<form action="updatepassword">
@@ -18,7 +43,7 @@
 			</form>
 		</tr>
 		<tr>
-			<form action="updateinfo">
+			<form action="updateprofile" method="get">
 				<td>update profile</td>
 				<td><input type="submit" value="update"></td>
 			</form>
@@ -31,7 +56,7 @@
 		</tr>
 				<tr>
 			<form action="getallusers" method="get">
-				<td>>Users List</td><td><input type="submit" value="submit"></td>
+				<td>Users List</td><td><input type="submit" value="submit"></td>
 			</form>
 		</tr>
 		<tr>
@@ -48,6 +73,11 @@
 		<tr>
 			<form action="bookingdetails/showallbookingsbyadmin">
 				<td>List All booking</td><td><input type="submit" value="submit"></td>
+			</form>
+		</tr>
+				<tr>
+			<form action="logout">
+				<td></td><td><input type="submit" value="LogOut"></td>
 			</form>
 		</tr>
 
