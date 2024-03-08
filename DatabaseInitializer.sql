@@ -201,3 +201,14 @@ go
 
 select * from slot_master
 --------------------------------------------------------------------------------------------------------------------------------
+
+go
+drop  procedure getStartEndTime
+go 
+create procedure getStartEndTime @booking_id int
+as
+select booking_id,room_id,start_time,end_time,date from
+((SELECT TOP 1 * FROM all_bookings where booking_id = @booking_id and is_booked = 1)
+UNION 
+(SELECT TOP 1 * FROM all_bookings where booking_id = @booking_id and is_booked = 1 ORDER BY date,end_time desc)) t;
+go
