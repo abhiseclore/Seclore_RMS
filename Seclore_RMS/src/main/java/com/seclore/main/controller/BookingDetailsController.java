@@ -33,6 +33,8 @@ public class BookingDetailsController {
 	@Autowired
 	BookingViewDetailsServiceInterface bookingViewDetailsService;
 
+	
+
 	@RequestMapping("add")
 	public ModelAndView addBookingDetails(@RequestParam int roomId, @RequestParam String description,
 			HttpSession httpSession) {
@@ -142,9 +144,26 @@ public class BookingDetailsController {
 		ModelAndView modelAndView = new ModelAndView();
 		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession.getAttribute("allBookingViewDetails");
 		BookingViewDetails bookingViewDetails = allBookingViewDetails.get(index);
+		httpSession.setAttribute("bookingViewDetails", bookingViewDetails);
 		modelAndView.addObject("bookingViewDetails", bookingViewDetails);
 		modelAndView.setViewName("updatebookingslots");
 		return modelAndView;
+	}
+	
+	
+	@RequestMapping("cancelpartialbooking")
+	public String updateExistingBookingDetailsBySlot(HttpSession httpSession,@RequestParam LocalTime newStartTime,@RequestParam LocalTime newEndTime,@RequestParam String action) {
+		ModelAndView modelAndView = new ModelAndView();
+		BookingViewDetails bookingViewDetails=(BookingViewDetails) httpSession.getAttribute("bookingDetails");
+		if(bookingDetailsService.cancelPartialBooking(bookingViewDetails.getBookingSlots().getBooking(), bookingViewDetails.getSlotMaster().getStartTime(), bookingViewDetails.getSlotMaster().getEndTime(), newStartTime, newEndTime, bookingViewDetails.getSlotMaster().getDate(), action)) {
+			return "showallbookings";
+		}
+		else {
+			return "error";
+		}
+		
+		
+		
 	}
 	
 	
