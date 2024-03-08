@@ -38,18 +38,19 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 			bookingDetails.getUser().setUserId(userId);
 			bookingDetails.setDescription(description);
 			bookingDetails.setStatus("BOOKED");
-//			BookingDetails	booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
-//		System.out.println(booking);
-			batchBookings.add(bookingDetailsRepository.addBookingDetails(bookingDetails));
+		BookingDetails	booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
+		System.out.println(booking);
+			batchBookings.add(booking);
+			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, startDate);
 
 //			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, startDate);
 			startDate = startDate.plusDays(1);
 		} while (!startDate.isAfter(endDate));
 		System.out.println(batchBookings);
 
-		for (BookingDetails booking : batchBookings) {
-			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, startDate);
-		}
+//		for (BookingDetails booking : batchBookings) {
+//			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, startDate);
+//		}
 
 		return batchBookings;
 	}
