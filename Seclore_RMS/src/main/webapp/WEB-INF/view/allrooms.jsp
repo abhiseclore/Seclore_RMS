@@ -25,10 +25,21 @@
 	td, th{
 		padding : 20px;
 	}
+	.title-div{
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr;
+		align-items: center;
+		justify-items: center;
+	}
 </style>
 </head>
 <body>
-	<h1>All Rooms</h1>
+	<div class="title-div">
+		<a href="/dashboard"> Back to Dashboard</a>
+		<h1>All Rooms</h1>
+	</div>
 	<table>
 		<thead>
 			<tr>
