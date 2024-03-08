@@ -9,6 +9,30 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>All Bookings</title>
+<style type="text/css">
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+}
+
+table, th, td {
+	border: 1px solid;
+}
+
+table {
+	border-collapse: collapse;
+}
+td{
+	padding: 10px;
+}
+.operations{
+	display: flex;
+	gap: 10px;
+}
+</style>
 </head>
 <body>
 	<h1>All Bookings</h1>
@@ -30,14 +54,18 @@
 					<td>${allBookings.getSlotMaster().getEndTime()}</td>
 					<td>${allBookings.getSlotMaster().getDate()}</td>
 					<td>${allBookings.getBookingSlots().getBooking().getDescription()}
-					<td><form action="/bookingdetails/updateslot">
-							<input type="hidden" value="${i}" name="index"> <input
-								type="submit" value="Update Slot">
-						</form></td>
-					<td><form action="/bookingdetails/delete">
-						<input type="hidden" value="${i}" name="index">
-						<input type="submit" value="Delete">
-						</form></td>
+					<td>
+						<div class="operations">
+							<form action="/bookingdetails/updateslot">
+								<input type="hidden" value="${i}" name="index"> <input
+									type="submit" value="Update Slot">
+							</form>
+							<form action="/bookingdetails/delete">
+							<input type="hidden" value="${i}" name="index">
+							<input type="submit" value="Delete">
+							</form>
+						</div>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

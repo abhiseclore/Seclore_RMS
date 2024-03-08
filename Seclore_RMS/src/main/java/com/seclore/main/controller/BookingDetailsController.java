@@ -99,7 +99,7 @@ public class BookingDetailsController {
 	@RequestMapping("showallbookings")
 	public ModelAndView getAllExistingBookingDetails(HttpSession httpSession) {
 		UserDetails userDetails = (UserDetails) httpSession.getAttribute("loggedInUser");
-
+		ModelAndView redirectModelAndView = new ModelAndView("redirect:/showallbookingsbyadmin");
 		if (userDetails.getPosition().equals("Admin"))
 			return getAllExistingBookingDetailsByAdmin(httpSession);
 
