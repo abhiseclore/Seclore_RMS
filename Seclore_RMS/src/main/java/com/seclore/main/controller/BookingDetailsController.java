@@ -101,7 +101,7 @@ public class BookingDetailsController {
 		UserDetails userDetails = (UserDetails) httpSession.getAttribute("loggedInUser");
 
 		if (userDetails.getPosition().equals("Admin"))
-			return getAllExistingBookingDetailsByAdmin();
+			return getAllExistingBookingDetailsByAdmin(httpSession);
 
 		List<BookingDetails> allBookingDetailsByUserId = bookingDetailsService
 				.getAllExistingBookingDetailsByUserId(userDetails.getUserId());
