@@ -38,35 +38,32 @@ form{
 	<%
 	UserDetails user = (UserDetails) session.getAttribute("loggedInUser");
 	if (user.getPosition() == "admin"||user.getPosition() == "Admin") {
-		response.sendRedirect("admindashboard");
+		response.sendRedirect("dashboard");
 	}
 	%>
+	<h1>DashBoard</h1>
 	<table>
 		<tr>
 				<td><a href="updatepassword">change password</a> </td>
 				
 		</tr>
 		<tr>
-			<form action="updateprofile" method="get">
-				<td>change user information</td>
-				<td><input type="submit" value="update"></td>
-			</form>
+				<td><a href = "updateprofile">change user information</a></td>
+
 		</tr>
 		<tr>
-			<form action="bookingdetails/showallbookings">
-				<td>show all bookings</td>
-				<td><input type="submit" value="show"></td>
-			</form>
+				<td><a href="bookingdetails/showallbookings">show all bookings</a></td>
 		</tr>
 		<tr>
-			<form action="getbookingrequirements">
-				<td>Add new booking</td>
-				<td><input type="submit" value="Add"></td>
-			</form>
+				<td><a href="getbookingrequirements">Add new booking</a></td>
 		</tr>
 
-
+<tr><td><a href="logout">LogOut</a></td>
+</tr>
 	</table>
-	<p><%=session.getAttribute("message")%></p>
+	<p><%=session.getAttribute("message")%>
+		<%session.setAttribute("message", ""); %>
+	
+	</p>
 </body>
 </html>
