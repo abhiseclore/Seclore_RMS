@@ -26,25 +26,30 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 	@Override
 	public List<BookingDetails> addBookingDetails(LocalDate startDate, LocalDate endDate, LocalTime startTime,
 			LocalTime endTime, int userId, int roomId, String description) {
-		BookingDetails bookingDetails = new BookingDetails();
-		bookingDetails.setRoom(new RoomDetails());
-		bookingDetails.getRoom().setRoomId(roomId);
-		bookingDetails.setUser(new UserDetails());
-		bookingDetails.getUser().setUserId(userId);
-		bookingDetails.setDescription(description);
-		bookingDetails.setStatus("BOOKED");
 
 		List<BookingDetails> batchBookings = new ArrayList<BookingDetails>();
-		BookingDetails booking;
+//		BookingDetails booking;
 
 		do {
-			booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
-			System.out.println(booking);
-			batchBookings.add(bookingDetails);
-			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, startDate);
+			BookingDetails bookingDetails = new BookingDetails();
+			bookingDetails.setRoom(new RoomDetails());
+			bookingDetails.getRoom().setRoomId(roomId);
+			bookingDetails.setUser(new UserDetails());
+			bookingDetails.getUser().setUserId(userId);
+			bookingDetails.setDescription(description);
+			bookingDetails.setStatus("BOOKED");
+//			BookingDetails	booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
+//		System.out.println(booking);
+			batchBookings.add(bookingDetailsRepository.addBookingDetails(bookingDetails));
+
+//			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, startDate);
 			startDate = startDate.plusDays(1);
-			System.out.println("in loop");
 		} while (!startDate.isAfter(endDate));
+		System.out.println(batchBookings);
+
+		for (BookingDetails booking : batchBookings) {
+			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, startDate);
+		}
 
 		return batchBookings;
 	}

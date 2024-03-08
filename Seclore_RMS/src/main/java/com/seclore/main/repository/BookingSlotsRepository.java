@@ -19,13 +19,12 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private static final String ADD_BOOKING_SLOT = "DECLARE @date DATE = ?; " + "DECLARE @startTime Time =? ;"
-			+ "DECLARE @endTime Time =? ;" + "DECLARE @roomId INT=?; " + "DECLARE @bookingId INT=?; "
-			+ "DECLARE @isSlotActive BIT=1"
-			+ "insert into booking_slots(booking_id,slot_id,room_id,is_slot_active) ((select @bookingId, slot_id, @roomId, @isSlotActive from slot_master "
-			+ "where ( ((start_time>@startTime) and (end_time<@endTime) and (end_time!='00:00:00')) "
-			+ "or ( start_time<=@startTime and end_time>@startTime) "
-			+ "or ( start_time<@endTime and (end_time>=@endTime or end_time='00:00:00')) ) " + "and date=@date" + "))";
+	private static final String ADD_BOOKING_SLOT = "declare @startTime time = ?\r\n"
+			+ "declare @endTime time = ?\r\n"
+			+ "declare @date date = ?\r\n"
+			+ "declare @bookingId int = ?\r\n"
+			+ "declare @roomId int = ?\r\n"
+			+ "insert into booking_slots select booking_id = @bookingId,slot_id,is_slot_active = 1,room_id = @roomId from slot_master where date = @date and start_time>=@startTime and (@endTime = '00:00:00.0000000' or (end_time <=@endTime and end_time != '00:00:00.0000000'));\r\n";
 
 	private static final String DELETE_BOOKING_SLOT = "DECLARE @bookingId INT=? " + "DECLARE @date DATE = ? "
 			+ "DECLARE @startTime Time =? " + "DECLARE @endTime Time =? " + "update booking_slots "
@@ -55,19 +54,10 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface {
 		Time endTime = Time.valueOf(endLocalTime);
 		int bookingId = bookingDetails.getBookingId();
 		int roomId = bookingDetails.getRoom().getRoomId();
-		Object[] args = { date, startTime, endTime, roomId, bookingId };
-		try {
-			int count = jdbcTemplate.update(ADD_BOOKING_SLOT, args);
-			return count;
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
-			return 0;
-		}
-		
+		Object[] args = { startTime, endTime,date, bookingId,roomId };
+		int count = jdbcTemplate.update(ADD_BOOKING_SLOT, args);
 
-		
+		return count;
 
 	}
 

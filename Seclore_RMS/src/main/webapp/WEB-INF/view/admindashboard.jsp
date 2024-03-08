@@ -41,7 +41,7 @@
 		</tr>
 
 		<tr>
-			<form action="bookingdetails/getbookingrequirements.jsp">
+			<form action="getbookingrequirements" method="get">
 				<td>Add Booking</td><td><input type="submit" value="submit"></td>
 			</form>
 		</tr>
