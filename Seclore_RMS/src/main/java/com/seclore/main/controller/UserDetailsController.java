@@ -53,7 +53,6 @@ public class UserDetailsController {
 		} else {
 			user.setPassword(null);
 			session.setAttribute("loggedInUser", outUser);
-			message = " User Loggedin successfully ";
 			nextPage = "redirect:/dashboard";
 
 		}
