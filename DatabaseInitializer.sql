@@ -175,3 +175,29 @@ go
 exec getBookedRooms '00:00:00.0000000','06:00:00.0000000','2024-03-01','2024-03-07'
 ----------------------------------------------------------------------------------------------------------------------------
 
+
+go
+DECLARE @startDate DATE = '2024-03-11';
+ 
+WHILE @startDate <= '2024-03-31'
+BEGIN
+	DECLARE @startTime Time = '00:30:00';
+	INSERT INTO slot_master(date,start_Time,end_Time) VALUES ( @startDate,'00:00:00','00:30:00');
+	
+	WHILE @startTime != '00:00:00'
+	BEGIN
+		DECLARE @endTime Time =@startTime;
+ 
+		 SET @endTime =  DATEADD(MINUTE, 30, @endTime)
+ 
+		 INSERT INTO slot_master(date,start_Time,end_Time)
+		 VALUES ( @startDate,@startTime,@endTime);
+ 
+		 SET @startTime = @endTime;
+	END
+	SET @startDate =  DATEADD(DAY, 1, @startDate);
+END
+go
+
+select * from slot_master
+--------------------------------------------------------------------------------------------------------------------------------
