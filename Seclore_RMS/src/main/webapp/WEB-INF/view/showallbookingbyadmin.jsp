@@ -28,7 +28,7 @@
 			<th>Operations</th>
 		</thead>
 		<tbody>
-			<c:forEach var="allBookings" items="${allBookingViewDetailsByUserId}">
+			<c:forEach var="allBookings" items="${allBookingViewDetailsByAdmin}">
 				<tr>
 					<td>${allBookings.getBookingSlots().getBooking().getBookingId()}</td>
 					<td>${allBookings.getRoomDetails().getRoomId()}</td>
@@ -36,7 +36,7 @@
 					<td>${allBookings.getSlotMaster().getStartTime()}</td>
 					<td>${allBookings.getSlotMaster().getEndTime()}</td>
 					<td>${allBookings.getSlotMaster().getDate()}</td>
-					<td>${allBookings.getSlotMaster().getBooking().getDescription()}
+					<td>${allBookings.getBookingSlots().getBooking().getDescription()}
 					<td><f:form action="bookingdetails/updateslot"
 							modelAttribute="bookingViewDetails">
 						${bookingViewDetails = allBookings}

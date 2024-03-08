@@ -116,7 +116,7 @@ public class BookingDetailsController {
 		return modelAndView;
 	}
 
-	@RequestMapping("showallbookingbyadmin")
+	@RequestMapping("showallbookingsbyadmin")
 	public ModelAndView getAllExistingBookingDetailsByAdmin() {
 		System.out.println("in admin show all booking");
 		List<BookingDetails> allBookingDetails = bookingDetailsService.getAllExistingBookingDetailsByadmin();
