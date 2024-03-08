@@ -32,14 +32,6 @@
 				</tr>
 				<tr>
 					<td>
-						Room Name
-					</td>
-					<td>
-						${bookingViewDetails.getRoomDetails().getRoomName()}
-					</td>
-				</tr>
-				<tr>
-					<td>
 						Date
 					</td>
 					<td>
