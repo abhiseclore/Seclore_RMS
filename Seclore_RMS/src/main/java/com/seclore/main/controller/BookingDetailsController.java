@@ -75,13 +75,13 @@ public class BookingDetailsController {
 		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession.getAttribute("allBookingViewDetails");
 		BookingDetails bookingDetails = allBookingViewDetails.get(index).getBookingSlots().getBooking();
 
-		return bookingDetailsService.cancelExistingBookingDetails(bookingDetails) ? "showallbooking" : "error";
+		return bookingDetailsService.cancelExistingBookingDetails(bookingDetails) ? "showallbookings" : "error";
 	}
 
 	@RequestMapping("update")
 	public String updateExistingBookingDetails(@ModelAttribute BookingDetails bookingDetails) {
 		
-		return  bookingDetailsService.updateExistingBookingDetails(bookingDetails)!= null ? "showallbooking" : "error";
+		return  bookingDetailsService.updateExistingBookingDetails(bookingDetails)!= null ? "showallbookings" : "error";
 	}
 
 	@RequestMapping("get")

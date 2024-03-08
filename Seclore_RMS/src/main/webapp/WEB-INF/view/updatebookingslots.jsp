@@ -5,13 +5,23 @@
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>Update Timings</title>
+		<script type="text/javascript">
+			const startTime = "${bookingViewDetails.getSlotMaster().getStartTime()}"
+			const endTime = "${bookingViewDetails.getSlotMaster().getEndTime()}"
+			const time1 = document.getElementById("newStartTime")
+			const time2 = document.getElementById("newEndTime")
+			time1.min = startTime
+			time1.max = endTime
+			time2.min = startTime
+			time2.max = endTime
+		</script>
 	</head>
 	<body>
 		<h2>
 			Change your booking timings here.
 		</h2>
 		<hr>
-		<form action="">
+		<form action="" method="post">
 			<table>
 				<tr>
 					<td>
@@ -58,7 +68,7 @@
 						Time 1
 					</td>
 					<td>
-						<input type="time" name="newStartTime">
+						<input type="time" name="newStartTime" id="newStartTime" required>
 					</td>
 				</tr>
 				<tr>
@@ -66,7 +76,7 @@
 						Time 2
 					</td>
 					<td>
-						<input type="time" name="newEndTime">
+						<input type="time" name="newEndTime" id="newEndTime" required>
 					</td>
 				</tr>
 				<tr>
