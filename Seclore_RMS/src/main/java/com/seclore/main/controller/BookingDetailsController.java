@@ -166,7 +166,7 @@ public class BookingDetailsController {
 			@RequestParam LocalTime newEndTime, @RequestParam String action) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		BookingViewDetails bookingViewDetails = (BookingViewDetails) httpSession.getAttribute("bookingDetails");
+		BookingViewDetails bookingViewDetails = (BookingViewDetails) httpSession.getAttribute("bookingViewDetails");
 		if (bookingDetailsService.cancelPartialBooking(bookingViewDetails.getBookingSlots().getBooking(),
 				bookingViewDetails.getSlotMaster().getStartTime(), bookingViewDetails.getSlotMaster().getEndTime(),
 				newStartTime, newEndTime, bookingViewDetails.getSlotMaster().getDate(), action)) {
