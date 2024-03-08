@@ -101,7 +101,7 @@ public class BookingDetailsController {
 		UserDetails userDetails = (UserDetails) httpSession.getAttribute("loggedInUser");
 		ModelAndView redirectModelAndView = new ModelAndView("redirect:/showallbookingsbyadmin");
 		if (userDetails.getPosition().equals("Admin"))
-			return redirectModelAndView;
+			return getAllExistingBookingDetailsByAdmin(httpSession);
 
 		List<BookingDetails> allBookingDetailsByUserId = bookingDetailsService
 				.getAllExistingBookingDetailsByUserId(userDetails.getUserId());
