@@ -26,7 +26,7 @@
 						Start Date
 					</td>
 					<td>
-						<input type="date" name="startDate" id="startDate">
+						<input type="date" name="startDate" id="startDate" required>
 					</td>
 				</tr>
 				<tr>
@@ -34,7 +34,7 @@
 						End Date
 					</td>
 					<td>
-						<input type="date" name="endDate" id="endDate">
+						<input type="date" name="endDate" id="endDate" required>
 					</td>
 				</tr>
 				<tr>
@@ -42,7 +42,7 @@
 						Start Time
 					</td>
 					<td>
-						<input type="time" name="startTime" id="startTime" step="1800">
+						<input type="time" name="startTime" id="startTime" step="1800" required>
 					</td>
 				</tr>
 				<tr>
@@ -50,7 +50,7 @@
 						End Time
 					</td>
 					<td>
-						<input type="time" name="endTime" id="endTime" step="1800">
+						<input type="time" name="endTime" id="endTime" step="1800" required>
 					</td>
 				</tr>
 				<tr>
@@ -58,7 +58,7 @@
 						How many people are you booking for?
 					</td>
 					<td>
-						<input type="number" name="seatingCapacity">
+						<input type="number" name="seatingCapacity" required>
 					</td>
 				</tr>
 				<tr>
