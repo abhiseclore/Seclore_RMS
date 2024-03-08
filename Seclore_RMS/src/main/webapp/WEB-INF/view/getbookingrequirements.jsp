@@ -6,6 +6,7 @@
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>Booking Requirements</title>
+		<script type="text/javascript" src="scripts/requirementvalidation.js" defer></script>
 	</head>
 	<body>
 		<h2>
@@ -25,7 +26,7 @@
 						Start Date
 					</td>
 					<td>
-						<input type="date" name="startDate">
+						<input type="date" name="startDate" id="startDate">
 					</td>
 				</tr>
 				<tr>
@@ -33,7 +34,7 @@
 						End Date
 					</td>
 					<td>
-						<input type="date" name="endDate">
+						<input type="date" name="endDate" id="endDate">
 					</td>
 				</tr>
 				<tr>
@@ -41,7 +42,7 @@
 						Start Time
 					</td>
 					<td>
-						<input type="time" name="startTime">
+						<input type="time" name="startTime" id="startTime" step="1800">
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +50,7 @@
 						End Time
 					</td>
 					<td>
-						<input type="time" name="endTime">
+						<input type="time" name="endTime" id="endTime" step="1800">
 					</td>
 				</tr>
 				<tr>

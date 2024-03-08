@@ -38,7 +38,7 @@ public class ShowAvailableRoomsController {
 			return modelAndView;
 		}
 		if (startDate.compareTo(endDate) == 0 && startTime.compareTo(endTime) >= 1) {
-			modelAndView.addObject("message", "START TIME CANNOT BE GREATER THAN END DATE");
+			modelAndView.addObject("message", "START TIME CANNOT BE GREATER THAN END TIME");
 			modelAndView.setViewName("getbookingrequirements");
 			return modelAndView;
 		}
