@@ -28,26 +28,26 @@
 			<th>Operations</th>
 		</thead>
 		<tbody>
+		<c:set var="i" value="0"/>
 			<c:forEach var="allBookings" items="${allBookingViewDetailsByAdmin}">
 				<tr>
 					<td>${allBookings.getBookingSlots().getBooking().getBookingId()}</td>
 					<td>${allBookings.getRoomDetails().getRoomId()}</td>
-					<td>${allBookings.getBookingSlots().getBooking().getUser()}
+					<td>${allBookings.getBookingSlots().getBooking().getUser().getUserId()}
 					<td>${allBookings.getSlotMaster().getStartTime()}</td>
 					<td>${allBookings.getSlotMaster().getEndTime()}</td>
 					<td>${allBookings.getSlotMaster().getDate()}</td>
 					<td>${allBookings.getBookingSlots().getBooking().getDescription()}
-					<td><f:form action="bookingdetails/updateslot"
-							modelAttribute="bookingViewDetails">
-						${bookingViewDetails = allBookings}
-						<input type="submit" value="Update Slot">
-						</f:form></td>
-					<td><f:form action="bookingdetails/delete"
-							modelAttribute="bookingDetails">
-						${bookingDetails = allBookings.getBookingSlots().getBooking()}
+					<td><form action="/bookingdetails/updateslot">
+							<input type="hidden" value="${i}" name="index"> <input
+								type="submit" value="Update Slot">
+						</form></td>
+					<td><form action="/bookingdetails/delete">
+						<input type="hidden" value="${i}" name="index">
 						<input type="submit" value="Delete">
-						</f:form></td>
+						</form></td>
 				</tr>
+				<c:set var="i" value="${i+1}"/>
 			</c:forEach>
 		</tbody>
 	</table>

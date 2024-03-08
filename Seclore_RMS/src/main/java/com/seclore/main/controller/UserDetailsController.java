@@ -177,8 +177,8 @@ public class UserDetailsController {
 		return "redirect:/userdashboard";
 	}
 
-	@RequestMapping("getbookingrequirement")
-	public String getallrequrements() {
+	@RequestMapping(value = "getbookingrequirements",method = RequestMethod.GET)
+	public String getbookingrequirements() {
 
 		System.out.println("Response commited");
 		return "getbookingrequirements";

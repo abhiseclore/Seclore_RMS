@@ -71,7 +71,9 @@ public class BookingDetailsController {
 
 	@RequestMapping("delete")
 	@Transactional
-	public String cancelExistingBookingDetails(@ModelAttribute BookingDetails bookingDetails) {
+	public String cancelExistingBookingDetails(@RequestParam int index,HttpSession httpSession) {
+		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession.getAttribute("allBookingViewDetails");
+		BookingDetails bookingDetails = allBookingViewDetails.get(index).getBookingSlots().getBooking();
 
 		return bookingDetailsService.cancelExistingBookingDetails(bookingDetails) ? "showallbooking" : "error";
 	}
@@ -103,13 +105,12 @@ public class BookingDetailsController {
 
 		List<BookingDetails> allBookingDetailsByUserId = bookingDetailsService
 				.getAllExistingBookingDetailsByUserId(userDetails.getUserId());
-		System.out.println(allBookingDetailsByUserId.size());
 
 		List<BookingViewDetails> allBookingViewDetailsByUserId = bookingViewDetailsService
 				.getStartEndTimeByBookingId(allBookingDetailsByUserId);
 
-		System.out.println(allBookingDetailsByUserId.size());
 
+		httpSession.setAttribute("allBookingViewDetails", allBookingViewDetailsByUserId);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("allBookingViewDetailsByUserId", allBookingViewDetailsByUserId);
 		modelAndView.setViewName("showallbooking");
@@ -117,28 +118,30 @@ public class BookingDetailsController {
 	}
 
 	@RequestMapping("showallbookingsbyadmin")
-	public ModelAndView getAllExistingBookingDetailsByAdmin() {
-		System.out.println("in admin show all booking");
+	public ModelAndView getAllExistingBookingDetailsByAdmin(HttpSession httpSession) {
+		
 		List<BookingDetails> allBookingDetails = bookingDetailsService.getAllExistingBookingDetailsByadmin();
-		System.out.println(allBookingDetails.size());
 
 		List<BookingViewDetails> allBookingViewDetailsByAdmin = bookingViewDetailsService
 				.getStartEndTimeByBookingId(allBookingDetails);
-
-		System.out.println(allBookingViewDetailsByAdmin.size());
+		httpSession.setAttribute("allBookingViewDetails", allBookingViewDetailsByAdmin);
 		ModelAndView modelAndView = new ModelAndView();
+	
 		modelAndView.addObject("allBookingViewDetailsByAdmin", allBookingViewDetailsByAdmin);
 		modelAndView.setViewName("showallbookingbyadmin");
 		return modelAndView;
 	}
-
+	
 	@RequestMapping("updateslot")
-	public ModelAndView updateExistingBookingDetailsBySlot(@ModelAttribute BookingViewDetails bookingViewDetails) {
+	public ModelAndView updateExistingBookingDetailsBySlot(@RequestParam int index,HttpSession httpSession) {
 		ModelAndView modelAndView = new ModelAndView();
-
+		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession.getAttribute("allBookingViewDetails");
+		BookingViewDetails bookingViewDetails = allBookingViewDetails.get(index);
 		modelAndView.addObject("bookingViewDetails", bookingViewDetails);
 		modelAndView.setViewName("updatebookingslots");
 		return modelAndView;
 	}
+	
+	
 
 }
