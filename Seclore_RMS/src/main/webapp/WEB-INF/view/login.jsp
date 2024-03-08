@@ -7,9 +7,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 html, body {
     height: 100%;
@@ -20,19 +17,32 @@ html {
 }
 
 body {
+	min-height: 100vh;
+	width: 100%;
     vertical-align: middle;
     font-size: larger;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
 }
+tr{
+	padding-bottom: 25px;
+}
+nav{
+	width: 100%;
+}	
 </style>
 
 </head>
 <body>
-<nav></nav>
-
-<h3 align="center">Meeting room management System</h3>
-	<form:form action="userlogin" modelAttribute="userDetails"  >
+<nav>
+	<h1 align="center">Meeting room management System</h1>
 	<hr>
+</nav>
+	<form:form action="userlogin" modelAttribute="userDetails"  >
 		<table>
+			
 			<tr>
 				<td>Login_id</td>
 				<td><form:input path="userId" type = "number" /></td>
@@ -42,7 +52,7 @@ body {
 				<td><form:input path="password" type="password" /></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="right"><input type="submit" value="login"></td>
+				<td colspan="2" align="center"><input type="submit" value="login"></td>
 			</tr>
 		</table>
 	</form:form>
