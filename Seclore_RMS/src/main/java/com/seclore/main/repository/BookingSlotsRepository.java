@@ -56,9 +56,18 @@ public class BookingSlotsRepository implements BookingSlotsRepositoryInterface {
 		int bookingId = bookingDetails.getBookingId();
 		int roomId = bookingDetails.getRoom().getRoomId();
 		Object[] args = { date, startTime, endTime, roomId, bookingId };
-		int count = jdbcTemplate.update(ADD_BOOKING_SLOT, args);
+		try {
+			int count = jdbcTemplate.update(ADD_BOOKING_SLOT, args);
+			return count;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return 0;
+		}
+		
 
-		return count;
+		
 
 	}
 
