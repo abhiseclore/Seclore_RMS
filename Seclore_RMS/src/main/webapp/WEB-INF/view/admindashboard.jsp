@@ -10,78 +10,65 @@
 <title>Admin DashBoard</title>
 <style type="text/css">
 html, body {
-    height: 100%;
+	height: 100%;
 }
 
 html {
-    margin: auto;
+	margin: auto;
 }
 
 body {
-
+	
 }
-table{
+
+table {
 	font-size: large;
 	column-gap: 10%;
 }
-form{
-		padding: 2rem;
-	}
-	
-	td{
-		padding-bottom: 15px;
-	}
+
+form {
+	padding: 2rem;
+}
+
+td {
+	padding-bottom: 15px;
+}
 </style>
 </head>
 <body>
-<h1>DashBoard</h1>
+	<h1>DashBoard</h1>
 	<table>
 		<tr>
-			<form action="updatepassword">
-				<td>change password</td>
-				<td><input type="submit" value="update"></td>
-			</form>
+			<td><a href="updatepassword">change password</a></td>
 		</tr>
 		<tr>
-			<form action="updateprofile" method="get">
-				<td>update profile</td>
-				<td><input type="submit" value="update"></td>
-			</form>
+			<td><a href="updateprofile">update profile</a></td>
 		</tr>
 		<tr>
-			<form action="adduser">
-				<td>Add new user</td>
-				<td><input type="submit" value="add new user"></td>
-			</form>
-		</tr>
-				<tr>
-			<form action="getallusers" method="get">
-				<td>Users List</td><td><input type="submit" value="submit"></td>
-			</form>
+			<td><a href="adduser">Add new user</a></td>
 		</tr>
 		<tr>
-			<form action="/roomdetails/allrooms">
-				<td>Rooms</td><td><input type="submit" value="submit"></td>
-			</form>
-		</tr>
-
-		<tr>
-			<form action="getbookingrequirements" method="get">
-				<td>Add Booking</td><td><input type="submit" value="submit"></td>
-			</form>
+			<td><a href="getallusers"> Manage Users </a></td>
 		</tr>
 		<tr>
-			<form action="bookingdetails/showallbookingsbyadmin">
-				<td>List All booking</td><td><input type="submit" value="submit"></td>
-			</form>
+			<td><a href="/roomdetails/allrooms"> Manage Rooms</a></td>
 		</tr>
-				<tr>
-			<form action="logout">
-				<td></td><td><input type="submit" value="LogOut"></td>
-			</form>
+		<tr>
+			<td><a href="getbookingrequirements"> Add Booking</a></td>
 		</tr>
-
+		<tr>
+			<td><a href="bookingdetails/showallbookingsbyadmin"> List
+					All bookings</a></td>
+		</tr>
+		<tr>
+		<td><a href="logout"> LogOut</a></td>
+		</tr>
 	</table>
+	
+	<br>
+<p><%=session.getAttribute("message")%>
+	<%session.setAttribute("message", ""); %>
+	</p>
 
 </body>
 </html>

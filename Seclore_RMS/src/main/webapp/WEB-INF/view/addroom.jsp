@@ -29,19 +29,30 @@
 		justify-content: center;
 		padding-top : 25px;
 	}
+	.title-div{
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr;
+		align-items: center;
+		justify-items: center;
+	}
 </style>
 </head>
 <body>
-	<h1>Add Room</h1>
+	<div class="title-div">
+		<a href="/roomdetails/allrooms"> Back to All Rooms</a>
+		<h1>Add Room</h1>
+	</div>
 	<form:form action="/roomdetails/addroom" method="post" modelAttribute="roomDetails">
 		<table>
 			<tr>
 				<td>Room Name : </td>
-				<td><form:input path="roomName" type="text" value="${roomDetails.roomName }"/></td>
+				<td><form:input path="roomName" type="text" value="${roomDetails.roomName }" required="required"/></td>
 			</tr>
 			<tr>
 				<td>Capacity : </td>
-				<td><form:input path="capacity" type="number" value="${roomDetails.capacity }"/></td>
+				<td><form:input path="capacity" type="number" value="${roomDetails.capacity }" required="required"/></td>
 			</tr>
 			<tr>
 				<td>Whiteboard : </td>
