@@ -30,16 +30,14 @@
 					<td>${allBookings.getSlotMaster().getEndTime()}</td>
 					<td>${allBookings.getSlotMaster().getDate()}</td>
 					<td>${allBookings.getBookingSlots().getBooking().getDescription()}
-					<td><f:form action="updateslot"
-							modelAttribute="bookingDetails">
-						${bookingViewDetails = allBookings.getBookingSlots().getBooking()}
-						<input type="submit" value="Update Slot">
-						</f:form></td>
-					<td><f:form action="delete"
-							modelAttribute="bookingDetails">
-						${bookingDetails = allBookings.getBookingSlots().getBooking()}
+					<td><form action="/bookingdetails/updateslot">
+							<input type="hidden" value="${i}" name="index"> <input
+								type="submit" value="Update Slot">
+						</form></td>
+					<td><form action="/bookingdetails/delete">
+						<input type="hidden" value="${i}" name="index">
 						<input type="submit" value="Delete">
-						</f:form></td>
+						</form></td>
 				</tr>
 			</c:forEach>
 		</tbody>
