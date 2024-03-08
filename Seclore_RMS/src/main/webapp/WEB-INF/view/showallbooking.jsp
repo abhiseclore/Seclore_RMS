@@ -56,11 +56,11 @@ td{
 					<td>${allBookings.getBookingSlots().getBooking().getDescription()}
 					<td>
 						<div class="operations">
-							<form action="/bookingdetails/updateslot">
+							<form action="/bookingdetails/updateslot" method="post">
 								<input type="hidden" value="${i}" name="index"> <input
 									type="submit" value="Update Slot">
 							</form>
-							<form action="/bookingdetails/delete">
+							<form action="/bookingdetails/delete" method="post">
 							<input type="hidden" value="${i}" name="index">
 							<input type="submit" value="Delete">
 							</form>

@@ -21,7 +21,7 @@
 			Change your booking timings here.
 		</h2>
 		<hr>
-		<form action="" method="post">
+		<form action="cancelpartialbooking" method="post">
 			<table>
 				<tr>
 					<td>

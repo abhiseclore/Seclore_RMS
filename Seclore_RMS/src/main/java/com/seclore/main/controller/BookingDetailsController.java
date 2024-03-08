@@ -33,8 +33,6 @@ public class BookingDetailsController {
 	@Autowired
 	BookingViewDetailsServiceInterface bookingViewDetailsService;
 
-	
-
 	@RequestMapping("add")
 	public ModelAndView addBookingDetails(@RequestParam int roomId, @RequestParam String description,
 			HttpSession httpSession) {
@@ -73,22 +71,34 @@ public class BookingDetailsController {
 
 	@Transactional
 	@RequestMapping("delete")
-	public String cancelExistingBookingDetails(@RequestParam int index,HttpSession httpSession) {
+	public ModelAndView cancelExistingBookingDetails(@RequestParam int index, HttpSession httpSession) {
 		System.out.println("hi");
-		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession.getAttribute("allBookingViewDetails");
+		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession
+				.getAttribute("allBookingViewDetails");
 		System.out.println(allBookingViewDetails);
+		UserDetails userDetails=(UserDetails) httpSession.getAttribute("loggedInUser");
+		
+		 ModelAndView redirectModelAndView = new ModelAndView();
+		 if(userDetails.getPosition().equals("Admin")){
+			 redirectModelAndView.setViewName("admindashboard");
+		 }
+		 else
+			 redirectModelAndView.setViewName("userdashbord");
+		 
+
 		BookingDetails bookingDetails = allBookingViewDetails.get(index).getBookingSlots().getBooking();
-		System.out.println("controller");
-		System.out.println(bookingDetails);
-		System.out.println(bookingDetailsService.cancelExistingBookingDetails(bookingDetails));
-//		return bookingDetailsService.cancelExistingBookingDetails(bookingDetails) ? "showallbookings" : "error";
-		return "error";
+		
+		if (bookingDetailsService.cancelExistingBookingDetails(bookingDetails)) {
+			return redirectModelAndView;
+		}
+		return redirectModelAndView;
+
 	}
 
 	@RequestMapping("update")
 	public String updateExistingBookingDetails(@ModelAttribute BookingDetails bookingDetails) {
-		
-		return  bookingDetailsService.updateExistingBookingDetails(bookingDetails)!= null ? "showallbookings" : "error";
+
+		return bookingDetailsService.updateExistingBookingDetails(bookingDetails) != null ? "showallbookings" : "error";
 	}
 
 	@RequestMapping("get")
@@ -105,6 +115,7 @@ public class BookingDetailsController {
 
 	@RequestMapping("showallbookings")
 	public ModelAndView getAllExistingBookingDetails(HttpSession httpSession) {
+		System.out.println("showallbookings");
 		UserDetails userDetails = (UserDetails) httpSession.getAttribute("loggedInUser");
 		ModelAndView redirectModelAndView = new ModelAndView("redirect:/showallbookingsbyadmin");
 		if (userDetails.getPosition().equals("Admin"))
@@ -116,56 +127,54 @@ public class BookingDetailsController {
 		List<BookingViewDetails> allBookingViewDetailsByUserId = bookingViewDetailsService
 				.getStartEndTimeByBookingId(allBookingDetailsByUserId);
 
-
 		httpSession.setAttribute("allBookingViewDetails", allBookingViewDetailsByUserId);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("allBookingViewDetailsByUserId", allBookingViewDetailsByUserId);
-		modelAndView.setViewName("showallbooking");
+		modelAndView.setViewName("showallbookings");
 		return modelAndView;
 	}
 
 	@RequestMapping("showallbookingsbyadmin")
 	public ModelAndView getAllExistingBookingDetailsByAdmin(HttpSession httpSession) {
-		
+
 		List<BookingDetails> allBookingDetails = bookingDetailsService.getAllExistingBookingDetailsByadmin();
 
 		List<BookingViewDetails> allBookingViewDetailsByAdmin = bookingViewDetailsService
 				.getStartEndTimeByBookingId(allBookingDetails);
 		httpSession.setAttribute("allBookingViewDetails", allBookingViewDetailsByAdmin);
 		ModelAndView modelAndView = new ModelAndView();
-	
+
 		modelAndView.addObject("allBookingViewDetailsByAdmin", allBookingViewDetailsByAdmin);
 		modelAndView.setViewName("showallbookingbyadmin");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping("updateslot")
-	public ModelAndView updateExistingBookingDetailsBySlot(@RequestParam int index,HttpSession httpSession) {
+	public ModelAndView updateExistingBookingDetailsBySlot(@RequestParam int index, HttpSession httpSession) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession.getAttribute("allBookingViewDetails");
+		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession
+				.getAttribute("allBookingViewDetails");
 		BookingViewDetails bookingViewDetails = allBookingViewDetails.get(index);
 		httpSession.setAttribute("bookingViewDetails", bookingViewDetails);
 		modelAndView.addObject("bookingViewDetails", bookingViewDetails);
 		modelAndView.setViewName("updatebookingslots");
 		return modelAndView;
 	}
-	
-	
+
 	@RequestMapping("cancelpartialbooking")
-	public String updateExistingBookingDetailsBySlot(HttpSession httpSession,@RequestParam LocalTime newStartTime,@RequestParam LocalTime newEndTime,@RequestParam String action) {
+	public String updateExistingBookingDetailsBySlot(HttpSession httpSession, @RequestParam LocalTime newStartTime,
+			@RequestParam LocalTime newEndTime, @RequestParam String action) {
+
 		ModelAndView modelAndView = new ModelAndView();
-		BookingViewDetails bookingViewDetails=(BookingViewDetails) httpSession.getAttribute("bookingDetails");
-		if(bookingDetailsService.cancelPartialBooking(bookingViewDetails.getBookingSlots().getBooking(), bookingViewDetails.getSlotMaster().getStartTime(), bookingViewDetails.getSlotMaster().getEndTime(), newStartTime, newEndTime, bookingViewDetails.getSlotMaster().getDate(), action)) {
+		BookingViewDetails bookingViewDetails = (BookingViewDetails) httpSession.getAttribute("bookingDetails");
+		if (bookingDetailsService.cancelPartialBooking(bookingViewDetails.getBookingSlots().getBooking(),
+				bookingViewDetails.getSlotMaster().getStartTime(), bookingViewDetails.getSlotMaster().getEndTime(),
+				newStartTime, newEndTime, bookingViewDetails.getSlotMaster().getDate(), action)) {
 			return "showallbookings";
-		}
-		else {
+		} else {
 			return "error";
 		}
-		
-		
-		
+
 	}
-	
-	
 
 }
