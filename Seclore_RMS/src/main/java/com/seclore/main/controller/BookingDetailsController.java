@@ -43,6 +43,11 @@ public class BookingDetailsController {
 		LocalDate endDate = (LocalDate) httpSession.getAttribute("endDate");
 		LocalTime startTime = (LocalTime) httpSession.getAttribute("startTime");
 		LocalTime endTime = (LocalTime) httpSession.getAttribute("endTime");
+		if(startTime.compareTo(endTime)>=0 || startDate.compareTo(endDate)>0) {
+			modelAndView.addObject("message", "Please Enter the Time and Date correctly!!");
+			modelAndView.setViewName("getroomrequirements");
+			return modelAndView;
+		}
 		roomDetails.setRoomId(roomId);
 
 		if (!bookingViewDetailsService.checkRoomAvailabilityBySlot(roomDetails, startTime, endTime, startDate,
@@ -57,7 +62,7 @@ public class BookingDetailsController {
 
 		if (allBookingDetails.isEmpty()) {
 			modelAndView.addObject("message", "Unable to add the room");
-			modelAndView.setViewName("error");
+			modelAndView.setViewName("getroomrequirements");
 			return modelAndView;
 		}
 

@@ -40,7 +40,8 @@ public class ValidationInterceptor implements HandlerInterceptor {
 		adminUri.add("/bookingdetails/get");
 		adminUri.add("/bookingdetails/updateslot");
 		adminUri.add("/bookingdetails/cancelpartialbooking");
-		
+		adminUri.add("/finalbookings");
+
 		userUri.add("/userdashboard");
 		userUri.add("/login");
 		userUri.add("/updatepassword");
@@ -57,6 +58,7 @@ public class ValidationInterceptor implements HandlerInterceptor {
 		userUri.add("/bookingdetails/get");
 		userUri.add("/bookingdetails/updateslot");
 		userUri.add("/bookingdetails/cancelpartialbooking");
+		userUri.add("/finalbookings");
 	}
 
 	@Override
@@ -66,17 +68,16 @@ public class ValidationInterceptor implements HandlerInterceptor {
 
 		UserDetails user = (UserDetails) httpSession.getAttribute("loggedInUser");
 		String uri = request.getRequestURI();
-		
-		if(uri.equals("/") ||  uri.equals("/login") || uri.equals("/userlogin"))
-		{
+
+		if (uri.equals("/") || uri.equals("/login") || uri.equals("/userlogin")) {
 			return true;
 		}
-		
-		if(httpSession.getAttribute("loggedInUser") == null) {
+
+		if (httpSession.getAttribute("loggedInUser") == null) {
 			response.sendRedirect("/login");
 			return false;
 		}
-		
+
 		if (user.getPosition().equals("admin") || user.getPosition().equals("Admin")) {
 			if (adminUri.contains(uri)) {
 				return true;
