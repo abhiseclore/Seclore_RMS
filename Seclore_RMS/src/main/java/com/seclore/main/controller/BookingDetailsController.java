@@ -75,16 +75,14 @@ public class BookingDetailsController {
 		System.out.println("hi");
 		List<BookingViewDetails> allBookingViewDetails = (List<BookingViewDetails>) httpSession
 				.getAttribute("allBookingViewDetails");
-		System.out.println(allBookingViewDetails);
+		
 		UserDetails userDetails=(UserDetails) httpSession.getAttribute("loggedInUser");
 		
 		 ModelAndView redirectModelAndView = new ModelAndView();
-		 if(userDetails.getPosition().equals("Admin")){
-			 redirectModelAndView.setViewName("admindashboard");
-		 }
-		 else
-			 redirectModelAndView.setViewName("userdashbord");
 		 
+		 if (userDetails.getPosition().equals("admin")||userDetails.getPosition().equals("Admin")||userDetails.getPosition().equals("Administrator"))
+			 redirectModelAndView.setViewName( "redirect:/admindashboard");
+		 else redirectModelAndView.setViewName( "redirect:/userdashboard");
 
 		BookingDetails bookingDetails = allBookingViewDetails.get(index).getBookingSlots().getBooking();
 		
@@ -162,19 +160,19 @@ public class BookingDetailsController {
 	}
 
 	@RequestMapping("cancelpartialbooking")
-	public String updateExistingBookingDetailsBySlot(HttpSession httpSession, @RequestParam LocalTime newStartTime,
-			@RequestParam LocalTime newEndTime, @RequestParam String action) {
-
+	public ModelAndView updateExistingBookingDetailsBySlot(HttpSession httpSession, @RequestParam LocalTime newStartTime,
+			@RequestParam LocalTime newEndTime, @RequestParam String action,HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		BookingViewDetails bookingViewDetails = (BookingViewDetails) httpSession.getAttribute("bookingViewDetails");
 		if (bookingDetailsService.cancelPartialBooking(bookingViewDetails.getBookingSlots().getBooking(),
 				bookingViewDetails.getSlotMaster().getStartTime(), bookingViewDetails.getSlotMaster().getEndTime(),
 				newStartTime, newEndTime, bookingViewDetails.getSlotMaster().getDate(), action)) {
-			return "showallbookings";
+			
+			modelAndView.setViewName("redirect:/dashboard"); 
 		} else {
-			return "error";
+			modelAndView.setViewName("redirect:/dashboard");
 		}
-
+		return modelAndView;
 	}
 
 }

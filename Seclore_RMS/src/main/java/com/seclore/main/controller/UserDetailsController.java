@@ -48,7 +48,7 @@ public class UserDetailsController {
 		String nextPage = "";
 		UserDetails outUser = userDetailsServiceInterface.userLogin(user.getUserId(), user.getPassword());
 		if (outUser == null) {
-			message = " User doesnot exist or is blocked ";
+			message = " INVALID USER_ID OR PASSWORD ";
 			nextPage = "login";
 		} else {
 			user.setPassword(null);
@@ -168,11 +168,13 @@ public class UserDetailsController {
 
 	@RequestMapping("dashboard")
 	public String showDashBoard(HttpServletRequest request, HttpServletResponse response) {
+		
 		HttpSession session = request.getSession();
 		UserDetails user = (UserDetails) session.getAttribute("loggedInUser");
 		System.out.println(user);
 		if (user.getPosition().equals("admin")||user.getPosition().equals("Admin")||user.getPosition().equals("Administrator"))
 			return "redirect:/admindashboard";
+		
 		return "redirect:/userdashboard";
 	}
 

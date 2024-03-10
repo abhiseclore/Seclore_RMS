@@ -32,26 +32,31 @@ public class ValidationInterceptor implements HandlerInterceptor {
 		adminUri.add("/logout");
 		adminUri.add("/bookingdetails/add");
 		adminUri.add("/add");
-
+		adminUri.add("/dashboard");
+		adminUri.add("/showallbookingbyadmin");
+		adminUri.add("/bookingdetails/showallbookings");
 		adminUri.add("/bookingdetails/delete");
 		adminUri.add("/bookingdetails/update");
 		adminUri.add("/bookingdetails/get");
 		adminUri.add("/bookingdetails/updateslot");
+		adminUri.add("/bookingdetails/cancelpartialbooking");
 		
 		userUri.add("/userdashboard");
 		userUri.add("/login");
 		userUri.add("/updatepassword");
 		userUri.add("/getbookingrequirements");
-		userUri.add("/bookingdetails/showallbookingsbyadmin");
+		userUri.add("/dashboard");
 		userUri.add("/updateprofile");
 		userUri.add("/add");
 		userUri.add("/logout");
 		userUri.add("/bookingdetails/showallbookings");
+		userUri.add("/showallbooking");
 		userUri.add("/bookingdetails/add");
 		userUri.add("/bookingdetails/delete");
 		userUri.add("/bookingdetails/update");
 		userUri.add("/bookingdetails/get");
 		userUri.add("/bookingdetails/updateslot");
+		userUri.add("/bookingdetails/cancelpartialbooking");
 	}
 
 	@Override
@@ -72,7 +77,7 @@ public class ValidationInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		
-		if (user.getPosition().equals("admin")) {
+		if (user.getPosition().equals("admin") || user.getPosition().equals("Admin")) {
 			if (adminUri.contains(uri)) {
 				return true;
 			}
