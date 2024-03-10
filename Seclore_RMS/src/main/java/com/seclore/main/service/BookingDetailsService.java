@@ -101,17 +101,18 @@ public class BookingDetailsService implements BookingDetailsServiceInterface {
 		BookingDetails booking;
 
 		if (action.equals("SHRINK")) {
+			if(newStartTime.compareTo(startTime)<0 || newEndTime.compareTo(endTime)>0 || newStartTime.compareTo(newEndTime)>=0) return false;
 			bookingSlotsRepository.deleteBookingSlots(bookingDetails, startTime, newStartTime, date);
 			bookingSlotsRepository.deleteBookingSlots(bookingDetails, newEndTime, endTime, date);
 		}
 		if (action.equals("SPLIT")) {
+			if(newStartTime.compareTo(startTime)<=0 || newEndTime.compareTo(endTime)>=0 || newStartTime.compareTo(newEndTime)>=0) return false;
 			cancelExistingBookingDetails(bookingDetails);
-
 			booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
 			bookingSlotsRepository.addBookingSlots(booking, startTime, newStartTime, date);
 
 			booking = bookingDetailsRepository.addBookingDetails(bookingDetails);
-			bookingSlotsRepository.addBookingSlots(booking, startTime, endTime, date);
+			bookingSlotsRepository.addBookingSlots(booking, newEndTime, endTime, date);
 		}
 		return true;
 	}
