@@ -31,6 +31,7 @@ public class ValidationInterceptor implements HandlerInterceptor {
 		adminUri.add("/bookingdetails/showallbookingsbyadmin");
 		adminUri.add("/logout");
 		adminUri.add("/bookingdetails/add");
+		adminUri.add("/add");
 
 		adminUri.add("/bookingdetails/delete");
 		adminUri.add("/bookingdetails/update");
